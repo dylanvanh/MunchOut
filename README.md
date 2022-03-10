@@ -9,7 +9,7 @@ Brandon Solomon
 Taryn-Lee Roman
 ```
 
-## Frontend
+## Frontend:
 
 ```
 Framework - Flutter
@@ -19,7 +19,7 @@ Language - Dart
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg"> </code>
 
 
-## Backend
+## Backend:
 ```
 Language - Python
 Framework - Flask/Django , tbd
