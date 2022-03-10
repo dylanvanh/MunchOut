@@ -1,6 +1,6 @@
-# ITDMA3 Group Project - Mobile_App
+# ITDMA3 Group Project - Mobile_App <img src="https://media.giphy.com/media/iY8CRBdQXODJSCERIr/giphy.gif" width="30px">&nbsp;
 
-## Members:
+## Members: 
 ```
 Dylan van Heerden
 Juanru Visser
@@ -9,15 +9,18 @@ Brandon Solomon
 Taryn-Lee Roman
 ```
 
+
 ## Frontend:
 
 ```
 Framework - Flutter
 Language - Dart
 ```
+
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/flutterio/flutterio-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg"> </code>
-
+<br/>
+<br/>
 
 ## Backend:
 ```
