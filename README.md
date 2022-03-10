@@ -1,4 +1,13 @@
-# ITDMA3 Group Project -Mobile-App
+# ITDMA3 Group Project - Mobile_App
+
+## Members:
+```
+Dylan van Heerden
+Juanru Visser
+Christopher Viljoen
+Brandon Solomon
+Taryn-Lee Roman
+```
 
 ## Frontend
 
