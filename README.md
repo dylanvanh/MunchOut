@@ -8,7 +8,7 @@ Christopher Viljoen
 Brandon Solomon
 Taryn-Lee Roman
 ```
-
+<br/>
 
 ## Frontend:
 
@@ -19,7 +19,6 @@ Language - Dart
 
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/flutterio/flutterio-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg"> </code>
-<br/>
 <br/>
 
 ## Backend:
@@ -32,3 +31,19 @@ Database - MySQL/Postgres , tbd
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21.svg"> </code>
+<br/>
+<br/>
+<br/>
+
+
+---
+
+# Design
+
+## Figma 
+```
+https://www.figma.com/file/ENZQd0RbJYn4XFqKdmQl0e/ITDMA3-Frontend-Design?node-id=0%3A1
+```
+<code> <img height="50" src="https://www.vectorlogo.zone/logos/figma/figma-ar21.svg"> </code>
+
+
