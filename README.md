@@ -19,7 +19,7 @@ Language - Dart
 ## Backend:
 ```
 Language - Python
-Framework - Flask/Django , tbd
+Framework - Flask
 Database - MySQL/Postgres , tbd
 ```
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg"> </code>
