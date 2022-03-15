@@ -30,7 +30,7 @@ Database - MySQL/Postgres , tbd
 ## Design
 ### Figma 
 ```
-https://www.figma.com/file/ENZQd0RbJYn4XFqKdmQl0e/ITDMA3-Frontend-Design?node-id=0%3A1
+https://www.figma.com/file/LBotxBQZV9waPjCHjj27Zs/Mobile-App-Design?node-id=0%3A1
 ```
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/figma/figma-ar21.svg"> </code>
 
