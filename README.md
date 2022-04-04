@@ -20,12 +20,11 @@ Language - Dart
 ```
 Language - Python
 Framework - Flask
-Database - MySQL/Postgres , tbd
+Database - MySQL
 ```
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg"> </code>
-<code> <img height="50" src="https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21.svg"> </code>
 
 ## Design
 ### Figma 
