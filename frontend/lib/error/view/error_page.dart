@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// shown when an error occurs requiring an app restart
 class ErrorPage extends StatelessWidget {
   const ErrorPage({Key? key}) : super(key: key);
 

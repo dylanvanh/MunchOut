@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// list of all bookings the user has made for the day
 class UserAvailableEventsPage extends StatelessWidget {
   const UserAvailableEventsPage({Key? key}) : super(key: key);
 

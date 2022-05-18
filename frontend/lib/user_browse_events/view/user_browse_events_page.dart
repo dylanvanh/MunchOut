@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Tinder like swipe screen with all available restaurant events for the day
 class UserBrowseEvents extends StatelessWidget {
   const UserBrowseEvents({Key? key}) : super(key: key);
 

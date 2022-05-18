@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:itdma3_mobile_app/login/login.dart';
 import 'package:itdma3_mobile_app/signup/signup.dart';
 
+///first page shown when the user launches the app
+/// Routes to login/signup
 class LaunchPage extends StatelessWidget {
   const LaunchPage({Key? key}) : super(key: key);
 
