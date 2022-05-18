@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class UserEditProfilePage extends StatelessWidget {
   const UserEditProfilePage({Key? key}) : super(key: key);
 
-  static Route route() {
+  static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
       builder: (_) => const UserEditProfilePage(),
     );
@@ -15,9 +15,9 @@ class UserEditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UserEditProfile Page'),
+        title: const Text('User Edit Profile Page'),
       ),
-      body: const Text('UserEditProfile page'),
+      body: const Text('User Edit Profile page'),
     );
   }
 }

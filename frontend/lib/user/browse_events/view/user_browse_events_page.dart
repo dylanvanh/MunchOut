@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 //Tinder like swipe screen with all available restaurant events for the day
-class UserBrowseEvents extends StatelessWidget {
-  const UserBrowseEvents({Key? key}) : super(key: key);
+class UserBrowseEventsPage extends StatelessWidget {
+  const UserBrowseEventsPage({Key? key}) : super(key: key);
 
-  static Route route() {
+  static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const UserBrowseEvents(),
+      builder: (_) => const UserBrowseEventsPage(),
     );
   }
 
@@ -14,9 +14,9 @@ class UserBrowseEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UserBrowseEventsPage'),
+        title: const Text('User browse events page'),
       ),
-      body: const Text('UserBrowseEventsPage'),
+      body: const Text('User browse events page'),
     );
   }
 }

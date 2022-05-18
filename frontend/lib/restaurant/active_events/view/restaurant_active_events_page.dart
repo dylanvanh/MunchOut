@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class RestaurantActiveEventsPage extends StatelessWidget {
   const RestaurantActiveEventsPage({Key? key}) : super(key: key);
 
-  static Route route() {
+  static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
       builder: (_) => const RestaurantActiveEventsPage(),
     );
@@ -15,9 +15,9 @@ class RestaurantActiveEventsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('RestaurantEditProfile Page'),
+        title: const Text('Restaurant Active Events Page'),
       ),
-      body: const Text('RestaurantEditProfile page'),
+      body: const Text('Restaurant Active Events Page'),
     );
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 /// Displays list of events bookings the user has made for the day
-class UserAvailableEventsPage extends StatelessWidget {
-  const UserAvailableEventsPage({Key? key}) : super(key: key);
+class UserBookingsPage extends StatelessWidget {
+  const UserBookingsPage({Key? key}) : super(key: key);
 
-  static Route route() {
+  static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const UserAvailableEventsPage(),
+      builder: (_) => const UserBookingsPage(),
     );
   }
 
@@ -14,9 +14,9 @@ class UserAvailableEventsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UserAvailableEventsPage'),
+        title: const Text('User bookings page'),
       ),
-      body: const Text('UserAvailableEventsPage'),
+      body: const Text('User bookings page'),
     );
   }
 }
