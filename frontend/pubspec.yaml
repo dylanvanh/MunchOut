@@ -8,12 +8,19 @@ environment:
 
 dependencies:
   bloc: ^8.0.3
+  formz: ^0.4.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  flask_api:
+    path: packages/flask_api
+  user_repository:
+    path: packages/user_repository
+    
 
 dev_dependencies:
   bloc_test: ^9.0.3
