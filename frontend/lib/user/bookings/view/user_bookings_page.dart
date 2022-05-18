@@ -6,7 +6,8 @@ class UserAvailableEventsPage extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
-        builder: (_) => const UserAvailableEventsPage());
+      builder: (_) => const UserAvailableEventsPage(),
+    );
   }
 
   @override

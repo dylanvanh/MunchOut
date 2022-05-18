@@ -5,7 +5,9 @@ class UserBrowseEvents extends StatelessWidget {
   const UserBrowseEvents({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const UserBrowseEvents());
+    return MaterialPageRoute<void>(
+      builder: (_) => const UserBrowseEvents(),
+    );
   }
 
   @override

@@ -7,7 +7,8 @@ class RestaurantAddEventPage extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
-        builder: (_) => const RestaurantAddEventPage());
+      builder: (_) => const RestaurantAddEventPage(),
+    );
   }
 
   @override

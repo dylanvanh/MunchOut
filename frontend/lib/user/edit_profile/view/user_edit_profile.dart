@@ -6,7 +6,9 @@ class UserEditProfilePage extends StatelessWidget {
   const UserEditProfilePage({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const UserEditProfilePage());
+    return MaterialPageRoute<void>(
+      builder: (_) => const UserEditProfilePage(),
+    );
   }
 
   @override

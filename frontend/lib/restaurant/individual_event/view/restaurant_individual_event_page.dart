@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// List of the different customers booked for it the specific event
+/// List of the different customers booked for it the specific even
+/// Is routed to when an event is selected in active_events_page
 class RestaurantIndivudualEventPage extends StatelessWidget {
   const RestaurantIndivudualEventPage({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
-        builder: (_) => const RestaurantIndivudualEventPage());
+      builder: (_) => const RestaurantIndivudualEventPage(),
+    );
   }
 
   @override
