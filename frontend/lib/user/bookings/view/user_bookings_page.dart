@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// displays a list of all restaurant
-/// events bookings the user has made for the day
+/// Displays list of events bookings the user has made for the day
 class UserAvailableEventsPage extends StatelessWidget {
   const UserAvailableEventsPage({Key? key}) : super(key: key);
 
