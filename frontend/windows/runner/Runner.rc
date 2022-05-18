@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "mobile_app_frontend" "\0"
+            VALUE "CompanyName", "com.example.verygoodcore.itdma3-mobile-app" "\0"
+            VALUE "FileDescription", "itdma3_mobile_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "mobile_app_frontend" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "mobile_app_frontend.exe" "\0"
-            VALUE "ProductName", "mobile_app_frontend" "\0"
+            VALUE "InternalName", "itdma3_mobile_app" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.example.verygoodcore.itdma3-mobile-app. All rights reserved." "\0"
+            VALUE "OriginalFilename", "itdma3_mobile_app.exe" "\0"
+            VALUE "ProductName", "Itdma3 Mobile App" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

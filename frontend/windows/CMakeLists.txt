@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(mobile_app_frontend LANGUAGES CXX)
+project(itdma3_mobile_app LANGUAGES CXX)
 
-set(BINARY_NAME "mobile_app_frontend")
+set(BINARY_NAME "itdma3_mobile_app")
 
 cmake_policy(SET CMP0063 NEW)
 
