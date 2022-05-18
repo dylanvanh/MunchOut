@@ -1,1 +1,1 @@
-export 'edit_profile.dart';
+export 'restaurant_edit_profile.dart';
