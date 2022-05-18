@@ -1,0 +1,21 @@
+name: user_repository
+description: A repository that handles auth related requests.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  json_annotation: ^4.4.0
+  flask_api:
+    path: ../flask_api
+
+dev_dependencies:
+  build_runner: ^2.0.0
+  coverage: ^1.1.0
+  json_serializable: ^6.0.0
+  mocktail: ^0.2.0
+  test: ^1.19.2
+  very_good_analysis: ^2.4.0
