@@ -21,7 +21,15 @@ pip install -r requirements.txt
 cd code
 ```
 
-### 4. Start application
+### 3. Change the host='ipv4' to your ipv4 address
+
+_Your ipv4 address can be found using cmd by typing ipconfig_
+
+```
+app.run(port=5000, debug=True, host='192.168.1.160)
+```
+
+### 5. Start application
 ```
 python app.py
 ```
