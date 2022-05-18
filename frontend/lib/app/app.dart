@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/error/error.dart';
+import 'package:itdma3_mobile_app/home/home.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
 import 'package:itdma3_mobile_app/login/login.dart';
 import 'package:itdma3_mobile_app/signup/signup.dart';
