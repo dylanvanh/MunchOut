@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class UserHomePage extends StatelessWidget {
+  const UserHomePage({Key? key}) : super(key: key);
 
-  static Route<HomePage> route() {
+  static Route<UserHomePage> route() {
     return MaterialPageRoute(
-      builder: (context) => const HomePage(),
+      builder: (context) => const UserHomePage(),
     );
   }
 
