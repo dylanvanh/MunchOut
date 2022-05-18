@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flaskjwtlogin/login/view/view.dart';
-import 'package:flutter_flaskjwtlogin/signup/view/view.dart';
 
 class LaunchPage extends StatelessWidget {
   const LaunchPage({Key? key}) : super(key: key);
