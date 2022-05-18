@@ -74,7 +74,7 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             if (state is AuthorisedState) {
               _navigator.pushAndRemoveUntil<void>(
-                HomePage.route(),
+                UserHomePage.route(),
                 (route) => false,
               );
             } else if (state is UnauthorisedState) {
