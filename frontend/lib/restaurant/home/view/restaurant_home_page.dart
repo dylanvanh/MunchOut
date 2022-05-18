@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:itdma3_mobile_app/restaurant/active_events/active_events.dart';
+import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
+import 'package:itdma3_mobile_app/restaurant/edit_profile/view/restaurant_edit_profile.dart';
 
 //Is routed to when the restaurant logs in
 class RestaurantHomePage extends StatelessWidget {
@@ -16,7 +19,41 @@ class RestaurantHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('UserEditProfile Page'),
       ),
-      body: const Text('UserEditProfile page'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Welcome restaurant user x'),
+            ElevatedButton(
+              child: const Text('Add event'),
+              onPressed: () => Navigator.of(context).push(
+                RestaurantAddEventPage.route(),
+              ),
+            ),
+            ElevatedButton(
+              child: const Text('Edit Profile'),
+              onPressed: () => Navigator.of(context).push(
+                RestaurantEditProfilePage.route(),
+              ),
+            ),
+            ElevatedButton(
+              child: const Text('View your events'),
+              onPressed: () => Navigator.of(context).push(
+                RestaurantActiveEventsPage.route(),
+              ),
+            ),
+
+            /// still need to implemenet restaurant login/logout
+
+            // ElevatedButton(
+            //   child: const Text('Logout'),
+            //   onPressed: () {
+            //     context.read<AuthBloc>().add(LogoutEvent());
+            //   },
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }

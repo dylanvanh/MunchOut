@@ -4,6 +4,7 @@ import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/error/error.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
 import 'package:itdma3_mobile_app/login/login.dart';
+import 'package:itdma3_mobile_app/restaurant/home/home.dart';
 import 'package:itdma3_mobile_app/signup/signup.dart';
 import 'package:itdma3_mobile_app/splash/splash.dart';
 import 'package:itdma3_mobile_app/user/home/view/view.dart';
@@ -74,7 +75,7 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             if (state is AuthorisedState) {
               _navigator.pushAndRemoveUntil<void>(
-                UserHomePage.route(),
+                RestaurantHomePage.route(),
                 (route) => false,
               );
             } else if (state is UnauthorisedState) {

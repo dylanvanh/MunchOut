@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class RestaurantEditProfilePage extends StatelessWidget {
   const RestaurantEditProfilePage({Key? key}) : super(key: key);
 
-  static Route route() {
+  static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
       builder: (_) => const RestaurantEditProfilePage(),
     );
