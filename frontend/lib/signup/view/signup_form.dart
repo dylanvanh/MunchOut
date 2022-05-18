@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_flaskjwtlogin/signup/signup.dart';
 import 'package:formz/formz.dart';
+import 'package:itdma3_mobile_app/signup/signup.dart';
 
 class SignupForm extends StatelessWidget {
   const SignupForm({Key? key}) : super(key: key);

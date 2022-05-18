@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:itdma3_mobile_app/app/app.dart';
+import 'package:itdma3_mobile_app/app/app_bloc_observer.dart';
 import 'package:user_repository/user_repository.dart';
 
 void bootstrap() {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_flaskjwtlogin/login/login.dart';
-import 'package:flutter_flaskjwtlogin/signup/view/signup_form.dart';
+import 'package:itdma3_mobile_app/login/login.dart';
+import 'package:itdma3_mobile_app/signup/signup.dart';
+
 import 'package:user_repository/user_repository.dart';
 
 class SignupPage extends StatelessWidget {

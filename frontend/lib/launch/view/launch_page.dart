@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:itdma3_mobile_app/login/login.dart';
+import 'package:itdma3_mobile_app/signup/signup.dart';
 
 class LaunchPage extends StatelessWidget {
   const LaunchPage({Key? key}) : super(key: key);

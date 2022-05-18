@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_flaskjwtlogin/login/login.dart';
 import 'package:formz/formz.dart';
+import 'package:itdma3_mobile_app/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'login_event.dart';

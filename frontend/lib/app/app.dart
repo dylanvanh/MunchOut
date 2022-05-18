@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:itdma3_mobile_app/authentication/authentication.dart';
+import 'package:itdma3_mobile_app/error/error.dart';
+import 'package:itdma3_mobile_app/launch/launch.dart';
+import 'package:itdma3_mobile_app/login/login.dart';
+import 'package:itdma3_mobile_app/signup/signup.dart';
+import 'package:itdma3_mobile_app/splash/splash.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// App is responsible for creating/providing the AuthenticationBloc which will be consumed by the AppView
