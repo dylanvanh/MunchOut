@@ -13,9 +13,11 @@ app.secret_key = 'dylan'
 api = Api(app)
 
 
+# creates all tables, unless they already exist
 @app.before_first_request
-def create_tables():  # creates all tables , unless they exist already
+def create_tables():
     db.create_all()
+
 
 """
 HELPER ENDPOINTS 
@@ -41,12 +43,6 @@ def get_customers():
     return {'flask-api': 'running'}
 
 
-
-if __name__ == "__main__":
-    db.init_app(app)
-    #use your machines ipv4 address
-    app.run(port=5000, debug=True, host='192.168.1.160')
-
 """
 CUSTOMER ENDPOINTS
 """
@@ -69,13 +65,13 @@ api.add_resource(CustomerAvailableEvents,
                  '/customer_available_events/<int:customer_id>')
 
 # View Bookings screen (shows event bookings)
-api.add_resource(CustomerBookedEvents, '/customer_booked_events/<int:customer_id>')
+api.add_resource(CustomerBookedEvents,
+                 '/customer_booked_events/<int:customer_id>')
 
 
 '''
 RESTAURANT ENDPOINTS
 '''
-
 # Restaurant signup screen
 api.add_resource(RestaurantSignup, '/restaurant_signup')
 
@@ -90,3 +86,9 @@ api.add_resource(AddEvent, '/add_event')
 
 # View registered events screen
 api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
+
+
+if __name__ == "__main__":
+    db.init_app(app)
+    # use your machines ipv4 address
+    app.run(port=5000, debug=True, host='192.168.1.160')
