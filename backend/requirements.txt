@@ -9,6 +9,7 @@ importlib-metadata==4.11.3
 itsdangerous==2.1.2
 Jinja2==3.1.2
 MarkupSafe==2.1.1
+mysqlclient==2.1.0
 pycodestyle==2.8.0
 PyJWT==1.4.2
 pytz==2022.1
