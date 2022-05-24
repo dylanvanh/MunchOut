@@ -46,3 +46,27 @@ if __name__ == "__main__":
     db.init_app(app)
     #use your machines ipv4 address
     app.run(port=5000, debug=True, host='192.168.1.160')
+
+"""
+CUSTOMER ENDPOINTS
+"""
+# Edit customer profile screen
+api.add_resource(Customer, '/customer/<int:customer_id>')
+
+# Register customer screen
+api.add_resource(CustomerSignup, '/customer_signup')
+
+# Login customer screen
+api.add_resource(CustomerLogin, '/customer_login')
+
+# Start booking for restaurant screen , SUBMIT
+api.add_resource(AddBooking, '/add_booking')
+
+api.add_resource(Event, '/event/<int:event_id>')
+
+# Browse daily restaurant events screen
+api.add_resource(CustomerAvailableEvents,
+                 '/customer_available_events/<int:customer_id>')
+
+# View Bookings screen (shows event bookings)
+api.add_resource(CustomerBookedEvents, '/customer_booked_events/<int:customer_id>')
