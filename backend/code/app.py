@@ -17,6 +17,29 @@ api = Api(app)
 def create_tables():  # creates all tables , unless they exist already
     db.create_all()
 
+"""
+HELPER ENDPOINTS 
+"""
+# returns all restaurants
+api.add_resource(RestaurantList, '/restaurants')
+
+# returns all events
+api.add_resource(EventList, '/events')
+
+# returns all customers
+api.add_resource(CustomerList, '/customers')
+
+# returns all bookings
+api.add_resource(BookingList, '/bookings')
+
+# Individual booking details
+api.add_resource(Booking, '/booking/<int:booking_id>')
+
+
+@app.route('/')  # no endpoint specified
+def get_customers():
+    return {'flask-api': 'running'}
+
 
 
 if __name__ == "__main__":
