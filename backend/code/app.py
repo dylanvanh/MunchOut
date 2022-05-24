@@ -13,6 +13,12 @@ app.secret_key = 'dylan'
 api = Api(app)
 
 
+@app.before_first_request
+def create_tables():  # creates all tables , unless they exist already
+    db.create_all()
+
+
+
 if __name__ == "__main__":
     db.init_app(app)
     #use your machines ipv4 address
