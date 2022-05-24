@@ -70,3 +70,23 @@ api.add_resource(CustomerAvailableEvents,
 
 # View Bookings screen (shows event bookings)
 api.add_resource(CustomerBookedEvents, '/customer_booked_events/<int:customer_id>')
+
+
+'''
+RESTAURANT ENDPOINTS
+'''
+
+# Restaurant signup screen
+api.add_resource(RestaurantSignup, '/restaurant_signup')
+
+# Restaurant login screen
+api.add_resource(RestaurantLogin, '/restaurant_login')
+
+# Edit restaurant profile screen
+api.add_resource(Restaurant, '/restaurant/<int:restaurant_id>')
+
+# Add a new event screen
+api.add_resource(AddEvent, '/add_event')
+
+# View registered events screen
+api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
