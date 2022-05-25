@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:itdma3_mobile_app/customer/login/login.dart';
+import 'package:itdma3_mobile_app/restaurant/login/login.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class RestaurantLoginForm extends StatelessWidget {
+  const RestaurantLoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _UsernameInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_usernameInput_textField'),
+          key: const Key('RestaurantLoginForm_usernameInput_textField'),
           onChanged: (username) =>
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
           decoration: InputDecoration(
@@ -65,7 +65,7 @@ class _PasswordInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
+          key: const Key('RestaurantLoginForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
           obscureText: true,
@@ -88,7 +88,7 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-                key: const Key('loginForm_continue_raisedButton'),
+                key: const Key('RestaurantLoginForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {
                         context.read<LoginBloc>().add(const LoginSubmitted());

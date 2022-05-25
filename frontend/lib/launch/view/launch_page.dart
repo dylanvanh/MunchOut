@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:itdma3_mobile_app/customer/login/login.dart';
 import 'package:itdma3_mobile_app/customer/signup/signup.dart';
+import 'package:itdma3_mobile_app/restaurant/login/login.dart';
+import 'package:itdma3_mobile_app/restaurant/signup/signup.dart';
 
 ///first page shown when the user launches the app
 /// Routes to login/signup
@@ -22,15 +24,27 @@ class LaunchPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: const Text('Login'),
+              child: const Text('Customer Login'),
               onPressed: () => Navigator.of(context).push(
-                LoginPage.route(),
+                CustomerLoginPage.route(),
               ),
             ),
             ElevatedButton(
-              child: const Text('Sign Up'),
+              child: const Text('Customer Sign Up'),
               onPressed: () => Navigator.of(context).push(
-                SignupPage.route(),
+                CustomerSignupPage.route(),
+              ),
+            ),
+            ElevatedButton(
+              child: const Text('Restaurant Sign in'),
+              onPressed: () => Navigator.of(context).push(
+                RestaurantLoginPage.route(),
+              ),
+            ),
+            ElevatedButton(
+              child: const Text('Restaurant Sign Up'),
+              onPressed: () => Navigator.of(context).push(
+                RestaurantSignupPage.route(),
               ),
             ),
           ],

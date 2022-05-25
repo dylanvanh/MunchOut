@@ -1,27 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:itdma3_mobile_app/customer/signup/signup.dart';
+import 'package:itdma3_mobile_app/customer/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
-part 'signup_event.dart';
-part 'signup_state.dart';
+part 'customer_login_event.dart';
+part 'customer_login_state.dart';
 
-class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc({
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc({
     required UserRepository userRepository,
   })  : _userRepository = userRepository,
-        super(const SignupState()) {
-    on<SignupUsernameChanged>(_onUsernameChanged);
-    on<SignupPasswordChanged>(_onPasswordChanged);
-    on<SignupSubmitted>(_onSubmitted);
+        super(const LoginState()) {
+    on<LoginUsernameChanged>(_onUsernameChanged);
+    on<LoginPasswordChanged>(_onPasswordChanged);
+    on<LoginSubmitted>(_onSubmitted);
   }
 
   final UserRepository _userRepository;
 
   void _onUsernameChanged(
-    SignupUsernameChanged event,
-    Emitter<SignupState> emit,
+    LoginUsernameChanged event,
+    Emitter<LoginState> emit,
   ) {
     final username = Username.dirty(event.username);
     emit(
@@ -33,8 +33,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onPasswordChanged(
-    SignupPasswordChanged event,
-    Emitter<SignupState> emit,
+    LoginPasswordChanged event,
+    Emitter<LoginState> emit,
   ) {
     final password = Password.dirty(event.password);
     emit(
@@ -45,20 +45,22 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  //passes details to user repository for new user creation
   void _onSubmitted(
-    SignupSubmitted event,
-    Emitter<SignupState> emit,
+    LoginSubmitted event,
+    Emitter<LoginState> emit,
   ) async {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        // await _userRepository.signUp(
-        //   username: state.username.value,
-        //   password: state.password.value,
-        // );
+        await _userRepository.userLoginSignup(
+          username: state.username.value,
+          password: state.password.value,
+          userType: UserType.customer,
+          authActionType: AuthenticationAction.login,
+        );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
+        print('error occured');
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     }

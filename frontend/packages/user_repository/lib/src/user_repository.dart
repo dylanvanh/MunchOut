@@ -44,7 +44,7 @@ class UserRepository {
   }
 
   ///called by login bloc
-  Future<void> customerLoginSignup({
+  Future<void> userLoginSignup({
     String? name,
     required String username, //required no matter if login/signup
     required String password, //required no matter if login/signup

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 
-class SignupForm extends StatelessWidget {
-  const SignupForm({Key? key}) : super(key: key);
+class CustomerSignupForm extends StatelessWidget {
+  const CustomerSignupForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class SignupForm extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              _NameInput(),
               _UsernameInput(),
               _PasswordInput(),
               const SizedBox(
@@ -38,6 +39,26 @@ class SignupForm extends StatelessWidget {
   }
 }
 
+class _NameInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignupBloc, SignupState>(
+      buildWhen: (previous, current) => previous.name != current.name,
+      builder: (context, state) {
+        return TextField(
+          key: const Key('CustomerSignupForm_nameInput_textField'),
+          onChanged: (name) =>
+              context.read<SignupBloc>().add(SignupNameChanged(name)),
+          decoration: InputDecoration(
+            labelText: 'name',
+            errorText: state.name.invalid ? 'Invalid Name' : null,
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -45,7 +66,7 @@ class _UsernameInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
         return TextField(
-          key: const Key('signupForm_usernameInput_textField'),
+          key: const Key('CustomerSignupForm_usernameInput_textField'),
           onChanged: (username) =>
               context.read<SignupBloc>().add(SignupUsernameChanged(username)),
           decoration: InputDecoration(
@@ -65,7 +86,7 @@ class _PasswordInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
-          key: const Key('signupForm_passwordInput_textField'),
+          key: const Key('CustomerSignupForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<SignupBloc>().add(SignupPasswordChanged(password)),
           obscureText: true,
@@ -88,7 +109,7 @@ class _SignupButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-                key: const Key('signupForm_continue_raisedButton'),
+                key: const Key('CustomerSignupForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {
                         context.read<SignupBloc>().add(const SignupSubmitted());

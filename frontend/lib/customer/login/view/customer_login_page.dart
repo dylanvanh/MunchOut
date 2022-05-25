@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CustomerLoginPage extends StatelessWidget {
+  const CustomerLoginPage({Key? key}) : super(key: key);
 
-  static Route<LoginPage> route() {
+  static Route<CustomerLoginPage> route() {
     return MaterialPageRoute(
-      builder: (context) => const LoginPage(),
+      builder: (context) => const CustomerLoginPage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Customer Login')),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: BlocProvider(
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
               userRepository: RepositoryProvider.of<UserRepository>(context),
             );
           },
-          child: const LoginForm(),
+          child: const CustomerLoginForm(),
         ),
       ),
     );
