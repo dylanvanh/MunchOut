@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
-import 'package:itdma3_mobile_app/user/bookings/view/view.dart';
-import 'package:itdma3_mobile_app/user/browse_events/view/view.dart';
-import 'package:itdma3_mobile_app/user/edit_profile/view/view.dart';
+import 'package:itdma3_mobile_app/customer/bookings/view/view.dart';
+import 'package:itdma3_mobile_app/customer/browse_events/view/view.dart';
+import 'package:itdma3_mobile_app/customer/edit_profile/view/view.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({Key? key}) : super(key: key);

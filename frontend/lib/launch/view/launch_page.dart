@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:itdma3_mobile_app/login/login.dart';
-import 'package:itdma3_mobile_app/signup/signup.dart';
+import 'package:itdma3_mobile_app/customer/login/login.dart';
+import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 
 ///first page shown when the user launches the app
 /// Routes to login/signup

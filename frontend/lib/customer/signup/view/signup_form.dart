@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:itdma3_mobile_app/login/login.dart';
+import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignupForm extends StatelessWidget {
+  const SignupForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Invalid Credentials')),
+              const SnackBar(content: Text('Username already exists')),
             );
         }
       },
@@ -29,7 +29,7 @@ class LoginForm extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              _LoginButton(),
+              _SignupButton(),
             ],
           ),
         ),
@@ -41,13 +41,13 @@ class LoginForm extends StatelessWidget {
 class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_usernameInput_textField'),
+          key: const Key('signupForm_usernameInput_textField'),
           onChanged: (username) =>
-              context.read<LoginBloc>().add(LoginUsernameChanged(username)),
+              context.read<SignupBloc>().add(SignupUsernameChanged(username)),
           decoration: InputDecoration(
             labelText: 'username',
             errorText: state.username.invalid ? 'invalid username' : null,
@@ -61,13 +61,13 @@ class _UsernameInput extends StatelessWidget {
 class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
+          key: const Key('signupForm_passwordInput_textField'),
           onChanged: (password) =>
-              context.read<LoginBloc>().add(LoginPasswordChanged(password)),
+              context.read<SignupBloc>().add(SignupPasswordChanged(password)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: 'password',
@@ -79,22 +79,22 @@ class _PasswordInput extends StatelessWidget {
   }
 }
 
-class _LoginButton extends StatelessWidget {
+class _SignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-                key: const Key('loginForm_continue_raisedButton'),
+                key: const Key('signupForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {
-                        context.read<LoginBloc>().add(const LoginSubmitted());
+                        context.read<SignupBloc>().add(const SignupSubmitted());
                       }
                     : null,
-                child: const Text('Login'),
+                child: const Text('Signup'),
               );
       },
     );

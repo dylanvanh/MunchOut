@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:itdma3_mobile_app/signup/signup.dart';
+import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'signup_event.dart';
@@ -53,10 +53,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        await _userRepository.signUp(
-          username: state.username.value,
-          password: state.password.value,
-        );
+        // await _userRepository.signUp(
+        //   username: state.username.value,
+        //   password: state.password.value,
+        // );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
