@@ -1,9 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flask_api/flask_api.dart'; //declared in pubspec
 import 'package:user_repository/user_repository.dart';
+
+///
+enum AuthenticationAction {
+  /// if the user is requesting to log in
+  login,
+
+  /// if the user is requesting to sign up
+  signup,
+}
 
 /// Stores currently logged in user
 /// Communicates with the FlaskApi
@@ -35,70 +43,126 @@ class UserRepository {
     return _validatedUser;
   }
 
-  //called by login bloc
-  Future<void> userLogin({
-    required String username,
-    required String password,
-    required UserType userType,
+  ///called by login bloc
+  Future<void> customerLoginSignup({
+    String? name,
+    required String username, //required no matter if login/signup
+    required String password, //required no matter if login/signup
+    String? phoneNumber,
+    String? restaurantDescription,
+    String? restaurantImageUrl,
+    required UserType userType, // customer || restaurant
+    required AuthenticationAction authActionType,
+    // login || signup
   }) async {
-    ///helper function for seperating customer/restaurant login calls
+    /// Helper function that seperates
+    /// Customer user ,restaurant user & both their login & signup logic
+    /// both login&signup flask_api endpoints return the users details on success
+    // _getUserData returns their retrieved data
     Future<Map<String, dynamic>> _getUserData() async {
+      // try{}
       switch (userType) {
+
+        // customer trying to login / signup
         case UserType.customer:
-          final customerUserResponse = await _flaskApi.customerLogin(
-            username,
-            password,
-          );
-          final decodedCustomerUserDetails =
-              jsonDecode(customerUserResponse) as Map<String, dynamic>;
+          switch (authActionType) {
+            // customer login
+            case AuthenticationAction.login:
+              final customerUserResponse = await _flaskApi.customerLogin(
+                username,
+                password,
+              );
+              final decodedCustomerUserDetails =
+                  jsonDecode(customerUserResponse) as Map<String, dynamic>;
 
-          return decodedCustomerUserDetails;
+              return decodedCustomerUserDetails;
 
+            // customer signup
+            case AuthenticationAction.signup:
+              final customerUserResponse = await _flaskApi.customerSignup(
+                name!, // ! -> says that it wont be passed as null (null safety)
+                username,
+                password,
+                phoneNumber!,
+              );
+              final decodedCustomerUserDetails =
+                  jsonDecode(customerUserResponse) as Map<String, dynamic>;
+
+              return decodedCustomerUserDetails;
+          }
+
+        // restaurant trying to login / signup
         case UserType.restaurant:
-          final restaurantUserResponse = await _flaskApi.restaurantLogin(
-            username,
-            password,
-          );
+          switch (authActionType) {
 
-          final decodedRestaurantUserDetails =
-              jsonDecode(restaurantUserResponse) as Map<String, dynamic>;
+            // restaurant login
+            case AuthenticationAction.login:
+              final restaurantUserResponse = await _flaskApi.restaurantLogin(
+                username,
+                password,
+              );
+              final decodedRestaurantUserDetails =
+                  jsonDecode(restaurantUserResponse) as Map<String, dynamic>;
 
-          return decodedRestaurantUserDetails;
+              return decodedRestaurantUserDetails;
+
+            // restaurant signup
+            case AuthenticationAction.signup:
+              final restaurantUserResponse = await _flaskApi.restaurantSignup(
+                name!, // ! -> says that it wont be passed as null (null safety)
+                username,
+                password,
+                restaurantDescription!,
+                restaurantImageUrl!,
+                phoneNumber!,
+              );
+              final decodedRestaurantUserDetails =
+                  jsonDecode(restaurantUserResponse) as Map<String, dynamic>;
+
+              return decodedRestaurantUserDetails;
+          }
       }
     }
 
     try {
+      // retrieve decoded userDetails that was returned as a response from
+      // the flask api backend
       final decodedUserDetails = await _getUserData();
 
       User validatedUser;
-      if (userType == UserType.customer) {
-        //customer user
-        validatedUser = User(
-          id: decodedUserDetails['id'] as int,
-          name: decodedUserDetails['name'] as String,
-          username: decodedUserDetails['username'] as String,
-          phoneNumber: decodedUserDetails['phone_number'] as String,
-          userType: UserType.customer,
-          authStatus: AuthenticationStatus.authenticated,
-        );
-      } else {
-        //restaurant user
-        validatedUser = User(
-          id: decodedUserDetails['id'] as int,
-          name: decodedUserDetails['name'] as String,
-          username: decodedUserDetails['username'] as String,
-          phoneNumber: decodedUserDetails['phone_number'] as String,
-          restaurantImageUrl: decodedUserDetails['image_url'] as String,
-          restaurantDescription: decodedUserDetails['description'] as String,
-          userType: UserType.restaurant,
-          authStatus: AuthenticationStatus.authenticated,
-        );
+
+      switch (userType) {
+        case UserType.customer:
+          //customer user
+          validatedUser = User(
+            id: decodedUserDetails['id'] as int,
+            name: decodedUserDetails['name'] as String,
+            username: decodedUserDetails['username'] as String,
+            phoneNumber: decodedUserDetails['phone_number'] as String,
+            userType: UserType.customer,
+            authStatus: AuthenticationStatus.authenticated,
+          );
+          break;
+
+        case UserType.restaurant:
+          //restaurant user
+          validatedUser = User(
+            id: decodedUserDetails['id'] as int,
+            name: decodedUserDetails['name'] as String,
+            username: decodedUserDetails['username'] as String,
+            phoneNumber: decodedUserDetails['phone_number'] as String,
+            restaurantImageUrl: decodedUserDetails['image_url'] as String,
+            restaurantDescription: decodedUserDetails['description'] as String,
+            userType: UserType.restaurant,
+            authStatus: AuthenticationStatus.authenticated,
+          );
       }
 
       //set the user object to the previouslyFetched validated user on "login/start"
       _validatedUser = validatedUser;
 
-      //emits the new user object in the stream when it changes
+      //emits the new user object in the stream
+      //when any _validatedUser (User) object data changes
       _controller.add(_validatedUser);
 
       // return _validatedUser;
@@ -106,42 +170,30 @@ class UserRepository {
       throw Exception();
     }
   }
-
-  // Future<void> signUp({
-  //   required String username,
-  //   required String password,
-  //   required UserType userType,
-  // }) async {
-  //   try {
-  //     //post request with /register endpoint
-  //     await _flaskApi.signUpUser(username, password);
-
-  //     //login the newly created user
-  //     await logIn(username: username, password: password);
-  //   } on Exception {
-  //     throw Exception();
-  //   }
-  // }
 }
 
 /// FOR TESTING
-Future<void> main() async {
-  final _userRepo = UserRepository();
-  try {
-    final userDetails = _userRepo.userLogin(
-      username: 'dylan',
-      password: '1234',
-      userType: UserType.restaurant,
-    );
+// Future<void> main() async {
+//   final _userRepo = UserRepository();
+//   try {
+//     //signup
+//     // await _userRepo.customerLoginSignup(
+//     //   name: 'casey',
+//     //   phoneNumber: '092823',
+//     //   username: 'casey',
+//     //   password: '1234',
+//     //   userType: UserType.customer,
+//     //   authActionType: AuthenticationAction.signup,
+//     // );
 
-    // print(userDetails);
-
-    // print('Username = ${validatedUserInstance.username}');
-    // print('authToken = ${validatedUserInstance.authToken}');
-
-    // final user2 = _userRepo.getUser();
-    // print('user2 = ${user2.username}');
-  } on Exception {
-    print('Invalid name and password combo');
-  }
-}
+//     //login
+//     // await _userRepo.customerLoginSignup(
+//     //   username: 'casey',
+//     //   password: '1234',
+//     //   userType: UserType.customer,
+//     //   authActionType: AuthenticationAction.login,
+//     // );
+//   } on Exception {
+//     print('error');
+//   }
+// }
