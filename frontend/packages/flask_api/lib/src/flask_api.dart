@@ -2,15 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-// /// User types
-// enum UserType {
-//   ///set when customer user type
-//   customer,
-
-//   /// set when restaurant user type
-//   restaurant,
-// }
-
 /// Thrown if http request != 200 status code
 class HttpRequestFailure implements Exception {
   ///constructor
