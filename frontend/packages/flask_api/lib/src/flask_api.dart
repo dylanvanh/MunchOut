@@ -37,7 +37,7 @@ class FlaskApi {
   final http.Client _httpClient;
 
   /// Login api call for a customer user
-  Future<dynamic> customerLogin(
+  Future<String> customerLogin(
     String username,
     String password,
   ) async {
@@ -68,7 +68,7 @@ class FlaskApi {
   }
 
   /// Sign up api call for a customer user
-  Future<dynamic> customerSignup(
+  Future<String> customerSignup(
     String name,
     String username,
     String password,
@@ -98,7 +98,7 @@ class FlaskApi {
   }
 
   /// Login api call for a restaurant user
-  Future<dynamic> restaurantLogin(
+  Future<String> restaurantLogin(
     String username,
     String password,
   ) async {
@@ -129,7 +129,7 @@ class FlaskApi {
   }
 
   /// Sign up api call for a restaurant user
-  Future<dynamic> restaurantSignup(
+  Future<String> restaurantSignup(
     String name,
     String username,
     String password,
@@ -169,7 +169,10 @@ class FlaskApi {
 
 //   /// LOGIN
 //   try {
-//     final dynamic userDetails = await flaskApi.customerLogin('dylan', '1234');
+//     final dynamic userDetails = await flaskApi.restaurantLogin(
+//       'dylan',
+//       '1234',
+//     );
 //     print(userDetails);
 //   } on Exception {
 //     //invalid details

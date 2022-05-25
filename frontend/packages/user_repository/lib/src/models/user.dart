@@ -1,3 +1,8 @@
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user.g.dart';
+
 ///status options of the user
 enum AuthenticationStatus {
   /// set when the user is unathenticated (not logged in)
@@ -17,31 +22,32 @@ enum UserType {
 }
 
 /// User model
-class User {
+@JsonSerializable()
+class User extends Equatable {
   ///User contructor
   ///User auth status intially set to unauthenticated
   const User({
-    required this.id,
-    required this.name,
-    required this.username,
-    required this.phoneNumber,
+    this.id,
+    this.name,
+    this.username,
+    this.phoneNumber,
     this.restaurantImageUrl, // only gets a value if type =  restaurant user
     this.restaurantDescription, // only gets a value if type =  restaurant user
-    required this.userType,
+    this.userType,
     this.authStatus = AuthenticationStatus.unauthenticated,
   });
 
   /// user id created by flask
-  final int id;
+  final int? id;
 
-  /// name entered by the user
-  final String name;
+  /// Customer Full name / Restaurant name
+  final String? name;
 
   /// username that is used for signin
-  final String username;
+  final String? username;
 
   /// phoneNumber for contact details
-  final String phoneNumber;
+  final String? phoneNumber;
 
   /// image url of the restaurant for display
   final String? restaurantImageUrl;
@@ -50,13 +56,44 @@ class User {
   final String? restaurantDescription;
 
   /// Type of user (either customer / restaurant)
-  final UserType userType;
+  final UserType? userType;
 
   ///Authentication status of the user
   final AuthenticationStatus authStatus;
 
   @override
+  List<Object?> get props => [
+        id,
+        name,
+        username,
+        phoneNumber,
+        restaurantImageUrl,
+        restaurantDescription,
+        userType,
+        authStatus,
+      ];
+
+  @override
   String toString() {
-    return 'Base user details : $id , $name , $username , $userType';
+    if (userType == UserType.customer) {
+      //if customer user type
+      return '''
+      Base user details : $id , $name , $username , $phoneNumber,
+      $userType , $authStatus,
+      ''';
+    } else {
+      //if restaurant user type
+      return '''
+      Base user details : $id , $name , $username , $phoneNumber,
+      $restaurantImageUrl,$restaurantDescription, $userType , $authStatus,
+      ''';
+    }
   }
+
+  /// Connect the generated [_$UserFromJson] function to the `fromJson`
+  /// factory.
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  /// Connect the generated [_$UserToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
