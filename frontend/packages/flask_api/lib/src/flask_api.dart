@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:http/http.dart' as http;
 
-/// Thrown if http request != 200 status code
+/// Thrown if any error regarding the http request
 class HttpRequestFailure implements Exception {
   ///constructor
   const HttpRequestFailure(this.statusCode);
@@ -11,18 +10,6 @@ class HttpRequestFailure implements Exception {
   /// Status code of the response
   final int statusCode;
 }
-
-/// Thrown when no data is returned for the name provided
-class InvalidCredentialsProvidedFailure implements Exception {}
-
-/// Thrown when an error occurs during signup
-class SignUpUserException implements Exception {}
-
-/// Thrown when error during decoding response
-class JsonDecodeException implements Exception {}
-
-/// Thrown when error deserializing the response body
-class JsonDeserializationException implements Exception {}
 
 /// If the username and password is valid (passed in body) for /auth endpoint
 /// -> auth token is returned by the api
@@ -49,7 +36,20 @@ class FlaskApi {
       throw HttpRequestFailure(statusCode);
     }
 
-    // Created succesfully response (201) && Ok response (200)
+    // Object rqeuested doesnt exist
+    if (statusCode == 404) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    //Internal server error response
+    if (statusCode == 500) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    // Created succesfully response (201)
+    //Ok response (200)
+
+    // If not sucessfully created || provided an Ok response
     if (statusCode != 201 && statusCode != 200) {
       throw HttpRequestFailure(statusCode);
     }
@@ -74,15 +74,6 @@ class FlaskApi {
     );
 
     validateStatusCodes(response.statusCode);
-
-    // if (response.statusCode != 200) {
-    //   throw HttpRequestFailure(response.statusCode);
-    // }
-
-    // //invalid username / password provided
-    // if (response.statusCode == 401) {
-    //   throw InvalidCredentialsProvidedFailure();
-    // }
 
     //returns user details map
     return response.body;
@@ -111,7 +102,6 @@ class FlaskApi {
     );
 
     validateStatusCodes(response.statusCode);
-
     return response.body;
   }
 
@@ -134,8 +124,6 @@ class FlaskApi {
     );
 
     validateStatusCodes(response.statusCode);
-
-    //returns user details map
     return response.body;
   }
 
@@ -166,16 +154,52 @@ class FlaskApi {
     );
 
     validateStatusCodes(response.statusCode);
-
     return response.body;
+  }
+
+  Future<String> restaurantAddEvent({
+    required int restaurantId,
+    required String name,
+    required String description,
+    required String imageUrl,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/add_event');
+
+    final response = await _httpClient.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'restaurant_id': restaurantId,
+          'name': name,
+          'description': description,
+          'image_url': imageUrl,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+
+    return '';
   }
 }
 
-
-
 // /// FOR TESTING
-// Future<void> main() async {
-//   final flaskApi = FlaskApi();
+Future<void> main() async {
+  final flaskApi = FlaskApi();
+
+  try {
+    final dynamic userDetails = await flaskApi.restaurantAddEvent(
+      restaurantId: 1,
+      name: 'testEvent',
+      description: 'test',
+      imageUrl: 'www.image.com',
+    );
+    print(userDetails);
+  } on Exception {
+    //invalid details
+    print("erro");
+  }
 
 //   /// LOGIN
 //   try {
@@ -205,4 +229,4 @@ class FlaskApi {
 //     print('error');
 //     print('user details already exist');
 //   }
-// }
+}
