@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:http/http.dart' as http;
 
@@ -36,6 +37,24 @@ class FlaskApi {
 
   final http.Client _httpClient;
 
+  /// Helper function for determing success/failure of api calls
+  void validateStatusCodes(int statusCode) {
+    // Bad request response
+    if (statusCode == 400) {
+      throw const HttpRequestFailure(400);
+    }
+
+    //Unauthorised response
+    if (statusCode == 401) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    // Created succesfully response (201) && Ok response (200)
+    if (statusCode != 201 && statusCode != 200) {
+      throw HttpRequestFailure(statusCode);
+    }
+  }
+
   /// Login api call for a customer user
   Future<String> customerLogin(
     String username,
@@ -54,14 +73,16 @@ class FlaskApi {
       ),
     );
 
-    if (response.statusCode != 200) {
-      throw HttpRequestFailure(response.statusCode);
-    }
+    validateStatusCodes(response.statusCode);
 
-    //invalid username / password provided
-    if (response.statusCode == 401) {
-      throw InvalidCredentialsProvidedFailure();
-    }
+    // if (response.statusCode != 200) {
+    //   throw HttpRequestFailure(response.statusCode);
+    // }
+
+    // //invalid username / password provided
+    // if (response.statusCode == 401) {
+    //   throw InvalidCredentialsProvidedFailure();
+    // }
 
     //returns user details map
     return response.body;
@@ -89,10 +110,7 @@ class FlaskApi {
       ),
     );
 
-    //user already exists
-    if (response.statusCode == 400) {
-      throw SignUpUserException();
-    }
+    validateStatusCodes(response.statusCode);
 
     return response.body;
   }
@@ -115,14 +133,7 @@ class FlaskApi {
       ),
     );
 
-    if (response.statusCode != 200) {
-      throw HttpRequestFailure(response.statusCode);
-    }
-
-    //invalid username / password provided
-    if (response.statusCode == 401) {
-      throw InvalidCredentialsProvidedFailure();
-    }
+    validateStatusCodes(response.statusCode);
 
     //returns user details map
     return response.body;
@@ -154,14 +165,13 @@ class FlaskApi {
       ),
     );
 
-    //user already exists
-    if (response.statusCode == 400) {
-      throw SignUpUserException();
-    }
+    validateStatusCodes(response.statusCode);
 
     return response.body;
   }
 }
+
+
 
 // /// FOR TESTING
 // Future<void> main() async {

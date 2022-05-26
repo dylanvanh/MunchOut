@@ -38,7 +38,7 @@ class UserRepository {
     yield* _controller.stream;
   }
 
-  ///returns the currently "logged in" user
+  ///returns the currently Authenticated "logged in" user data
   User getUser() {
     return _validatedUser;
   }
