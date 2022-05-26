@@ -36,7 +36,7 @@ class LaunchPage extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              child: const Text('Restaurant Sign in'),
+              child: const Text('Restaurant Login'),
               onPressed: () => Navigator.of(context).push(
                 RestaurantLoginPage.route(),
               ),
