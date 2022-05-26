@@ -21,20 +21,22 @@ class RestaurantSignupForm extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(30),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _NameInput(),
-              _UsernameInput(),
-              _PasswordInput(),
-              _PhoneNumberInput(),
-              _DescriptionInput(),
-              _ImageUrlInput(),
-              const SizedBox(
-                height: 40,
-              ),
-              _SignupButton(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _NameInput(),
+                _UsernameInput(),
+                _PasswordInput(),
+                _PhoneNumberInput(),
+                _DescriptionInput(),
+                _ImageUrlInput(),
+                const SizedBox(
+                  height: 40,
+                ),
+                _SignupButton(),
+              ],
+            ),
           ),
         ),
       ),

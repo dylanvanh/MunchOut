@@ -21,16 +21,18 @@ class CustomerLoginForm extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(30),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _UsernameInput(),
-              _PasswordInput(),
-              const SizedBox(
-                height: 40,
-              ),
-              _LoginButton(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _UsernameInput(),
+                _PasswordInput(),
+                const SizedBox(
+                  height: 40,
+                ),
+                _LoginButton(),
+              ],
+            ),
           ),
         ),
       ),
