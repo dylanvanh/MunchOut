@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/restaurant/active_events/active_events.dart';
 import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
-import 'package:itdma3_mobile_app/restaurant/edit_profile/view/restaurant_edit_profile.dart';
+import 'package:itdma3_mobile_app/restaurant/edit_profile/view/restaurant_edit_profile_page.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 
 //Is routed to when the restaurant logs in

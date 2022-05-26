@@ -43,6 +43,58 @@ class UserRepository {
     return _validatedUser;
   }
 
+  Future<void> updateDetails({
+    required UserType userType,
+  }) async {
+    User validatedUser;
+
+    switch (userType) {
+      case UserType.customer:
+        final updatedDetailsResponse = await _flaskApi.fetchCustomerUserDetails(
+          customerId: _validatedUser.id!,
+        );
+
+        final decodedUpdatedDetails =
+            jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
+
+        //customer user
+        validatedUser = User(
+          id: _validatedUser.id,
+          name: decodedUpdatedDetails['name'] as String,
+          username: decodedUpdatedDetails['username'] as String,
+          phoneNumber: decodedUpdatedDetails['phone_number'] as String,
+          userType: UserType.customer,
+          authStatus: AuthenticationStatus.authenticated,
+        );
+        break;
+
+      case UserType.restaurant:
+        final updatedDetailsResponse =
+            await _flaskApi.fetchRestaurantUserDetails(
+          restaurantId: _validatedUser.id!,
+        );
+
+        final decodedUpdatedDetails =
+            jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
+
+        //restaurant user
+        validatedUser = User(
+          id: decodedUpdatedDetails['id'] as int,
+          name: decodedUpdatedDetails['name'] as String,
+          username: decodedUpdatedDetails['username'] as String,
+          phoneNumber: decodedUpdatedDetails['phone_number'] as String,
+          restaurantImageUrl: decodedUpdatedDetails['image_url'] as String,
+          restaurantDescription: decodedUpdatedDetails['description'] as String,
+          userType: UserType.restaurant,
+          authStatus: AuthenticationStatus.authenticated,
+        );
+        break;
+    }
+
+    _validatedUser = validatedUser;
+    _controller.add(_validatedUser);
+  }
+
   ///called by login bloc
   Future<void> userLoginSignup({
     String? name,
@@ -60,9 +112,7 @@ class UserRepository {
     /// both login&signup flask_api endpoints return the users details on success
     // _getUserData returns their retrieved data
     Future<Map<String, dynamic>> _getUserData() async {
-      // try{}
       switch (userType) {
-
         // customer trying to login / signup
         case UserType.customer:
           switch (authActionType) {

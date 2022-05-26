@@ -88,7 +88,6 @@ class _DescriptionInput extends StatelessWidget {
           onChanged: (description) => context
               .read<AddEventBloc>()
               .add(AddEventDescriptionChanged(description)),
-          obscureText: true,
           decoration: InputDecoration(
             labelText: 'description',
             errorText: state.description.invalid ? 'invalid description' : null,
@@ -110,7 +109,6 @@ class _ImageUrlInput extends StatelessWidget {
           onChanged: (imageUrl) => context
               .read<AddEventBloc>()
               .add(AddEventImageUrlChanged(imageUrl)),
-          obscureText: true,
           decoration: InputDecoration(
             labelText: 'imageUrl',
             errorText: state.description.invalid ? 'invalid imageUrl' : null,

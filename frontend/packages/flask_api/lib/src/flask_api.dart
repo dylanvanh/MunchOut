@@ -199,11 +199,95 @@ class FlaskApi {
 
     validateStatusCodes(response.statusCode);
   }
+
+  /// Returns restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchRestaurantUserDetails({
+    required int restaurantId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns customer user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerUserDetails({
+    required int customerId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer/$customerId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns updated restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> updateRestaurantDetails({
+    required int restaurantId,
+    String? name,
+    String? password,
+    String? phoneNumber,
+    String? description,
+    String? imageUrl,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.patch(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'restaurant_id': restaurantId,
+          'password': password,
+          'name': name,
+          'description': description,
+          'image_url': imageUrl,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
 }
 
 // /// FOR TESTING
 // Future<void> main() async {
 //   final flaskApi = FlaskApi();
+
+//   //update restaurantDetails
+//   try {
+//     final updatedDetails = await flaskApi.updateRestaurantDetails(
+//       restaurantId: 1,
+//       name: 'changedName!',
+//     );
+
+//     print(updatedDetails);
+//   } on Exception {
+//     print('error');
+//   }
+
+  //fetch restaurantDetails
+  // try {
+  //   final restaurantDetails =
+  //       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
+
+  //   print(restaurantDetails);
+  // } on Exception {
+  //   print('error');
+  // }
 
 //   //add event
 //   try {
