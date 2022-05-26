@@ -27,6 +27,7 @@ class CustomerSignupForm extends StatelessWidget {
               _NameInput(),
               _UsernameInput(),
               _PasswordInput(),
+              _PhoneNumberInput(),
               const SizedBox(
                 height: 40,
               ),
@@ -93,6 +94,29 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'password',
             errorText: state.password.invalid ? 'invalid password' : null,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PhoneNumberInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignupBloc, SignupState>(
+      buildWhen: (previous, current) =>
+          previous.phoneNumber != current.phoneNumber,
+      builder: (context, state) {
+        return TextField(
+          key: const Key('CustomerSignupForm_phoneNumberInput_textField'),
+          onChanged: (phoneNumber) => context
+              .read<SignupBloc>()
+              .add(SignupPhoneNumberChanged(phoneNumber)),
+          obscureText: true,
+          decoration: InputDecoration(
+            labelText: 'phoneNumber',
+            errorText: state.phoneNumber.invalid ? 'invalid phoneNumber' : null,
           ),
         );
       },
