@@ -6,6 +6,7 @@ import 'package:itdma3_mobile_app/customer/login/login.dart';
 import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 import 'package:itdma3_mobile_app/error/error.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
+import 'package:itdma3_mobile_app/restaurant/home/home.dart';
 import 'package:itdma3_mobile_app/splash/splash.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -73,10 +74,17 @@ class _AppViewState extends State<AppView> {
         return BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthorisedState) {
-              _navigator.pushAndRemoveUntil<void>(
-                UserHomePage.route(),
-                (route) => false,
-              );
+              if (state.validatedUser.userType == UserType.customer) {
+                _navigator.pushAndRemoveUntil<void>(
+                  UserHomePage.route(),
+                  (route) => false,
+                );
+              } else if (state.validatedUser.userType == UserType.restaurant) {
+                _navigator.pushAndRemoveUntil<void>(
+                  RestaurantHomePage.route(),
+                  (route) => false,
+                );
+              }
             } else if (state is UnauthorisedState) {
               _navigator.pushAndRemoveUntil<void>(
                 LaunchPage.route(),
