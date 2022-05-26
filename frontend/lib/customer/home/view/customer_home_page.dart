@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
-import 'package:itdma3_mobile_app/restaurant/active_events/active_events.dart';
-import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
-import 'package:itdma3_mobile_app/restaurant/edit_profile/view/restaurant_edit_profile.dart';
+import 'package:itdma3_mobile_app/customer/bookings/view/view.dart';
+import 'package:itdma3_mobile_app/customer/browse_events/view/view.dart';
+import 'package:itdma3_mobile_app/customer/edit_profile/view/view.dart';
 
-//Is routed to when the restaurant logs in
-class RestaurantHomePage extends StatelessWidget {
-  const RestaurantHomePage({Key? key}) : super(key: key);
+class UserHomePage extends StatelessWidget {
+  const UserHomePage({Key? key}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const RestaurantHomePage(),
+  static Route<UserHomePage> route() {
+    return MaterialPageRoute(
+      builder: (context) => const UserHomePage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Restaurant HomePage'),
-      ),
+      appBar: AppBar(title: const Text('Customer HomePage')),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthorisedState) {
@@ -28,23 +25,23 @@ class RestaurantHomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Welcome restaurant user'),
+                  Text('Welcome ${state.validatedUser.username}'),
                   ElevatedButton(
-                    child: const Text('Add event'),
+                    child: const Text('Edit User profile'),
                     onPressed: () => Navigator.of(context).push(
-                      RestaurantAddEventPage.route(),
+                      UserEditProfilePage.route(),
                     ),
                   ),
                   ElevatedButton(
-                    child: const Text('Edit Profile'),
+                    child: const Text('Browse Restaurant events'),
                     onPressed: () => Navigator.of(context).push(
-                      RestaurantEditProfilePage.route(),
+                      UserBrowseEventsPage.route(),
                     ),
                   ),
                   ElevatedButton(
-                    child: const Text('View your events'),
+                    child: const Text('View bookings'),
                     onPressed: () => Navigator.of(context).push(
-                      RestaurantActiveEventsPage.route(),
+                      UserBookingsPage.route(),
                     ),
                   ),
                   ElevatedButton(
@@ -57,6 +54,7 @@ class RestaurantHomePage extends StatelessWidget {
               ),
             );
           } else {
+            //show an empty container
             return Container();
           }
         },

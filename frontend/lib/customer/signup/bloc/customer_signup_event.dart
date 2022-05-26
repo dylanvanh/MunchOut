@@ -1,0 +1,48 @@
+part of 'customer_signup_bloc.dart';
+
+abstract class SignupEvent extends Equatable {
+  const SignupEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SignupNameChanged extends SignupEvent {
+  const SignupNameChanged(this.name);
+
+  final String name;
+
+  @override
+  List<Object> get props => [name];
+}
+
+class SignupUsernameChanged extends SignupEvent {
+  const SignupUsernameChanged(this.username);
+
+  final String username;
+
+  @override
+  List<Object> get props => [username];
+}
+
+class SignupPasswordChanged extends SignupEvent {
+  const SignupPasswordChanged(this.password);
+
+  final String password;
+
+  @override
+  List<Object> get props => [password];
+}
+
+class SignupPhoneNumberChanged extends SignupEvent {
+  const SignupPhoneNumberChanged(this.phoneNumber);
+
+  final String phoneNumber;
+
+  @override
+  List<Object> get props => [phoneNumber];
+}
+
+class SignupSubmitted extends SignupEvent {
+  const SignupSubmitted();
+}
