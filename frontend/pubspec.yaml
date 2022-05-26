@@ -20,6 +20,8 @@ dependencies:
     path: packages/flask_api
   user_repository:
     path: packages/user_repository
+  restaurant_repository:
+    path: packages/restaurant_repository
     
 
 dev_dependencies:
