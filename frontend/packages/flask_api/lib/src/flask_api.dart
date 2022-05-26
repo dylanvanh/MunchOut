@@ -56,6 +56,10 @@ class FlaskApi {
   }
 
   /// Login api call for a customer user
+  /// Returns the restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or invalid credentials provided
   Future<String> customerLogin(
     String username,
     String password,
@@ -80,6 +84,10 @@ class FlaskApi {
   }
 
   /// Sign up api call for a customer user
+  /// Returns the new customer user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or username provided already exists in the db
   Future<String> customerSignup(
     String name,
     String username,
@@ -105,7 +113,11 @@ class FlaskApi {
     return response.body;
   }
 
-  /// Login api call for a restaurant user
+  /// Login api call for a restaur user
+  /// Returns the restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or invalid credentials provided
   Future<String> restaurantLogin(
     String username,
     String password,
@@ -128,6 +140,10 @@ class FlaskApi {
   }
 
   /// Sign up api call for a restaurant user
+  /// Returns the new restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or username provided already exists in the db
   Future<String> restaurantSignup(
     String name,
     String username,
@@ -157,7 +173,10 @@ class FlaskApi {
     return response.body;
   }
 
-  Future<String> restaurantAddEvent({
+  /// Returns nothing
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<void> restaurantAddEvent({
     required int restaurantId,
     required String name,
     required String description,
@@ -179,27 +198,25 @@ class FlaskApi {
     );
 
     validateStatusCodes(response.statusCode);
-
-    return '';
   }
 }
 
 // /// FOR TESTING
-Future<void> main() async {
-  final flaskApi = FlaskApi();
+// Future<void> main() async {
+//   final flaskApi = FlaskApi();
 
-  try {
-    final dynamic userDetails = await flaskApi.restaurantAddEvent(
-      restaurantId: 1,
-      name: 'testEvent',
-      description: 'test',
-      imageUrl: 'www.image.com',
-    );
-    print(userDetails);
-  } on Exception {
-    //invalid details
-    print("erro");
-  }
+//   //add event
+//   try {
+//     await flaskApi.restaurantAddEvent(
+//       restaurantId: 1,
+//       name: 'testEvent',
+//       description: 'test',
+//       imageUrl: 'www.image.com',
+//     );
+//   } on Exception {
+//     //invalid details
+//     print("error");
+//   }
 
 //   /// LOGIN
 //   try {
@@ -229,4 +246,4 @@ Future<void> main() async {
 //     print('error');
 //     print('user details already exist');
 //   }
-}
+// }

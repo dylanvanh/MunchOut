@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
 
@@ -12,7 +13,9 @@ part 'add_event_state.dart';
 class AddEventBloc extends Bloc<AddEventEvent, AddEventState> {
   AddEventBloc({
     required UserRepository userRepository,
+    required RestaurantRepository restaurantRepository,
   })  : _userRepository = userRepository,
+        _restaurantRepository = restaurantRepository,
         super(const AddEventState()) {
     on<AddEventNameChanged>(_onNameChanged);
     on<AddEventDescriptionChanged>(_onDescriptionChanged);
@@ -21,6 +24,7 @@ class AddEventBloc extends Bloc<AddEventEvent, AddEventState> {
   }
 
   final UserRepository _userRepository;
+  final RestaurantRepository _restaurantRepository;
 
   void _onNameChanged(
     AddEventNameChanged event,
@@ -80,19 +84,12 @@ class AddEventBloc extends Bloc<AddEventEvent, AddEventState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        await _restaurantRepository.addRestaurantEvent(
-          restaurantId: _userRepository.getUser().id,
-          name: state.name,
-          description: state.description,
-          imageUrl: state.imageUrl,
+        await _restaurantRepository.addEvent(
+          restaurantId: _userRepository.getUser().id!,
+          name: state.name.value,
+          description: state.description.value,
+          imageUrl: state.imageUrl.value,
         );
-
-        // await _userRepository.userLoginSignup(
-        //   username: state.username.value,
-        //   password: state.password.value,
-        //   userType: UserType.restaurant,
-        //   authActionType: AuthenticationAction.login,
-        // );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
         print('error occured');

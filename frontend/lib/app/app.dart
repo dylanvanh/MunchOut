@@ -8,6 +8,7 @@ import 'package:itdma3_mobile_app/error/error.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
 import 'package:itdma3_mobile_app/restaurant/home/home.dart';
 import 'package:itdma3_mobile_app/splash/splash.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// App is responsible for creating/providing the AuthenticationBloc which will be consumed by the AppView
@@ -16,18 +17,24 @@ class App extends StatelessWidget {
   const App({
     Key? key,
     required UserRepository userRepository,
+    required RestaurantRepository restaurantRepository,
   })  : _userRepository = userRepository,
+        _restaurantRepository = restaurantRepository,
         super(key: key);
 
   // receives _userRepository instance created in bootstrap.dart
   final UserRepository _userRepository;
+  final RestaurantRepository _restaurantRepository;
 
   @override
   Widget build(BuildContext context) {
     //RepositoryProvider is used to provide the single instance
     //of AuthenticationRepository to the entire application
-    return RepositoryProvider.value(
-      value: _userRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: _userRepository),
+        RepositoryProvider.value(value: _restaurantRepository),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(

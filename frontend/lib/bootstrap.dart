@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:itdma3_mobile_app/app/app.dart';
 import 'package:itdma3_mobile_app/app/app_bloc_observer.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 void bootstrap() {
@@ -12,14 +13,18 @@ void bootstrap() {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  //pass api to repository
+  //instantiate userRepository
   final userRepository = UserRepository();
+  final restaurantRepository = RestaurantRepository();
 
   runZonedGuarded(
     () async {
       await BlocOverrides.runZoned(
         () async => runApp(
-          App(userRepository: userRepository),
+          App(
+            userRepository: userRepository,
+            restaurantRepository: restaurantRepository,
+          ),
         ),
         blocObserver: AppBlocObserver(),
       );

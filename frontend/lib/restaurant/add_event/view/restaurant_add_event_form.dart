@@ -10,11 +10,26 @@ class RestaurantAddEventForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AddEventBloc, AddEventState>(
       listener: (context, state) {
+        if (state.status.isSubmissionSuccess) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Event successfully created',
+                ),
+              ),
+            );
+        }
+
         if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Username already exists')),
+              SnackBar(
+                content: Text('Event ${state.name.value} already exists'),
+              ),
             );
         }
       },
