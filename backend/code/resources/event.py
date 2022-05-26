@@ -2,13 +2,13 @@ from flask_restful import Resource, reqparse
 from models.event import EventModel
 
 
-#Returns individual event details
+# Returns individual event details
 class Event(Resource):
     def get(self, event_id):
         event = EventModel.query.filter_by(id=event_id).first()
 
         if event:
-            return event.json()
+            return event.json(), 200
         return {'message': 'Event not found'}, 404
 
 
@@ -62,7 +62,7 @@ class RestaurantEventBookings(Resource):
         event = EventModel.query.filter_by(id=event_id).first()
 
         if not event:
-            return {'error': "event doesn't exist"}
+            return {'error': "event not found"}, 404
 
         customer_object_list = []
 
@@ -85,9 +85,7 @@ class RestaurantEventBookings(Resource):
             customer_details['numAttendees'] = num_attendees_list[count]
             count += 1
 
-        return {
-            'booked customers': final_list
-        }
+        return {'booked customers': final_list}, 200
 
 
 # returns all events
@@ -97,4 +95,4 @@ class EventList(Resource):
         for event in EventModel.query.all():
             event_json = event.json()
             event_list.append(event_json)
-        return {'events': event_list}
+        return {'events': event_list}, 200

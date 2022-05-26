@@ -3,6 +3,8 @@ from models.restaurant import RestaurantModel
 from db import db
 
 # Returns individual restaurant details
+
+
 class Restaurant(Resource):
 
     parser = reqparse.RequestParser()
@@ -27,7 +29,7 @@ class Restaurant(Resource):
         restaurant = RestaurantModel.query.filter_by(id=restaurant_id).first()
 
         if restaurant:
-            return restaurant.json()
+            return restaurant.json(), 200
         return {'message': 'Customer not found'}, 404
 
     # update restaurant details
@@ -87,7 +89,7 @@ class RestaurantLogin(Resource):
             username=data['username'], password=data['password']).first()
 
         if existing_restaurant:
-            return existing_restaurant.json()
+            return existing_restaurant.json(), 200
 
         return {'message': "Invalid details entered"}, 400
 
@@ -143,12 +145,14 @@ class RestaurantSignup(Resource):
         return new_restaurant.json(), 201
 
 # Returns the individual restaurants currently active events (todays events)
+
+
 class RestaurantEvents(Resource):
     def get(self, restaurant_id):
         restaurant = RestaurantModel.query.filter_by(id=restaurant_id).first()
 
         if not restaurant:
-            return {"error": "restaurant doesnt exist"}
+            return {"error": "restaurant doesnt exist"}, 404
 
         event_object_list = []
 
@@ -167,7 +171,7 @@ class RestaurantEvents(Resource):
                 }
             )
 
-        return {'restaurant events': final_list}
+        return {'restaurant events': final_list}, 200
 
 
 # Returns a list of all restaurants
@@ -177,4 +181,4 @@ class RestaurantList(Resource):
         for restaurant in RestaurantModel.query.all():
             restaurant_json = restaurant.json()
             restaurant_list.append(restaurant_json)
-        return {'restaurants': restaurant_list}
+        return {'restaurants': restaurant_list}, 200
