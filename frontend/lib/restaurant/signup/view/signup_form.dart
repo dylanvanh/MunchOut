@@ -27,6 +27,9 @@ class RestaurantSignupForm extends StatelessWidget {
               _NameInput(),
               _UsernameInput(),
               _PasswordInput(),
+              _PhoneNumberInput(),
+              _DescriptionInput(),
+              _ImageUrlInput(),
               const SizedBox(
                 height: 40,
               ),
