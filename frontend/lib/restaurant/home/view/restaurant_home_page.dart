@@ -28,7 +28,9 @@ class RestaurantHomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Welcome restaurant user'),
+                  Text(
+                    'Welcome restaurant user ${state.validatedUser.name}',
+                  ),
                   ElevatedButton(
                     child: const Text('Add event'),
                     onPressed: () => Navigator.of(context).push(
