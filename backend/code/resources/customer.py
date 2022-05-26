@@ -32,7 +32,7 @@ class Customer(Resource):
         customer = CustomerModel.query.filter_by(id=customer_id).first()
 
         if customer:
-            return customer.json()
+            return customer.json(), 200
         return {'message': 'Customer not found'}, 404
 
     # update customer details
@@ -86,7 +86,7 @@ class CustomerLogin(Resource):
             username=data['username'], password=data['password']).first()
 
         if existing_customer:
-            return existing_customer.json()
+            return existing_customer.json(), 200
 
         return {'message': "Invalid details entered"}, 400
 
@@ -142,7 +142,7 @@ class CustomerBookedEvents(Resource):
         customer = CustomerModel.query.filter_by(id=customer_id).first()
 
         if not customer:
-            return {"error ": "customer doesnt exist"}
+            return {"error ": "customer not found"}, 404
 
        # lbooking objects that the customer has
         booking_list = []
@@ -182,7 +182,7 @@ class CustomerBookedEvents(Resource):
 
             count += 1
 
-        return {'customer events': final_list}
+        return {'customer events': final_list}, 200
 
 
 # Returns all the events for today that have not been booked already by the individual customer
@@ -223,7 +223,7 @@ class CustomerAvailableEvents(Resource):
                 }
             )
 
-        return {'customer daily events': final_list}
+        return {'customer daily events': final_list}, 200
 
 # Returns a list of all customers
 
@@ -234,4 +234,4 @@ class CustomerList(Resource):
         for customer in CustomerModel.query.all():
             customer_json = customer.json()
             customer_list.append(customer_json)
-        return {'customers': customer_list}
+        return {'customers': customer_list}, 200

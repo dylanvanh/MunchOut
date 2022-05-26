@@ -8,7 +8,7 @@ class Booking(Resource):
         booking = BookingModel.query.filter_by(id=booking_id).first()
 
         if booking:
-            return booking.json()
+            return booking.json(), 200
         return {'message': 'Booking not found'}, 404
 
 
@@ -61,4 +61,4 @@ class BookingList(Resource):
         for booking in BookingModel.query.all():
             booking_json = booking.json()
             booking_list.append(booking_json)
-        return {'bookings': booking_list}
+        return {'bookings': booking_list} , 200
