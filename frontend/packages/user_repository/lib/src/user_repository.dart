@@ -43,21 +43,25 @@ class UserRepository {
     return _validatedUser;
   }
 
+  /// Fetches the updated user data
+  /// Updates the local user object with the new retrieved data
   Future<void> updateDetails({
     required UserType userType,
   }) async {
     User validatedUser;
 
     switch (userType) {
+      //if the userType is a restaurant
       case UserType.customer:
         final updatedDetailsResponse = await _flaskApi.fetchCustomerUserDetails(
           customerId: _validatedUser.id!,
         );
 
+        // decodes the json into a map
         final decodedUpdatedDetails =
             jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
 
-        //customer user
+        //new updated customer user object creation
         validatedUser = User(
           id: _validatedUser.id,
           name: decodedUpdatedDetails['name'] as String,
@@ -68,16 +72,18 @@ class UserRepository {
         );
         break;
 
+      //if the userType is a restaurant
       case UserType.restaurant:
         final updatedDetailsResponse =
             await _flaskApi.fetchRestaurantUserDetails(
           restaurantId: _validatedUser.id!,
         );
 
+        // decodes the json into a map
         final decodedUpdatedDetails =
             jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
 
-        //restaurant user
+        //new updated restaurant user object creation
         validatedUser = User(
           id: decodedUpdatedDetails['id'] as int,
           name: decodedUpdatedDetails['name'] as String,

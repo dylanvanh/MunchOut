@@ -11,7 +11,10 @@ class RestaurantEditProfileForm extends StatelessWidget {
     return BlocListener<EditProfileBloc, EditProfileState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
+          //goes back to homepage after update button pressed
           Navigator.of(context).pop();
+
+          //shows popup on bottom of screen
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -24,6 +27,7 @@ class RestaurantEditProfileForm extends StatelessWidget {
         }
 
         if (state.status.isSubmissionFailure) {
+          //shows popup on bottom of screen
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -188,7 +192,7 @@ class _UpdateDetailsButton extends StatelessWidget {
                             .add(const EditProfileSubmitted());
                       }
                     : null,
-                child: const Text('EditProfile'),
+                child: const Text('Update Profile'),
               );
       },
     );

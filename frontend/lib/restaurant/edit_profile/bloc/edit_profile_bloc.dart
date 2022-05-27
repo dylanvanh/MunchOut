@@ -129,7 +129,11 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
+        // get the current restaurantId , to use for other requests
         final restaurantUserId = _userRepository.getUser().id;
+
+        // pass new details, using existing restauranUserId
+        // Updates the details in the db
         await _restaurantRepository.updateUserDetails(
           restaurantId: restaurantUserId!,
           name: state.name.value,
@@ -139,6 +143,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           imageUrl: state.imageUrl.value,
         );
 
+        // Requests the new data from the db
+        // Updates the user object in _userRepository using the updated details
         await _userRepository.updateDetails(userType: UserType.restaurant);
 
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
