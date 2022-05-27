@@ -171,7 +171,7 @@ class RestaurantEvents(Resource):
                 }
             )
 
-        return {'restaurant events': final_list}, 200
+        return {'restaurantEvents': final_list}, 200
 
 
 # Returns a list of all restaurants
