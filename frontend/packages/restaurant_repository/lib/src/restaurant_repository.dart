@@ -21,8 +21,9 @@ class FetchRestaurantEventBookingsException implements Exception {}
 
 class RestaurantRepository {
   /// {@macro restaurant_repository}
-  RestaurantRepository({FlaskApi? flaskApi})
-      : _flaskApi = flaskApi ?? FlaskApi();
+  RestaurantRepository({
+    FlaskApi? flaskApi,
+  }) : _flaskApi = flaskApi ?? FlaskApi();
 
   final FlaskApi _flaskApi;
 

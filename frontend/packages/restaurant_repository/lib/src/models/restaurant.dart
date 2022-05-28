@@ -14,20 +14,19 @@ class Restaurant extends Equatable {
     this.username,
     this.phone_number,
     this.description,
-    this.image_url, // only gets a value if type =  restaurant user
-    // only gets a value if type =  restaurant user
+    this.image_url,
   });
 
-  /// user id created by flask
+  /// restaurant user id created by flask
   final int? id;
 
-  /// Customer Full name / Restaurant name
+  /// Restaurant name
   final String? name;
 
   /// username that is used for signin
   final String? username;
 
-  /// short description of the restuarant
+  /// short description of the restauarant
   final String? description;
 
   /// image url of the restaurant for display
