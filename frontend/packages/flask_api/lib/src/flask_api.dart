@@ -334,9 +334,34 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns event details for an individual event
+  /// event/<eventId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchIndividualEventDetails({required int eventId}) async {
+    final uri = Uri.http(_baseUrl, '/event/$eventId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns event details for an individual event
+  /// event/<eventId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchIndividualRestaurantDetails(
+      {required int restaurantId}) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
 }
-
-
 
 // /// FOR TESTING
 // Future<void> main() async {
@@ -371,15 +396,15 @@ class FlaskApi {
 //     print('error');
 //   }
 
-  //fetch restaurantDetails
-  // try {
-  //   final restaurantDetails =
-  //       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
+//fetch restaurantDetails
+// try {
+//   final restaurantDetails =
+//       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
 
-  //   print(restaurantDetails);
-  // } on Exception {
-  //   print('error');
-  // }
+//   print(restaurantDetails);
+// } on Exception {
+//   print('error');
+// }
 
 //   //add event
 //   try {

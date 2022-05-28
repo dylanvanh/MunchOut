@@ -10,6 +10,12 @@ class UpdateCustomerDetailsException implements Exception {}
 /// Thrown when [getBookings] encounters an error
 class FetchBookedEventDetailsException implements Exception {}
 
+/// Thrown when [getIndividualEventDetails] encounters an error
+class FetchEventDetailsException implements Exception {}
+
+/// Thrown when [getIndividualRestaurantDetails] encounters an error
+class FetchRestaurantDetailsException implements Exception {}
+
 class CustomerRepository {
   /// {@macro restaurant_repository}
   CustomerRepository({
@@ -65,6 +71,44 @@ class CustomerRepository {
           .toList();
 
       return bookedEventsList;
+    } on Exception {
+      throw FetchBookedEventDetailsException();
+    }
+  }
+
+  /// Returns a individual event details
+  ///
+  /// Throws a [FetchEventDetailsException] if an error occurs
+  Future<Event> getIndividualEventDetails({
+    required int eventId,
+  }) async {
+    try {
+      final response = await _flaskApi.fetchIndividualEventDetails(
+        eventId: eventId,
+      );
+
+      final decodedResponse = jsonDecode(response) as Map<String, dynamic>;
+
+      return Event.fromJson(decodedResponse);
+    } on Exception {
+      throw FetchEventDetailsException();
+    }
+  }
+
+  /// Returns a list of event objects
+  ///
+  /// Throws a [FetchRestaurantDetailsException] if an error occurs
+  Future<Restaurant> getIndividualRestaurantDetails({
+    required int restaurantId,
+  }) async {
+    try {
+      final response = await _flaskApi.fetchIndividualRestaurantDetails(
+        restaurantId: restaurantId,
+      );
+
+      final decodedResponse = jsonDecode(response) as Map<String, dynamic>;
+
+      return Restaurant.fromJson(decodedResponse);
     } on Exception {
       throw FetchBookedEventDetailsException();
     }

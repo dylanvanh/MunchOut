@@ -2,6 +2,7 @@ import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/bookings/bloc/events_bloc.dart';
+import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// Displays list of events bookings the user has made for the day
@@ -50,11 +51,14 @@ class CustomerBookingsView extends StatelessWidget {
                     isThreeLine: true,
                     // when Event is tapped -> ROUTE TO EventBookings page
                     // pass the Event information in the route function
-                    // onTap: () {
-                    //   Navigator.of(context).push(
-                    //     EventBookingsPage.route(event: event),
-                    //   );
-                    // },
+                    onTap: () {
+                      Navigator.of(context).push(
+                        IndividualEventPage.route(
+                          eventId: booking.event_id!,
+                          restaurantId: booking.restaurant_id!,
+                        ),
+                      );
+                    },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(booking.event_image_url!),
                     ),
