@@ -7,6 +7,9 @@ import 'package:flask_api/flask_api.dart';
 /// Thrown when [updateUserDetails] encounters an error
 class UpdateCustomerDetailsException implements Exception {}
 
+/// Thrown when [getBookings] encounters an error
+class FetchBookedEventDetailsException implements Exception {}
+
 class CustomerRepository {
   /// {@macro restaurant_repository}
   CustomerRepository({
@@ -37,6 +40,33 @@ class CustomerRepository {
       return Customer.fromJson(decodedResponse);
     } on Exception {
       throw UpdateCustomerDetailsException();
+    }
+  }
+
+  /// Returns a list of event objects
+  ///
+  /// Throws a [FetchBookedEventDetailsException] if an error occurs
+  Future<List<BookedEvent>> getBookings({
+    required int customerId,
+  }) async {
+    try {
+      final response = await _flaskApi.fetchCustomerBookings(
+        customerId: customerId,
+      );
+
+      final decodedResponse = jsonDecode(response)['customerEvents'] as List;
+
+      //convert to list of events
+      final bookedEventsList = decodedResponse
+          .map(
+            (dynamic bookedEvent) =>
+                BookedEvent.fromJson(bookedEvent as Map<String, dynamic>),
+          )
+          .toList();
+
+      return bookedEventsList;
+    } on Exception {
+      throw FetchBookedEventDetailsException();
     }
   }
 }

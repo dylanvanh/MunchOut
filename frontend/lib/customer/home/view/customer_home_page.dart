@@ -41,7 +41,7 @@ class UserHomePage extends StatelessWidget {
                   ElevatedButton(
                     child: const Text('View bookings'),
                     onPressed: () => Navigator.of(context).push(
-                      UserBookingsPage.route(),
+                      CustomerBookingsPage.route(),
                     ),
                   ),
                   ElevatedButton(

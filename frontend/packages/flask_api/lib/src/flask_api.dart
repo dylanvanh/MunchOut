@@ -321,6 +321,19 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns bookings,event details for a customer user
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerBookings({required int customerId}) async {
+    final uri = Uri.http(_baseUrl, '/customer_booked_events/$customerId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
 }
 
 
