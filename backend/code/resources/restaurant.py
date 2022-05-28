@@ -171,7 +171,12 @@ class RestaurantEvents(Resource):
                 }
             )
 
-        return {'restaurantEvents': final_list}, 200
+        def sort_key(d):
+            return d['event_id']
+
+        list_events_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
+
+        return {'restaurantEvents': list_events_sorted_by_latest_added}, 200
 
 
 # Returns a list of all restaurants
