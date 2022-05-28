@@ -58,9 +58,9 @@ class CustomerBookingsView extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(booking.event_image_url!),
                     ),
-                    title: Text(booking.name!),
+                    title: Text(booking.event_name!),
                     subtitle: Text(
-                      booking.date!,
+                      booking.event_date!,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
