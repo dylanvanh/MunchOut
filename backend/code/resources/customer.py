@@ -164,9 +164,9 @@ class CustomerBookedEvents(Resource):
             final_list.append(
                 {
                     'event_id': event.id, 'event_name': event.name,
-                    'event_description' : event.description, 'event_date': str(event.date),
-                    'event_image_url' : event.image_url
-                 })
+                    'event_description': event.description, 'event_date': str(event.date),
+                    'event_image_url': event.image_url
+                })
 
         # add the num_attendees value to each dictionary in the final_list
         count = 0  # keeps track of the increment in num_attendees
@@ -184,7 +184,8 @@ class CustomerBookedEvents(Resource):
         def sort_key(d):
             return d['booking_id']
 
-        list_booking_events_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
+        list_booking_events_sorted_by_latest_added = sorted(
+            final_list, key=sort_key, reverse=True)
 
         return {'customerEvents': list_booking_events_sorted_by_latest_added}, 200
 
