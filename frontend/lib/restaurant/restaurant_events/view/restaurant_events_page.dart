@@ -36,7 +36,7 @@ class RestaurantEventsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Restaurant  Events Page'),
+        title: const Text('Restaurant Events Page'),
       ),
       body: BlocBuilder<EventsBloc, EventsState>(
         builder: (context, state) {

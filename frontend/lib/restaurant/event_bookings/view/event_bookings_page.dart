@@ -35,7 +35,7 @@ class EventBookingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Restaurant Active Events Page'),
+        title: const Text('Events Bookings Page'),
       ),
       body: BlocBuilder<EventBookingsBloc, EventBookingsState>(
         builder: (context, state) {
