@@ -10,7 +10,7 @@ class AddEventException implements Exception {}
 // Thrown when [getUserDetails] encounters an error
 class FetchRestaurantDetailsException implements Exception {}
 
-/// Thrown when [RestaurantDetails] encounters an error
+/// Thrown when [updateUserDetails] encounters an error
 class UpdateRestaurantDetailsException implements Exception {}
 
 /// Thrown when [getActiveEvents] encounters an error

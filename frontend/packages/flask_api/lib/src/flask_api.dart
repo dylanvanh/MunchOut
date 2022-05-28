@@ -293,7 +293,37 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns updated restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> updateCustomerDetails({
+    required int customerId,
+    String? name,
+    String? password,
+    String? phoneNumber,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer/$customerId');
+
+    final response = await _httpClient.patch(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'customer_id': customerId,
+          'password': password,
+          'name': name,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
 }
+
+
 
 // /// FOR TESTING
 // Future<void> main() async {

@@ -25,7 +25,7 @@ class UserHomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Welcome ${state.validatedUser.username}'),
+                  Text('Welcome ${state.validatedUser.name}'),
                   ElevatedButton(
                     child: const Text('Edit User profile'),
                     onPressed: () => Navigator.of(context).push(
