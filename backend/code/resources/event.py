@@ -85,7 +85,7 @@ class RestaurantEventBookings(Resource):
             customer_details['numAttendees'] = num_attendees_list[count]
             count += 1
 
-        return {'booked customers': final_list}, 200
+        return {'bookedCustomers': final_list}, 200
 
 
 # returns all events
