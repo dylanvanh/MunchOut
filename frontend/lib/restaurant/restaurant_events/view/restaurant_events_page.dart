@@ -1,54 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:itdma3_mobile_app/restaurant/active_events/bloc/active_events_bloc.dart';
-import 'package:itdma3_mobile_app/restaurant/event_bookings/view/view.dart';
+import 'package:itdma3_mobile_app/restaurant/event_bookings/event_bookings.dart';
+import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// List of all active restaurant events for the day
 /// On event tap -> route to individual event page
-class RestaurantActiveEventsPage extends StatelessWidget {
-  const RestaurantActiveEventsPage({Key? key}) : super(key: key);
+class RestaurantEventsPage extends StatelessWidget {
+  const RestaurantEventsPage({Key? key}) : super(key: key);
 
   static MaterialPageRoute<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const RestaurantActiveEventsPage(),
+      builder: (_) => const RestaurantEventsPage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ActiveEventsBloc(
+      create: (_) => EventsBloc(
         userRepository: RepositoryProvider.of<UserRepository>(context),
         restaurantRepository:
             RepositoryProvider.of<RestaurantRepository>(context),
       ),
-      child: const RestaurantActiveEventsView(),
+      child: const RestaurantEventsView(),
     );
   }
 }
 
-class RestaurantActiveEventsView extends StatelessWidget {
-  const RestaurantActiveEventsView({Key? key}) : super(key: key);
+class RestaurantEventsView extends StatelessWidget {
+  const RestaurantEventsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Restaurant Active Events Page'),
+        title: const Text('Restaurant  Events Page'),
       ),
-      body: BlocBuilder<ActiveEventsBloc, ActiveEventsState>(
+      body: BlocBuilder<EventsBloc, EventsState>(
         builder: (context, state) {
-          if (state is ActiveEventsLoading) {
+          if (state is EventsLoading) {
             //fetches the data on page load
-            context.read<ActiveEventsBloc>().add(LoadActiveEvents());
+            context.read<EventsBloc>().add(LoadEvents());
             return const Center(child: CircularProgressIndicator());
           }
-          if (state is ActiveEventsLoaded) {
+          if (state is EventsLoaded) {
             return ListView(
               children: [
-                for (final event in state.activeEventList!) ...[
+                for (final event in state.eventsList!) ...[
                   ListTile(
                     isThreeLine: true,
                     // when Event is tapped -> ROUTE TO EventBookings page
