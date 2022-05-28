@@ -174,7 +174,7 @@ class CustomerBookedEvents(Resource):
             individual_object_details['booking_id'] = booking_list[count].id
             individual_object_details['booking_num_attendees'] = booking_list[count].num_attendees
             individual_object_details['restaurant_id'] = event_object_list[count].restaurant.id
-            individual_object_details['restaurantName'] = event_object_list[count].restaurant.name
+            individual_object_details['restaurant_name'] = event_object_list[count].restaurant.name
             individual_object_details['restaurant_description'] = event_object_list[count].restaurant.description
             individual_object_details['restaurant_image_url'] = event_object_list[count].restaurant.image_url
             individual_object_details['restaurant_phone_number'] = event_object_list[count].restaurant.phone_number
