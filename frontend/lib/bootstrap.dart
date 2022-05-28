@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:itdma3_mobile_app/app/app.dart';
 import 'package:itdma3_mobile_app/app/app_bloc_observer.dart';
@@ -16,6 +17,7 @@ void bootstrap() {
   //instantiate userRepository
   final userRepository = UserRepository();
   final restaurantRepository = RestaurantRepository();
+  final customerRepository = CustomerRepository();
 
   runZonedGuarded(
     () async {
@@ -24,6 +26,7 @@ void bootstrap() {
           App(
             userRepository: userRepository,
             restaurantRepository: restaurantRepository,
+            customerRepository: customerRepository,
           ),
         ),
         blocObserver: AppBlocObserver(),
