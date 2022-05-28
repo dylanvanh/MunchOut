@@ -261,11 +261,35 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns a restaurants active events for today
+  /// (Active events -> Events that the restaurant created today)
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchRestaurantActiveEvents({
+    required int restaurantId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant_events/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
 }
 
 // /// FOR TESTING
 // Future<void> main() async {
+//   //instantiate flaskApi repository instance
 //   final flaskApi = FlaskApi();
+
+// // Fetch active restaurant events for restaurant
+//   try {
+//     await flaskApi.fetchRestaurantActiveEvents(restaurantId: 2);
+//   } catch (_) {
+//     print('error occured');
+//   }
 
 //   //update restaurantDetails
 //   try {
