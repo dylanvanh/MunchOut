@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
-import 'package:equatable/equatable.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -42,7 +42,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onAuthoriseUserEvent(
-      AuthoriseUserEvent event, Emitter<AuthState> emit) async {
+    AuthoriseUserEvent event,
+    Emitter<AuthState> emit,
+  ) async {
     if (event.user.authStatus == AuthenticationStatus.authenticated) {
       emit(AuthorisedState(validatedUser: event.user));
     } else {

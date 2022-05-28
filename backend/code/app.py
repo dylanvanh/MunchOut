@@ -84,6 +84,9 @@ api.add_resource(Restaurant, '/restaurant/<int:restaurant_id>')
 # Add a new event screen
 api.add_resource(AddEvent, '/add_event')
 
+#view registerd customers for a specific event
+api.add_resource(RestaurantEventBookings,'/event_bookings/<event_id>')
+
 # View registered events screen
 api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
 

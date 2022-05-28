@@ -85,7 +85,12 @@ class RestaurantEventBookings(Resource):
             customer_details['numAttendees'] = num_attendees_list[count]
             count += 1
 
-        return {'booked customers': final_list}, 200
+        def sort_key(d):
+            return d['customer_id']
+
+        list_bookings_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
+
+        return {'bookedCustomers': list_bookings_sorted_by_latest_added}, 200
 
 
 # returns all events

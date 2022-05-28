@@ -38,9 +38,67 @@ class UserRepository {
     yield* _controller.stream;
   }
 
-  ///returns the currently "logged in" user
+  ///returns the currently Authenticated "logged in" user data
   User getUser() {
     return _validatedUser;
+  }
+
+  /// Fetches the updated user data
+  /// Updates the local user object with the new retrieved data
+  Future<void> updateDetails({
+    required UserType userType,
+  }) async {
+    User validatedUser;
+
+    switch (userType) {
+      //if the userType is a restaurant
+      case UserType.customer:
+        final updatedDetailsResponse = await _flaskApi.fetchCustomerUserDetails(
+          customerId: _validatedUser.id!,
+        );
+
+        // decodes the json into a map
+        final decodedUpdatedDetails =
+            jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
+
+        //new updated customer user object creation
+        validatedUser = User(
+          id: _validatedUser.id,
+          name: decodedUpdatedDetails['name'] as String,
+          username: decodedUpdatedDetails['username'] as String,
+          phoneNumber: decodedUpdatedDetails['phone_number'] as String,
+          userType: UserType.customer,
+          authStatus: AuthenticationStatus.authenticated,
+        );
+        break;
+
+      //if the userType is a restaurant
+      case UserType.restaurant:
+        final updatedDetailsResponse =
+            await _flaskApi.fetchRestaurantUserDetails(
+          restaurantId: _validatedUser.id!,
+        );
+
+        // decodes the json into a map
+        final decodedUpdatedDetails =
+            jsonDecode(updatedDetailsResponse) as Map<String, dynamic>;
+
+        //new updated restaurant user object creation
+        validatedUser = User(
+          id: decodedUpdatedDetails['id'] as int,
+          name: decodedUpdatedDetails['name'] as String,
+          username: decodedUpdatedDetails['username'] as String,
+          phoneNumber: decodedUpdatedDetails['phone_number'] as String,
+          restaurantImageUrl: decodedUpdatedDetails['image_url'] as String,
+          restaurantDescription: decodedUpdatedDetails['description'] as String,
+          userType: UserType.restaurant,
+          authStatus: AuthenticationStatus.authenticated,
+        );
+        break;
+    }
+
+    _validatedUser = validatedUser;
+    _controller.add(_validatedUser);
   }
 
   ///called by login bloc
@@ -60,9 +118,7 @@ class UserRepository {
     /// both login&signup flask_api endpoints return the users details on success
     // _getUserData returns their retrieved data
     Future<Map<String, dynamic>> _getUserData() async {
-      // try{}
       switch (userType) {
-
         // customer trying to login / signup
         case UserType.customer:
           switch (authActionType) {

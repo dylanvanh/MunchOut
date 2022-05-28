@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-/// Thrown if http request != 200 status code
+/// Thrown if any error regarding the http request
 class HttpRequestFailure implements Exception {
   ///constructor
   const HttpRequestFailure(this.statusCode);
@@ -10,18 +10,6 @@ class HttpRequestFailure implements Exception {
   /// Status code of the response
   final int statusCode;
 }
-
-/// Thrown when no data is returned for the name provided
-class InvalidCredentialsProvidedFailure implements Exception {}
-
-/// Thrown when an error occurs during signup
-class SignUpUserException implements Exception {}
-
-/// Thrown when error during decoding response
-class JsonDecodeException implements Exception {}
-
-/// Thrown when error deserializing the response body
-class JsonDeserializationException implements Exception {}
 
 /// If the username and password is valid (passed in body) for /auth endpoint
 /// -> auth token is returned by the api
@@ -36,7 +24,42 @@ class FlaskApi {
 
   final http.Client _httpClient;
 
+  /// Helper function for determing success/failure of api calls
+  void validateStatusCodes(int statusCode) {
+    // Bad request response
+    if (statusCode == 400) {
+      throw const HttpRequestFailure(400);
+    }
+
+    //Unauthorised response
+    if (statusCode == 401) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    // Object rqeuested doesnt exist
+    if (statusCode == 404) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    //Internal server error response
+    if (statusCode == 500) {
+      throw HttpRequestFailure(statusCode);
+    }
+
+    // Created succesfully response (201)
+    //Ok response (200)
+
+    // If not sucessfully created || provided an Ok response
+    if (statusCode != 201 && statusCode != 200) {
+      throw HttpRequestFailure(statusCode);
+    }
+  }
+
   /// Login api call for a customer user
+  /// Returns the restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or invalid credentials provided
   Future<String> customerLogin(
     String username,
     String password,
@@ -54,20 +77,17 @@ class FlaskApi {
       ),
     );
 
-    if (response.statusCode != 200) {
-      throw HttpRequestFailure(response.statusCode);
-    }
-
-    //invalid username / password provided
-    if (response.statusCode == 401) {
-      throw InvalidCredentialsProvidedFailure();
-    }
+    validateStatusCodes(response.statusCode);
 
     //returns user details map
     return response.body;
   }
 
   /// Sign up api call for a customer user
+  /// Returns the new customer user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or username provided already exists in the db
   Future<String> customerSignup(
     String name,
     String username,
@@ -89,15 +109,15 @@ class FlaskApi {
       ),
     );
 
-    //user already exists
-    if (response.statusCode == 400) {
-      throw SignUpUserException();
-    }
-
+    validateStatusCodes(response.statusCode);
     return response.body;
   }
 
-  /// Login api call for a restaurant user
+  /// Login api call for a restaur user
+  /// Returns the restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or invalid credentials provided
   Future<String> restaurantLogin(
     String username,
     String password,
@@ -115,20 +135,15 @@ class FlaskApi {
       ),
     );
 
-    if (response.statusCode != 200) {
-      throw HttpRequestFailure(response.statusCode);
-    }
-
-    //invalid username / password provided
-    if (response.statusCode == 401) {
-      throw InvalidCredentialsProvidedFailure();
-    }
-
-    //returns user details map
+    validateStatusCodes(response.statusCode);
     return response.body;
   }
 
   /// Sign up api call for a restaurant user
+  /// Returns the new restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  /// or username provided already exists in the db
   Future<String> restaurantSignup(
     String name,
     String username,
@@ -154,10 +169,127 @@ class FlaskApi {
       ),
     );
 
-    //user already exists
-    if (response.statusCode == 400) {
-      throw SignUpUserException();
-    }
+    validateStatusCodes(response.statusCode);
+    return response.body;
+  }
+
+  /// Returns nothing
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<void> restaurantAddEvent({
+    required int restaurantId,
+    required String name,
+    required String description,
+    required String imageUrl,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/add_event');
+
+    final response = await _httpClient.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'restaurant_id': restaurantId,
+          'name': name,
+          'description': description,
+          'image_url': imageUrl,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+  }
+
+  /// Returns restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchRestaurantUserDetails({
+    required int restaurantId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns customer user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerUserDetails({
+    required int customerId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer/$customerId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns updated restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> updateRestaurantDetails({
+    required int restaurantId,
+    String? name,
+    String? password,
+    String? phoneNumber,
+    String? description,
+    String? imageUrl,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.patch(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'restaurant_id': restaurantId,
+          'password': password,
+          'name': name,
+          'description': description,
+          'image_url': imageUrl,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns a restaurants active events for today
+  /// (Active events -> Events that the restaurant created today)
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchRestaurantEvents({
+    required int restaurantId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant_events/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns a restaurants active events for today
+  /// (Active events -> Events that the restaurant created today)
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchRestaurantEventBookings({
+    required int eventId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/event_bookings/$eventId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
 
     return response.body;
   }
@@ -165,7 +297,59 @@ class FlaskApi {
 
 // /// FOR TESTING
 // Future<void> main() async {
+// //   //instantiate flaskApi repository instance
 //   final flaskApi = FlaskApi();
+
+// // Fetch event customer bookings for restaurant
+
+//   try {
+//     final response = await flaskApi.fetchRestaurantEventBookings(eventId: 1);
+//     print(response);
+//   } catch (_) {
+//     print('error');
+//   }
+
+// // Fetch active restaurant events for restaurant
+//   try {
+//     await flaskApi.fetchRestaurantEvents(restaurantId: 2);
+//   } catch (_) {
+//     print('error occured');
+//   }
+
+//   //update restaurantDetails
+//   try {
+//     final updatedDetails = await flaskApi.updateRestaurantDetails(
+//       restaurantId: 1,
+//       name: 'changedName!',
+//     );
+
+//     print(updatedDetails);
+//   } on Exception {
+//     print('error');
+//   }
+
+  //fetch restaurantDetails
+  // try {
+  //   final restaurantDetails =
+  //       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
+
+  //   print(restaurantDetails);
+  // } on Exception {
+  //   print('error');
+  // }
+
+//   //add event
+//   try {
+//     await flaskApi.restaurantAddEvent(
+//       restaurantId: 1,
+//       name: 'testEvent',
+//       description: 'test',
+//       imageUrl: 'www.image.com',
+//     );
+//   } on Exception {
+//     //invalid details
+//     print("error");
+//   }
 
 //   /// LOGIN
 //   try {
