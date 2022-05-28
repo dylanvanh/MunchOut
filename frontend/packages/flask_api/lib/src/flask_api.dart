@@ -266,7 +266,7 @@ class FlaskApi {
   /// (Active events -> Events that the restaurant created today)
   ///
   /// Throws a [HttpRequestFailure] if an error occurs
-  Future<String> fetchRestaurantActiveEvents({
+  Future<String> fetchRestaurantEvents({
     required int restaurantId,
   }) async {
     final uri = Uri.http(_baseUrl, '/restaurant_events/$restaurantId');
@@ -296,22 +296,22 @@ class FlaskApi {
 }
 
 // /// FOR TESTING
-Future<void> main() async {
-//   //instantiate flaskApi repository instance
-  final flaskApi = FlaskApi();
+// Future<void> main() async {
+// //   //instantiate flaskApi repository instance
+//   final flaskApi = FlaskApi();
 
-// Fetch event customer bookings for restaurant
+// // Fetch event customer bookings for restaurant
 
-  try {
-    final response = await flaskApi.fetchRestaurantEventBookings(eventId: 1);
-    print(response);
-  } catch (_) {
-    print('error');
-  }
+//   try {
+//     final response = await flaskApi.fetchRestaurantEventBookings(eventId: 1);
+//     print(response);
+//   } catch (_) {
+//     print('error');
+//   }
 
 // // Fetch active restaurant events for restaurant
 //   try {
-//     await flaskApi.fetchRestaurantActiveEvents(restaurantId: 2);
+//     await flaskApi.fetchRestaurantEvents(restaurantId: 2);
 //   } catch (_) {
 //     print('error occured');
 //   }
@@ -379,4 +379,4 @@ Future<void> main() async {
 //     print('error');
 //     print('user details already exist');
 //   }
-}
+// }

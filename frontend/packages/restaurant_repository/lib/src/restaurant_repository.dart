@@ -102,7 +102,7 @@ class RestaurantRepository {
     required int restaurantId,
   }) async {
     try {
-      final response = await _flaskApi.fetchRestaurantActiveEvents(
+      final response = await _flaskApi.fetchRestaurantEvents(
         restaurantId: restaurantId,
       );
 
