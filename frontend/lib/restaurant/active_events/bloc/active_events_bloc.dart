@@ -32,26 +32,10 @@ class ActiveEventsBloc extends Bloc<ActiveEventsEvent, ActiveEventsState> {
         restaurantId: restaurantId,
       );
 
-      for (final event in activeEventList) {
-        print(event.name);
-      }
-
       emit(ActiveEventsLoaded(activeEventList));
     } on Exception {
       //change to error encountered state
       emit(ActiveEventsErrorEncountered());
     }
-
-    // final name = Name.dirty(event.name);
-    // emit(
-    //   state.copyWith(
-    //     name: name,
-    //     status: Formz.validate([
-    //       name,
-    //       state.description,
-    //       state.imageUrl,
-    //     ]),
-    //   ),
-    // );
   }
 }

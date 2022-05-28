@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/restaurant/active_events/bloc/active_events_bloc.dart';
+import 'package:itdma3_mobile_app/restaurant/event_bookings/view/view.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -50,12 +51,12 @@ class RestaurantActiveEventsView extends StatelessWidget {
                 for (final event in state.activeEventList!) ...[
                   ListTile(
                     isThreeLine: true,
-                    // when Event is tapped -> ROUTE TO individual details page
+                    // when Event is tapped -> ROUTE TO EventBookings page
                     // pass the Event information in the route function
                     onTap: () {
-                      // Navigator.of(context).push(
-                      //   CrewMemberDetailsPage.route(crewMember: crewMember),
-                      // );
+                      Navigator.of(context).push(
+                        EventBookingsPage.route(event: event),
+                      );
                     },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(event.image_url!),

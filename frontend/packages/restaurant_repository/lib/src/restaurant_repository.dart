@@ -16,6 +16,9 @@ class UpdateRestaurantDetailsException implements Exception {}
 /// Thrown when [getActiveEvents] encounters an error
 class FetchRestaurantActiveEventsException implements Exception {}
 
+/// Thrown when [getEventBookings] encounters an error
+class FetchRestaurantEventBookingsException implements Exception {}
+
 class RestaurantRepository {
   /// {@macro restaurant_repository}
   RestaurantRepository({FlaskApi? flaskApi})
@@ -106,33 +109,67 @@ class RestaurantRepository {
       final decodedResponse = jsonDecode(response)['restaurantEvents'] as List;
 
       //convert to list of events
-      final listEvents = decodedResponse
+      final eventList = decodedResponse
           .map(
             (dynamic event) => Event.fromJson(event as Map<String, dynamic>),
           )
           .toList();
 
-      return listEvents;
+      return eventList;
     } on Exception {
       throw FetchRestaurantActiveEventsException();
     }
   }
+
+  /// Returns a list of event customer bookings
+  ///
+  /// Throws a [FetchRestaurantActiveEventsException] if an error occurs
+  Future<List<Booking>> getEventBookings({
+    required int eventId,
+  }) async {
+    try {
+      final response = await _flaskApi.fetchRestaurantEventBookings(
+        eventId: eventId,
+      );
+
+      final decodedResponse = jsonDecode(response)['bookedCustomers'] as List;
+
+      //convert to list of events
+      final eventBookingsList = decodedResponse
+          .map(
+            (dynamic booking) =>
+                Booking.fromJson(booking as Map<String, dynamic>),
+          )
+          .toList();
+
+      return eventBookingsList;
+    } on Exception {
+      throw FetchRestaurantEventBookingsException();
+    }
+  }
 }
 
-Future<void> main() async {
-  final _restaurantRepository = RestaurantRepository();
+// Future<void> main() async {
+  // final _restaurantRepository = RestaurantRepository();
+
+  //getEventBookings
+  // final eventBookingsList =
+  //     await _restaurantRepository.getEventBookings(eventId: 1);
+
+  // for (final booking in eventBookingsList) {
+  //   print(booking);
+  // }
 
   //getActiveEvents
+  // final restaurantEventsList =
+  //     await _restaurantRepository.getActiveEvents(restaurantId: 2);
 
-  final restaurantEventsList =
-      await _restaurantRepository.getActiveEvents(restaurantId: 2);
-
-  for (final event in restaurantEventsList) {
-    print(event.description);
-  }
+  // for (final event in restaurantEventsList) {
+  //   print(event.description);
+  // }
 
   /// // getRestaurantUserDetails
   // final restaurantDetailsObject =
   //     await _restaurantRepository.getUserDetails(restaurantId: 5);
   // print(restaurantDetailsObject.name);
-}
+// }
