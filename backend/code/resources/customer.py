@@ -162,22 +162,22 @@ class CustomerBookedEvents(Resource):
         # loop through event objects
         for event in event_object_list:
             final_list.append(
-                {'event_id': event.id, 'name': event.name, 'date': event.date})
+                {
+                    'event_id': event.id, 'event_name': event.name,
+                    'event_description' : event.description, 'event_date': str(event.date),
+                    'event_image_url' : event.image_url
+                 })
 
         # add the num_attendees value to each dictionary in the final_list
         count = 0  # keeps track of the increment in num_attendees
         for individual_object_details in final_list:
             individual_object_details['booking_id'] = booking_list[count].id
-            individual_object_details['num_attendees'] = booking_list[count].num_attendees
-            individual_object_details['date'] = str(booking_list[count].date)
-            individual_object_details['event_description'] = event_object_list[count].description
-            individual_object_details['event_image_url'] = event_object_list[count].image_url
+            individual_object_details['booking_num_attendees'] = booking_list[count].num_attendees
             individual_object_details['restaurant_id'] = event_object_list[count].restaurant.id
-            individual_object_details['restaurant_name'] = event_object_list[count].restaurant.name
+            individual_object_details['restaurantName'] = event_object_list[count].restaurant.name
             individual_object_details['restaurant_description'] = event_object_list[count].restaurant.description
             individual_object_details['restaurant_image_url'] = event_object_list[count].restaurant.image_url
             individual_object_details['restaurant_phone_number'] = event_object_list[count].restaurant.phone_number
-
 
             count += 1
 

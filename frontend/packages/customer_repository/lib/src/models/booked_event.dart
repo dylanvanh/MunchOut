@@ -28,14 +28,14 @@ class BookedEvent extends Equatable {
   // date of the booking
   final String? date;
 
+  // imageUrl of the event
+  final String? event_image_url;
+
   // id of the booking
   final int? booking_id;
 
   // number of people attending
   final int? numAttendees;
-
-  // imageUrl of the event
-  final String? event_image_url;
 
   // imageUrl of the restaurant
   final String? restaurant_image_url;
