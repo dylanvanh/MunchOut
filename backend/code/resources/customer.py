@@ -181,7 +181,7 @@ class CustomerBookedEvents(Resource):
 
         list_booking_events_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
 
-        return {'customer events': list_booking_events_sorted_by_latest_added}, 200
+        return {'customerEvents': list_booking_events_sorted_by_latest_added}, 200
 
 
 # Returns all the events for today that have not been booked already by the individual customer
