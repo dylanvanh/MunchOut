@@ -13,6 +13,7 @@ class AvailableEvent extends Equatable {
     this.event_name,
     this.event_image_url,
     this.event_description,
+    this.event_date,
     this.restaurant_id,
     this.restaurant_name,
     this.restaurant_image_url,
@@ -30,6 +31,9 @@ class AvailableEvent extends Equatable {
   // description of the event
   final String? event_description;
 
+  // date of the event
+  final String? event_date;
+
   // id of the restaurant
   final String? restaurant_id;
 
@@ -45,6 +49,7 @@ class AvailableEvent extends Equatable {
         event_name,
         event_image_url,
         event_description,
+        event_date,
         restaurant_id,
         restaurant_name,
         restaurant_image_url,
@@ -55,8 +60,8 @@ class AvailableEvent extends Equatable {
     return '''
       AvailableEvent user details : 
       $event_id, $event_name ,$event_image_url,
-      $event_description, $restaurant_id, $restaurant_name,
-      $restaurant_image_url
+      $event_description, $event_date , $restaurant_id,
+      $restaurant_name, $restaurant_image_url
       ''';
   }
 

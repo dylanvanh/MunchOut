@@ -224,9 +224,8 @@ class CustomerAvailableEvents(Resource):
                 {
                     'event_id': event.id, 'event_name': event.name,
                     'event_image_url': event.image_url, 'event_description': event.description,
-                    'restaurant_id': event.restaurant.id, 'restaurant_name': event.restaurant.name,
-                    'restaurant_image_url': event.restaurant.image_url,
-
+                    'event_date': str(event.date), 'restaurant_id': event.restaurant.id,
+                    'restaurant_name': event.restaurant.name, 'restaurant_image_url': event.restaurant.image_url,
                 }
             )
 
