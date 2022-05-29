@@ -230,7 +230,7 @@ class CustomerAvailableEvents(Resource):
                 }
             )
 
-        return {'customerDailyEvents': final_list}, 200
+        return {'customerAvailableEvents': final_list}, 200
 
 # Returns a list of all customers
 

@@ -16,6 +16,9 @@ class FetchEventDetailsException implements Exception {}
 /// Thrown when [getIndividualRestaurantDetails] encounters an error
 class FetchRestaurantDetailsException implements Exception {}
 
+/// Thrown when [getAvailableEvents] encounters an error
+class FetchAvailableEventDetailsException implements Exception {}
+
 class CustomerRepository {
   /// {@macro restaurant_repository}
   CustomerRepository({
@@ -111,6 +114,34 @@ class CustomerRepository {
       return Restaurant.fromJson(decodedResponse);
     } on Exception {
       throw FetchBookedEventDetailsException();
+    }
+  }
+
+  /// Returns a list of AvailableEvent (events the user hasne booked) objects
+  ///
+  /// Throws a [FetchBookedEventDetailsException] if an error occurs
+  Future<List<AvailableEvent>> getAvailableEvents({
+    required int customerId,
+  }) async {
+    try {
+      final response = await _flaskApi.fetchCustomerAvailableEvents(
+        customerId: customerId,
+      );
+
+      final decodedResponse =
+          jsonDecode(response)['customerAvailableEvents'] as List;
+
+      //convert to list of events
+      final availableEventsList = decodedResponse
+          .map(
+            (dynamic availableEvent) =>
+                AvailableEvent.fromJson(availableEvent as Map<String, dynamic>),
+          )
+          .toList();
+
+      return availableEventsList;
+    } on Exception {
+      throw FetchAvailableEventDetailsException();
     }
   }
 }

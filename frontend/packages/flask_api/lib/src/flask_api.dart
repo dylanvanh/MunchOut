@@ -325,7 +325,9 @@ class FlaskApi {
   /// Returns bookings,event details for a customer user
   ///
   /// Throws a [HttpRequestFailure] if an error occurs
-  Future<String> fetchCustomerBookings({required int customerId}) async {
+  Future<String> fetchCustomerBookings({
+    required int customerId,
+  }) async {
     final uri = Uri.http(_baseUrl, '/customer_booked_events/$customerId');
 
     final response = await _httpClient.get(uri);
@@ -338,7 +340,9 @@ class FlaskApi {
   /// Returns event details for an individual event
   /// event/<eventId>
   /// Throws a [HttpRequestFailure] if an error occurs
-  Future<String> fetchIndividualEventDetails({required int eventId}) async {
+  Future<String> fetchIndividualEventDetails({
+    required int eventId,
+  }) async {
     final uri = Uri.http(_baseUrl, '/event/$eventId');
 
     final response = await _httpClient.get(uri);
@@ -351,9 +355,25 @@ class FlaskApi {
   /// Returns event details for an individual event
   /// event/<eventId>
   /// Throws a [HttpRequestFailure] if an error occurs
-  Future<String> fetchIndividualRestaurantDetails(
-      {required int restaurantId}) async {
+  Future<String> fetchIndividualRestaurantDetails({
+    required int restaurantId,
+  }) async {
     final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns all available event details for a user
+  /// /customer_available_events/<customerId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerAvailableEvents({
+    required int customerId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer_available_events/$customerId');
 
     final response = await _httpClient.get(uri);
 
