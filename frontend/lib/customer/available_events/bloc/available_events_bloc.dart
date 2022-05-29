@@ -3,39 +3,39 @@ import 'package:customer_repository/customer_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/user_repository.dart';
 
-part 'events_event.dart';
-part 'events_state.dart';
+part 'available_events_event.dart';
+part 'available_events_state.dart';
 
-class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
-  BookingsBloc({
+class AvailableEvents extends Bloc<AvailableEventsEvent, AvailableEventsState> {
+  AvailableEvents({
     required UserRepository userRepository,
     required CustomerRepository customerRepository,
   })  : _userRepository = userRepository,
         _customerRepository = customerRepository,
         // initial state on bloc load
-        super(BookingsLoading()) {
-    on<LoadBookings>(_onLoadBookings);
+        super(AvailableEventsLoading()) {
+    on<LoadAvailableEvents>(_onLoadAvailableEvents);
   }
 
   final UserRepository _userRepository;
   final CustomerRepository _customerRepository;
 
   //fetches the list of bookings
-  Future<void> _onLoadBookings(
-    LoadBookings event,
-    Emitter<BookingsState> emit,
+  Future<void> _onLoadAvailableEvents(
+    LoadAvailableEvents event,
+    Emitter<AvailableEventsState> emit,
   ) async {
     try {
       final customerId = _userRepository.getUser().id!;
 
-      final bookingsList = await _customerRepository.getBookings(
+      final availableEventsList = await _customerRepository.getAvailableEvents(
         customerId: customerId,
       );
 
-      emit(BookingsLoaded(bookingsList));
+      emit(AvailableEventsLoaded(availableEventsList));
     } on Exception {
       //change to error encountered state
-      emit(BookingsErrorEncountered());
+      emit(AvailableEventsErrorEncountered());
     }
   }
 }

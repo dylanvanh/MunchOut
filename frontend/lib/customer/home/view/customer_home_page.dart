@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
+import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/bookings/view/view.dart';
-import 'package:itdma3_mobile_app/customer/browse_events/view/view.dart';
 import 'package:itdma3_mobile_app/customer/edit_profile/view/view.dart';
 
 class UserHomePage extends StatelessWidget {
@@ -35,7 +35,7 @@ class UserHomePage extends StatelessWidget {
                   ElevatedButton(
                     child: const Text('Browse Restaurant events'),
                     onPressed: () => Navigator.of(context).push(
-                      UserBrowseEventsPage.route(),
+                      AvailableEventsPage.route(),
                     ),
                   ),
                   ElevatedButton(
