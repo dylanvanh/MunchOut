@@ -5,11 +5,6 @@ import 'package:equatable/equatable.dart';
 part 'individual_event_event.dart';
 part 'individual_event_state.dart';
 
-//RECEIVES AN eventID which can be used
-//TO FETCH  SPECIFIC DATA ABOUT THIS EVENT
-
-// WHEN A
-
 class IndividualEventBloc
     extends Bloc<IndividualEventEvent, IndividualEventState> {
   IndividualEventBloc({
@@ -32,9 +27,12 @@ class IndividualEventBloc
     Emitter<IndividualEventState> emit,
   ) async {
     try {
+      //retrieve details about the event
       final eventDetails = await _customerRepository.getIndividualEventDetails(
         eventId: _eventId,
       );
+
+      //retrieve details about the restaurant
       final restaurantDetails =
           await _customerRepository.getIndividualRestaurantDetails(
         restaurantId: _restaurantId,
