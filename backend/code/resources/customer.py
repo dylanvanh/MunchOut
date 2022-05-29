@@ -223,12 +223,14 @@ class CustomerAvailableEvents(Resource):
             final_list.append(
                 {
                     'event_id': event.id, 'event_name': event.name,
-                    'event_image_url': event.image_url, 'description': event.description,
-                    'restaurant_name': event.restaurant.name, 'restaurant_image_url': event.restaurant.image_url,
+                    'event_image_url': event.image_url, 'event_description': event.description,
+                    'restaurant_id': event.restaurant.id, 'restaurant_name': event.restaurant.name,
+                    'restaurant_image_url': event.restaurant.image_url,
+
                 }
             )
 
-        return {'customer daily events': final_list}, 200
+        return {'customerDailyEvents': final_list}, 200
 
 # Returns a list of all customers
 
