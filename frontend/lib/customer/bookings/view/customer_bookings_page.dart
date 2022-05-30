@@ -41,7 +41,9 @@ class CustomerBookingsView extends StatelessWidget {
           if (state is BookingsLoading) {
             //fetches the data on page load
             context.read<BookingsBloc>().add(LoadBookings());
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           if (state is BookingsLoaded) {
             return ListView(

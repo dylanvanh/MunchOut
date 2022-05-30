@@ -1,0 +1,84 @@
+import 'package:customer_repository/customer_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
+import 'package:user_repository/user_repository.dart';
+
+class ConfirmBookingAlert extends StatelessWidget {
+  const ConfirmBookingAlert({
+    Key? key,
+    required this.eventId,
+  }) : super(key: key);
+
+  final int eventId;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => DialogFormBloc(
+        userRepository: RepositoryProvider.of<UserRepository>(context),
+        customerRepository: RepositoryProvider.of<CustomerRepository>(context),
+        eventId: eventId,
+      ),
+      child: AlertDialog(
+        title: Column(
+          children: [
+            const Text(
+              'Confirm Number of Attendees',
+            ),
+            _NumAttendeesInput(),
+            _SubmitButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NumAttendeesInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DialogFormBloc, DialogFormState>(
+      buildWhen: (previous, current) =>
+          previous.numAttendees != current.numAttendees,
+      builder: (context, state) {
+        return TextField(
+          key: const Key('CustomerDialogFormForm_numAttendeesInput_textField'),
+          onChanged: (username) => context
+              .read<DialogFormBloc>()
+              .add(DialogFormNumAttendeesChanged(username)),
+          decoration: InputDecoration(
+            labelText: 'Number of Attendees',
+            errorText: state.numAttendees.invalid ? 'invalid number' : null,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DialogFormBloc, DialogFormState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return state.status.isSubmissionInProgress
+            ? const CircularProgressIndicator()
+            : ElevatedButton(
+                key: const Key('CustomerDialogFormForm_submit_raisedButton'),
+                onPressed: state.status.isValidated
+                    ? () {
+                        context
+                            .read<DialogFormBloc>()
+                            .add(const DialogFormSubmitted());
+                        Navigator.pop(context);
+                      }
+                    : null,
+                child: const Text('Create Booking'),
+              );
+      },
+    );
+  }
+}

@@ -23,10 +23,6 @@ class RestaurantHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RestaurantHomeView();
-    // return RepositoryProvider.value(
-    //   value: restaurantRepository,
-    //   child: RestaurantHomeView(),
-    // );
   }
 }
 
