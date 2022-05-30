@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_restful import Resource, reqparse
+from sqlalchemy import false
 from models.customer import CustomerModel
 from models.event import EventModel
 from db import db
@@ -229,7 +230,12 @@ class CustomerAvailableEvents(Resource):
                 }
             )
 
-        return {'customerAvailableEvents': final_list}, 200
+        def sort_key(d):
+            return d['event_id']
+
+        list_events_sorted_by_first_added = sorted(final_list,key=sort_key ,reverse=False)
+
+        return {'customerAvailableEvents': list_events_sorted_by_first_added}, 200
 
 # Returns a list of all customers
 
