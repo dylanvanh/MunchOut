@@ -381,13 +381,45 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns nothing
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<void> customerCreateBooking({
+    required int eventId,
+    required int customerId,
+    required int numAttendees,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/add_booking');
+
+    final response = await _httpClient.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, int>{
+          'event_id': eventId,
+          'customer_id': customerId,
+          'num_attendees': numAttendees,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+  }
 }
 
 // /// FOR TESTING
 // Future<void> main() async {
-// //   //instantiate flaskApi repository instance
+// // //   //instantiate flaskApi repository instance
 //   final flaskApi = FlaskApi();
 
+//   try {
+//     final response = await flaskApi.fetchCustomerAvailableEvents(customerId: 1);
+//     print(response);
+//   } on Exception {
+//     print('hello');
+//   }
+// }
 // // Fetch event customer bookings for restaurant
 
 //   try {

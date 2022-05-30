@@ -23,7 +23,7 @@ class AvailableEvent extends Equatable {
   final int? event_id;
 
   // name of the event
-  final int? event_name;
+  final String? event_name;
 
   // imageUrl of the event
   final String? event_image_url;
@@ -35,7 +35,7 @@ class AvailableEvent extends Equatable {
   final String? event_date;
 
   // id of the restaurant
-  final String? restaurant_id;
+  final int? restaurant_id;
 
   // name of the restaurant
   final String? restaurant_name;
