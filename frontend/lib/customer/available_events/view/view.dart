@@ -1,1 +1,1 @@
-export 'customer_browse_events_page.dart';
+export 'browse_events_page.dart';

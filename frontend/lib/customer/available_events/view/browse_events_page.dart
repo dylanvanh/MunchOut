@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AvailableEventsPage extends StatelessWidget {
@@ -79,7 +80,7 @@ class AvailableEventsView extends StatelessWidget {
                       availableEvent:
                           state.availableEventsList![state.eventIndex],
                     ),
-                    onDragEnd: (drag) {
+                    onDragEnd: (drag) async {
                       if (drag.velocity.pixelsPerSecond.dx < 0) {
                         context.read<AvailableEventsBloc>().add(
                               SwipeLeft(
@@ -88,15 +89,21 @@ class AvailableEventsView extends StatelessWidget {
                               ),
                             );
                       } else {
-                        showDialog<void>(
-                          context: context,
-                          //pass the eventId to dialog
-                          builder: (context) => ConfirmBookingAlert(
-                            eventId: state
-                                .availableEventsList![state.eventIndex]
-                                .event_id!,
-                          ),
-                        );
+                        // final result = await showDialog<BookingStatus>(
+                        //   context: context,
+                        //   builder: (context) => ConfirmBookingAlert(
+                        //     eventId: state
+                        //         .availableEventsList![state.eventIndex]
+                        //         .event_id!,
+                        //   ),
+                        // );
+
+                        // //if the booking was a success , load the next event
+                        // if (result == BookingStatus.success) {
+                        //   context.read<AvailableEventsBloc>().add(
+                        //         RefreshEvents(),
+                        //       );
+                        // }
                       }
                     },
                   ),
@@ -138,8 +145,8 @@ class AvailableEventsView extends StatelessWidget {
                     ),
                     // like / swipe right
                     ElevatedButton(
-                      onPressed: () {
-                        showDialog<void>(
+                      onPressed: () async {
+                        final result = await showDialog<BookingStatus>(
                           context: context,
                           builder: (context) => ConfirmBookingAlert(
                             eventId: state
@@ -147,6 +154,12 @@ class AvailableEventsView extends StatelessWidget {
                                 .event_id!,
                           ),
                         );
+
+                        if (result == BookingStatus.success) {
+                          context.read<AvailableEventsBloc>().add(
+                                SuccessfulBooking(),
+                              );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(50, 50),

@@ -15,22 +15,45 @@ class ConfirmBookingAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DialogFormBloc(
-        userRepository: RepositoryProvider.of<UserRepository>(context),
-        customerRepository: RepositoryProvider.of<CustomerRepository>(context),
-        eventId: eventId,
-      ),
-      child: AlertDialog(
-        title: Column(
-          children: [
-            const Text(
-              'Confirm Number of Attendees',
-            ),
-            _NumAttendeesInput(),
-            _SubmitButton(),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DialogFormBloc(
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+            customerRepository:
+                RepositoryProvider.of<CustomerRepository>(context),
+            eventId: eventId,
+          ),
         ),
+        BlocProvider(
+          create: (context) => AvailableEventsBloc(
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+            customerRepository:
+                RepositoryProvider.of<CustomerRepository>(context),
+          ),
+        ),
+      ],
+      child: const AlertView(),
+    );
+  }
+}
+
+class AlertView extends StatelessWidget {
+  const AlertView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Column(
+        children: [
+          const Text(
+            'Confirm Number of Attendees',
+          ),
+          _NumAttendeesInput(),
+          _SubmitButton(),
+        ],
       ),
     );
   }
@@ -45,9 +68,9 @@ class _NumAttendeesInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('CustomerDialogFormForm_numAttendeesInput_textField'),
-          onChanged: (username) => context
+          onChanged: (numAttendees) => context
               .read<DialogFormBloc>()
-              .add(DialogFormNumAttendeesChanged(username)),
+              .add(DialogFormNumAttendeesChanged(numAttendees)),
           decoration: InputDecoration(
             labelText: 'Number of Attendees',
             errorText: state.numAttendees.invalid ? 'invalid number' : null,
@@ -73,7 +96,7 @@ class _SubmitButton extends StatelessWidget {
                         context
                             .read<DialogFormBloc>()
                             .add(const DialogFormSubmitted());
-                        Navigator.pop(context);
+                        Navigator.pop(context, BookingStatus.success);
                       }
                     : null,
                 child: const Text('Create Booking'),

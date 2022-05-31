@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:customer_repository/customer_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:itdma3_mobile_app/customer/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../available_events.dart';
@@ -26,6 +25,7 @@ class DialogFormBloc extends Bloc<DialogFormEvent, DialogFormState> {
   final UserRepository _userRepository;
   final CustomerRepository _customerRepository;
   final int _eventId;
+  // final AvailableEventsBloc _availableEventsBloc;
 
   void _onDialogNumAttendeesChanged(
     DialogFormNumAttendeesChanged event,

@@ -39,5 +39,7 @@ class SwipeLeft extends AvailableEventsEvent {
 
 class RefreshEvents extends AvailableEventsEvent {}
 
+class SuccessfulBooking extends AvailableEventsEvent {}
+
 //reloads all available events - ones that the customer created a booking for
 class SwipeDown extends AvailableEventsEvent {}

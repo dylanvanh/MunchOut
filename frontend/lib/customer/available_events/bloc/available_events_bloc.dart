@@ -18,6 +18,7 @@ class AvailableEventsBloc
     on<SwipeLeft>(_onSwipeLeft);
     on<SwipeRight>(_onSwipeRight);
     on<RefreshEvents>(_onRefreshEvents);
+    on<SuccessfulBooking>(_onSuccessfulBooking);
   }
 
   final UserRepository _userRepository;
@@ -29,7 +30,6 @@ class AvailableEventsBloc
     Emitter<AvailableEventsState> emit,
   ) async {
     try {
-      print('hello');
       final customerId = _userRepository.getUser().id!;
 
       final availableEventsList = await _customerRepository.getAvailableEvents(
@@ -112,6 +112,47 @@ class AvailableEventsBloc
     }
   }
 
+  Future<void> _onSuccessfulBooking(
+    SuccessfulBooking event,
+    Emitter<AvailableEventsState> emit,
+  ) async {
+    final customerId = _userRepository.getUser().id!;
+
+    final availableEventsList = await _customerRepository.getAvailableEvents(
+      customerId: customerId,
+    );
+
+    final numEvents = availableEventsList.length;
+
+    final updatedEventIndex = _customerRepository.incrementCurrentEventIndex(
+      numEventTotal: numEvents,
+    );
+
+    // if (numEvents != 0 || updatedEventIndex <= numEvents) {
+    //   emit(
+    //     AvailableEventsLoaded(
+    //       availableEventsList: availableEventsList,
+    //       numEvents: numEvents,
+    //       eventIndex: updatedEventIndex,
+    //     ),
+    //   );
+    // } else {
+    //   emit(AvailableEventsEmpty());
+    // }
+
+    if (updatedEventIndex < numEvents) {
+      emit(
+        AvailableEventsLoaded(
+          availableEventsList: availableEventsList,
+          numEvents: numEvents,
+          eventIndex: updatedEventIndex,
+        ),
+      );
+    } else {
+      emit(AvailableEventsEmpty());
+    }
+  }
+
   /// pull down / refresh button clicked
   /// SETS THE customerRepository currentAvailableEventCount = 0
   Future<void> _onRefreshEvents(
@@ -127,16 +168,19 @@ class AvailableEventsBloc
 
       final numEvents = availableEventsList.length;
 
-      _customerRepository.resetCurrentEventIndex();
-
-      emit(
-        AvailableEventsLoaded(
-          availableEventsList: availableEventsList,
-          numEvents: numEvents,
-          // reset event index
-          eventIndex: 0,
-        ),
-      );
+      if (numEvents == 0) {
+        emit(AvailableEventsEmpty());
+      } else {
+        _customerRepository.resetCurrentEventIndex();
+        emit(
+          AvailableEventsLoaded(
+            availableEventsList: availableEventsList,
+            numEvents: numEvents,
+            // reset event index
+            eventIndex: 0,
+          ),
+        );
+      }
     } on Exception {
       //change to error encountered state
       emit(AvailableEventsErrorEncountered());
