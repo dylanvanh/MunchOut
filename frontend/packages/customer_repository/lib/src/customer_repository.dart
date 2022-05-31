@@ -26,50 +26,9 @@ class CustomerRepository {
   /// {@macro restaurant_repository}
   CustomerRepository({
     FlaskApi? flaskApi,
-    int? currentEventIndex,
-    int? numEvents,
-  })  : _flaskApi = flaskApi ?? FlaskApi(),
-        _currentEventIndex = currentEventIndex ?? 0,
-        _numEvents = numEvents ?? 0;
-  // set default index for event showing to 0
+  }) : _flaskApi = flaskApi ?? FlaskApi();
 
   final FlaskApi _flaskApi;
-
-  int _currentEventIndex;
-  int _numEvents;
-
-  void updateNumEvents(int numEvents) {
-    _numEvents = numEvents;
-  }
-
-  int getNumEvents() {
-    return _numEvents;
-  }
-
-  /// returns the _currentEventIndex value
-  int getCurrentEventIndex() {
-    //returns the current value
-    return _currentEventIndex;
-  }
-
-  /// increments the eventIndex
-  int incrementCurrentEventIndex() {
-    // if (numEventTotal >= _currentEventIndex + 1) {
-    //   _currentEventIndex += 1;
-    // }
-
-    _currentEventIndex += 1;
-
-    return _currentEventIndex;
-
-    // return _currentEventIndex;
-  }
-
-  /// resets the event index to 0
-  /// shows the first event as list[0]
-  void resetCurrentEventIndex() {
-    _currentEventIndex = 0;
-  }
 
   /// Returns updated restaurant object
   ///

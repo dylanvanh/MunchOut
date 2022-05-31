@@ -9,21 +9,6 @@ abstract class AvailableEventsEvent extends Equatable {
 
 class LoadAvailableEvents extends AvailableEventsEvent {}
 
-// start a booking process for the current event card
-// finger starts on left and goes right
-class SwipeRight extends AvailableEventsEvent {
-  const SwipeRight({
-    required this.eventId,
-    required this.restaurantId,
-  });
-
-  final int eventId;
-  final int restaurantId;
-
-  @override
-  List<Object> get props => [eventId, restaurantId];
-}
-
 // ignore the currently shown even card , load the next one
 // finger starts on right and goes left
 class SwipeLeft extends AvailableEventsEvent {

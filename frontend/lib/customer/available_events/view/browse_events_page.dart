@@ -33,7 +33,7 @@ class AvailableEventsPage extends StatelessWidget {
 }
 
 /// Tinder like swipe screen with all available restaurant events for the day
-/// A "right swipe" begins the booking process
+/// A "right swipe" opens the Dialog screen and requests number of attendees
 /// A "left swipe" ignores the event and shows the next event
 class AvailableEventsView extends StatelessWidget {
   const AvailableEventsView({Key? key}) : super(key: key);

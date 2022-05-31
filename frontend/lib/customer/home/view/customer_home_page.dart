@@ -49,8 +49,6 @@ class UserHomePage extends StatelessWidget {
                     child: const Text('Logout'),
                     onPressed: () {
                       context.read<AuthBloc>().add(LogoutEvent());
-                      RepositoryProvider.of<CustomerRepository>(context)
-                          .resetCurrentEventIndex();
                     },
                   ),
                 ],
