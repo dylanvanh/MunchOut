@@ -15,17 +15,32 @@ class RestaurantSignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Restaurant Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: BlocProvider(
-          create: (context) {
-            return SignupBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context),
-            );
-          },
-          child: const RestaurantSignupForm(),
-        ),
+      appBar: AppBar(
+        title: const Text('Restaurant Sign Up'),
+        backgroundColor: Colors.black,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(
+            'assets/restaurant.jpg',
+            fit: BoxFit.cover,
+            color: Colors.black.withOpacity(0.7),
+            colorBlendMode: BlendMode.darken,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: BlocProvider(
+              create: (context) {
+                return SignupBloc(
+                  userRepository:
+                      RepositoryProvider.of<UserRepository>(context),
+                );
+              },
+              child: const RestaurantSignupForm(),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -22,16 +22,27 @@ class CustomerLoginForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(30),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _UsernameInput(),
-                _PasswordInput(),
-                const SizedBox(
-                  height: 40,
-                ),
-                _LoginButton(),
-              ],
+            child: Container(
+              width: 400,
+              height: 260,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 5,
+                  )),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _UsernameInput(),
+                  _PasswordInput(),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  _LoginButton(),
+                ],
+              ),
             ),
           ),
         ),
@@ -51,7 +62,8 @@ class _UsernameInput extends StatelessWidget {
           onChanged: (username) =>
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
           decoration: InputDecoration(
-            labelText: 'username',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Username',
             errorText: state.username.invalid ? 'invalid username' : null,
           ),
         );
@@ -72,7 +84,8 @@ class _PasswordInput extends StatelessWidget {
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Password',
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
@@ -90,6 +103,14 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  minimumSize: const Size(140, 50),
+                  maximumSize: const Size(140, 50),
+                ),
                 key: const Key('CustomerLoginForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {
