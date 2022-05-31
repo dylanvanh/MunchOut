@@ -230,12 +230,8 @@ class CustomerAvailableEvents(Resource):
                 }
             )
 
-        def sort_key(d):
-            return d['event_id']
-
-        list_events_sorted_by_first_added = sorted(final_list,key=sort_key ,reverse=False)
-
-        return {'customerAvailableEvents': list_events_sorted_by_first_added}, 200
+        #returns the available event detail objects in a random order , as they are in a set
+        return {'customerAvailableEvents': final_list}, 200
 
 # Returns a list of all customers
 
