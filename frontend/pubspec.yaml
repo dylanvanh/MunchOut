@@ -22,6 +22,8 @@ dependencies:
     path: packages/user_repository
   restaurant_repository:
     path: packages/restaurant_repository
+  customer_repository:
+    path: packages/customer_repository
     
 
 dev_dependencies:

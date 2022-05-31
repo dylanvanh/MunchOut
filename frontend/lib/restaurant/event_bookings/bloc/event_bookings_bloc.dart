@@ -17,6 +17,7 @@ class EventBookingsBloc extends Bloc<EventBookingsEvent, EventBookingsState> {
   }
 
   final Event _event;
+  final RestaurantRepository _restaurantRepository;
 
   Future<void> _onLoadEventBookings(
     LoadEventBookings event,
@@ -33,6 +34,4 @@ class EventBookingsBloc extends Bloc<EventBookingsEvent, EventBookingsState> {
       emit(EventBookingsErrorEncountered());
     }
   }
-
-  final RestaurantRepository _restaurantRepository;
 }

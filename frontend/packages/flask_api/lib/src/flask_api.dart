@@ -293,13 +293,133 @@ class FlaskApi {
 
     return response.body;
   }
+
+  /// Returns updated restaurant user details
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> updateCustomerDetails({
+    required int customerId,
+    String? name,
+    String? password,
+    String? phoneNumber,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer/$customerId');
+
+    final response = await _httpClient.patch(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, dynamic>{
+          'customer_id': customerId,
+          'password': password,
+          'name': name,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns bookings,event details for a customer user
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerBookings({
+    required int customerId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer_booked_events/$customerId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns event details for an individual event
+  /// event/<eventId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchIndividualEventDetails({
+    required int eventId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/event/$eventId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns event details for an individual event
+  /// event/<eventId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchIndividualRestaurantDetails({
+    required int restaurantId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/restaurant/$restaurantId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns all available event details for a user
+  /// /customer_available_events/<customerId>
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<String> fetchCustomerAvailableEvents({
+    required int customerId,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/customer_available_events/$customerId');
+
+    final response = await _httpClient.get(uri);
+
+    validateStatusCodes(response.statusCode);
+
+    return response.body;
+  }
+
+  /// Returns nothing
+  ///
+  /// Throws a [HttpRequestFailure] if an error occurs
+  Future<void> customerCreateBooking({
+    required int eventId,
+    required int customerId,
+    required int numAttendees,
+  }) async {
+    final uri = Uri.http(_baseUrl, '/add_booking');
+
+    final response = await _httpClient.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: json.encode(
+        <String, int>{
+          'event_id': eventId,
+          'customer_id': customerId,
+          'num_attendees': numAttendees,
+        },
+      ),
+    );
+
+    validateStatusCodes(response.statusCode);
+  }
 }
 
 // /// FOR TESTING
 // Future<void> main() async {
-// //   //instantiate flaskApi repository instance
+// // //   //instantiate flaskApi repository instance
 //   final flaskApi = FlaskApi();
 
+//   try {
+//     final response = await flaskApi.fetchCustomerAvailableEvents(customerId: 1);
+//     print(response);
+//   } on Exception {
+//     print('hello');
+//   }
+// }
 // // Fetch event customer bookings for restaurant
 
 //   try {
@@ -328,15 +448,15 @@ class FlaskApi {
 //     print('error');
 //   }
 
-  //fetch restaurantDetails
-  // try {
-  //   final restaurantDetails =
-  //       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
+//fetch restaurantDetails
+// try {
+//   final restaurantDetails =
+//       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
 
-  //   print(restaurantDetails);
-  // } on Exception {
-  //   print('error');
-  // }
+//   print(restaurantDetails);
+// } on Exception {
+//   print('error');
+// }
 
 //   //add event
 //   try {

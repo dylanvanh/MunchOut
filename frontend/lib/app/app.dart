@@ -1,3 +1,4 @@
+import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
@@ -18,13 +19,16 @@ class App extends StatelessWidget {
     Key? key,
     required UserRepository userRepository,
     required RestaurantRepository restaurantRepository,
+    required CustomerRepository customerRepository,
   })  : _userRepository = userRepository,
         _restaurantRepository = restaurantRepository,
+        _customerRepository = customerRepository,
         super(key: key);
 
   // receives _userRepository instance created in bootstrap.dart
   final UserRepository _userRepository;
   final RestaurantRepository _restaurantRepository;
+  final CustomerRepository _customerRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _userRepository),
         RepositoryProvider.value(value: _restaurantRepository),
+        RepositoryProvider.value(value: _customerRepository),
       ],
       child: MultiBlocProvider(
         providers: [

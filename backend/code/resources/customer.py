@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_restful import Resource, reqparse
+from sqlalchemy import false
 from models.customer import CustomerModel
 from models.event import EventModel
 from db import db
@@ -135,7 +136,7 @@ class CustomerSignup(Resource):
         return new_customer.json(), 201
 
 
-# Returns all the events the individual custoemer has a booking for with todays date
+# Returns all the events the individual custoemer has a booking (sorted by booking ID)
 class CustomerBookedEvents(Resource):
 
     def get(self, customer_id):
@@ -144,19 +145,12 @@ class CustomerBookedEvents(Resource):
         if not customer:
             return {"error ": "customer not found"}, 404
 
-       # lbooking objects that the customer has
+       # list of booking objects that the customer has
         booking_list = []
 
-        # num_attendees values from the booking objects
-        num_attendees_list = []
-        date_list = []
         # retrieve all the booking objects from the customer object (bookings)
         for booking in customer.bookings:
-            # if the booking date is todays date
-            if(booking.date == datetime.now().date()):
-                booking_list.append(booking)
-                num_attendees_list.append(booking.num_attendees)
-                date_list.append(booking.date)
+            booking_list.append(booking)
 
         # event objects that the customer has
         event_object_list = []
@@ -169,20 +163,32 @@ class CustomerBookedEvents(Resource):
         # loop through event objects
         for event in event_object_list:
             final_list.append(
-                {'event_id': event.id, 'name': event.name, 'date': event.date})
+                {
+                    'event_id': event.id, 'event_name': event.name,
+                    'event_description': event.description, 'event_date': str(event.date),
+                    'event_image_url': event.image_url
+                })
 
         # add the num_attendees value to each dictionary in the final_list
         count = 0  # keeps track of the increment in num_attendees
         for individual_object_details in final_list:
-            individual_object_details['num_attendees'] = num_attendees_list[count]
-            individual_object_details['date'] = str(date_list[count])
-            individual_object_details['event_image_url'] = event_object_list[count].image_url
+            individual_object_details['booking_id'] = booking_list[count].id
+            individual_object_details['booking_num_attendees'] = booking_list[count].num_attendees
+            individual_object_details['restaurant_id'] = event_object_list[count].restaurant.id
+            individual_object_details['restaurant_name'] = event_object_list[count].restaurant.name
+            individual_object_details['restaurant_description'] = event_object_list[count].restaurant.description
             individual_object_details['restaurant_image_url'] = event_object_list[count].restaurant.image_url
-            individual_object_details['restaurantName'] = event_object_list[count].restaurant.name
+            individual_object_details['restaurant_phone_number'] = event_object_list[count].restaurant.phone_number
 
             count += 1
 
-        return {'customer events': final_list}, 200
+        def sort_key(d):
+            return d['booking_id']
+
+        list_booking_events_sorted_by_latest_added = sorted(
+            final_list, key=sort_key, reverse=True)
+
+        return {'customerEvents': list_booking_events_sorted_by_latest_added}, 200
 
 
 # Returns all the events for today that have not been booked already by the individual customer
@@ -218,12 +224,14 @@ class CustomerAvailableEvents(Resource):
             final_list.append(
                 {
                     'event_id': event.id, 'event_name': event.name,
-                    'event_image_url': event.image_url, 'description': event.description,
+                    'event_image_url': event.image_url, 'event_description': event.description,
+                    'event_date': str(event.date), 'restaurant_id': event.restaurant.id,
                     'restaurant_name': event.restaurant.name, 'restaurant_image_url': event.restaurant.image_url,
                 }
             )
 
-        return {'customer daily events': final_list}, 200
+        #returns the available event detail objects in a random order , as they are in a set
+        return {'customerAvailableEvents': final_list}, 200
 
 # Returns a list of all customers
 
