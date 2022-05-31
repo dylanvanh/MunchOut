@@ -89,21 +89,20 @@ class AvailableEventsView extends StatelessWidget {
                               ),
                             );
                       } else {
-                        // final result = await showDialog<BookingStatus>(
-                        //   context: context,
-                        //   builder: (context) => ConfirmBookingAlert(
-                        //     eventId: state
-                        //         .availableEventsList![state.eventIndex]
-                        //         .event_id!,
-                        //   ),
-                        // );
+                        final result = await showDialog<BookingStatus>(
+                          context: context,
+                          builder: (context) => ConfirmBookingAlert(
+                            eventId: state
+                                .availableEventsList![state.eventIndex]
+                                .event_id!,
+                          ),
+                        );
 
-                        // //if the booking was a success , load the next event
-                        // if (result == BookingStatus.success) {
-                        //   context.read<AvailableEventsBloc>().add(
-                        //         RefreshEvents(),
-                        //       );
-                        // }
+                        if (result == BookingStatus.success) {
+                          context.read<AvailableEventsBloc>().add(
+                                SuccessfulBooking(),
+                              );
+                        }
                       }
                     },
                   ),

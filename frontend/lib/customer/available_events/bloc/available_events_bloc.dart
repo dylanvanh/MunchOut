@@ -30,26 +30,32 @@ class AvailableEventsBloc
     Emitter<AvailableEventsState> emit,
   ) async {
     try {
+      //retrieve the customerId
       final customerId = _userRepository.getUser().id!;
 
+      //retrieve the list of available events
       final availableEventsList = await _customerRepository.getAvailableEvents(
         customerId: customerId,
       );
 
-      final numEvents = availableEventsList.length;
+      //determine the number of total events
+      final currentNumEvents = availableEventsList.length;
 
       // update the number of events in the customerRepository
       // used to provide number of events when incrementing currentEventIndex
-      _customerRepository.updateNumEvents(numEvents);
+      _customerRepository.updateNumEvents(currentNumEvents);
 
+      // retrievve the current index, (useful if the page was accsessed prior)
       final currentEventIndex = _customerRepository.getCurrentEventIndex();
 
-      if (currentEventIndex < numEvents) {
+      //if the total number of events is greater than the total number of events
+      // list of length 4 [0,1,2,3] max index should be 3
+      if (currentEventIndex <= currentNumEvents) {
         emit(
           AvailableEventsLoaded(
             availableEventsList: availableEventsList,
-            numEvents: numEvents,
-            eventIndex: currentEventIndex,
+            numEvents: currentNumEvents,
+            eventIndex: 0,
           ),
         );
       } else {
@@ -62,6 +68,7 @@ class AvailableEventsBloc
   }
 
   //fetches the list of bookings
+  //loads the next item
   void _onSwipeLeft(
     SwipeLeft event,
     Emitter<AvailableEventsState> emit,
@@ -70,18 +77,20 @@ class AvailableEventsBloc
       final state = this.state;
 
       if (state is AvailableEventsLoaded) {
-        final numEvents = state.numEvents;
-        _customerRepository.incrementCurrentEventIndex(
-          numEventTotal: numEvents,
-        );
+        final numEvents = _customerRepository.getNumEvents();
 
-        final updatedEventIndex = state.eventIndex + 1;
+        //set the currentVventIndex to +1 -> points it to the next event
+        _customerRepository.incrementCurrentEventIndex();
 
-        if (updatedEventIndex < state.numEvents) {
+        final updatedEventIndex = _customerRepository.getCurrentEventIndex();
+
+        //if the total number of events is greater than the total number of events
+        // list of length 4 [0,1,2,3] max index should be 3
+        if (updatedEventIndex < numEvents) {
           emit(
             AvailableEventsLoaded(
               availableEventsList: state.availableEventsList,
-              numEvents: state.numEvents,
+              numEvents: numEvents,
               eventIndex: updatedEventIndex,
             ),
           );
@@ -103,7 +112,7 @@ class AvailableEventsBloc
       //-> route to confirm booking request booking amount
       // pop back screen to browse events after succesful event processed
 
-      final state = this.state;
+      // final state = this.state;
 
       //create booking
     } on Exception {
@@ -112,44 +121,38 @@ class AvailableEventsBloc
     }
   }
 
+  //handles what happens after the alertdialog pops back to the main page
   Future<void> _onSuccessfulBooking(
     SuccessfulBooking event,
     Emitter<AvailableEventsState> emit,
   ) async {
-    final customerId = _userRepository.getUser().id!;
+    final state = this.state;
 
-    final availableEventsList = await _customerRepository.getAvailableEvents(
-      customerId: customerId,
-    );
+    //retrieve the total number of events
+    final numEvents = _customerRepository.getNumEvents();
 
-    final numEvents = availableEventsList.length;
+    //increments the currentEvent index to the next item
+    // (To not show the event that was just booked for)
+    final updatedEventIndex = _customerRepository.incrementCurrentEventIndex();
 
-    final updatedEventIndex = _customerRepository.incrementCurrentEventIndex(
-      numEventTotal: numEvents,
-    );
+    if (state is AvailableEventsLoaded) {
+      print('numEvents= ${state.numEvents}');
+      print('initialEventIndex= ${state.eventIndex}');
+      print('updatedEventIndex = $updatedEventIndex');
 
-    // if (numEvents != 0 || updatedEventIndex <= numEvents) {
-    //   emit(
-    //     AvailableEventsLoaded(
-    //       availableEventsList: availableEventsList,
-    //       numEvents: numEvents,
-    //       eventIndex: updatedEventIndex,
-    //     ),
-    //   );
-    // } else {
-    //   emit(AvailableEventsEmpty());
-    // }
-
-    if (updatedEventIndex < numEvents) {
-      emit(
-        AvailableEventsLoaded(
-          availableEventsList: availableEventsList,
-          numEvents: numEvents,
-          eventIndex: updatedEventIndex,
-        ),
-      );
-    } else {
-      emit(AvailableEventsEmpty());
+      if (updatedEventIndex < numEvents) {
+        emit(
+          AvailableEventsLoaded(
+            availableEventsList: state.availableEventsList,
+            numEvents: numEvents,
+            eventIndex: updatedEventIndex,
+          ),
+        );
+        print(
+            'repo eventIndex eventIndex=${_customerRepository.getCurrentEventIndex()}');
+      } else {
+        emit(AvailableEventsEmpty());
+      }
     }
   }
 
@@ -160,18 +163,30 @@ class AvailableEventsBloc
     Emitter<AvailableEventsState> emit,
   ) async {
     try {
+      //retrieve the customer id
       final customerId = _userRepository.getUser().id!;
 
+      //retrieve potentially updated list of events
       final availableEventsList = await _customerRepository.getAvailableEvents(
         customerId: customerId,
       );
 
+      //determine the new number of events
       final numEvents = availableEventsList.length;
 
+      //update the repository numEvents variable
+      _customerRepository.updateNumEvents(numEvents);
+
+      //if there are no events
       if (numEvents == 0) {
+        //load state eventsEmpty
         emit(AvailableEventsEmpty());
       } else {
+        //if there are events
+        //reset the respository eventIndex to 0
         _customerRepository.resetCurrentEventIndex();
+
+        //reload the AvailableEventsLoaded state
         emit(
           AvailableEventsLoaded(
             availableEventsList: availableEventsList,

@@ -53,12 +53,16 @@ class CustomerRepository {
   }
 
   /// increments the eventIndex
-  int incrementCurrentEventIndex({required int numEventTotal}) {
-    if (numEventTotal >= _currentEventIndex + 1) {
-      _currentEventIndex += 1;
-    }
+  int incrementCurrentEventIndex() {
+    // if (numEventTotal >= _currentEventIndex + 1) {
+    //   _currentEventIndex += 1;
+    // }
+
+    _currentEventIndex += 1;
 
     return _currentEventIndex;
+
+    // return _currentEventIndex;
   }
 
   /// resets the event index to 0

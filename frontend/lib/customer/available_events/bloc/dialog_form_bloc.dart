@@ -59,10 +59,7 @@ class DialogFormBloc extends Bloc<DialogFormEvent, DialogFormState> {
           numAttendees: numAttendeesInt,
         );
 
-        //to show the next event when popped back to available event page
-        _customerRepository.incrementCurrentEventIndex(
-          numEventTotal: _customerRepository.getNumEvents(),
-        );
+        // //to show the next event when popped back to available event page
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
