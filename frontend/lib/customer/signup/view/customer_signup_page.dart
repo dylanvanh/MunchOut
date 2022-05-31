@@ -16,17 +16,32 @@ class CustomerSignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Customer Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: BlocProvider(
-          create: (context) {
-            return SignupBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context),
-            );
-          },
-          child: const CustomerSignupForm(),
-        ),
+      appBar: AppBar(
+        title: const Text('Customer Sign Up'),
+        backgroundColor: Colors.black,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(
+            'assets/restaurant.jpg',
+            fit: BoxFit.cover,
+            color: Colors.black.withOpacity(0.7),
+            colorBlendMode: BlendMode.darken,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: BlocProvider(
+              create: (context) {
+                return SignupBloc(
+                  userRepository:
+                      RepositoryProvider.of<UserRepository>(context),
+                );
+              },
+              child: const CustomerSignupForm(),
+            ),
+          ),
+        ],
       ),
     );
   }

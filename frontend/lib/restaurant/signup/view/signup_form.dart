@@ -22,20 +22,31 @@ class RestaurantSignupForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(30),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _NameInput(),
-                _UsernameInput(),
-                _PasswordInput(),
-                _PhoneNumberInput(),
-                _DescriptionInput(),
-                _ImageUrlInput(),
-                const SizedBox(
-                  height: 40,
-                ),
-                _SignupButton(),
-              ],
+            child: Container(
+              width: 400,
+              height: 480,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 5,
+                  )),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _NameInput(),
+                  _UsernameInput(),
+                  _PasswordInput(),
+                  _PhoneNumberInput(),
+                  _DescriptionInput(),
+                  _ImageUrlInput(),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  _SignupButton(),
+                ],
+              ),
             ),
           ),
         ),
@@ -55,7 +66,8 @@ class _NameInput extends StatelessWidget {
           onChanged: (name) =>
               context.read<SignupBloc>().add(SignupNameChanged(name)),
           decoration: InputDecoration(
-            labelText: 'name',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Name',
             errorText: state.name.invalid ? 'Invalid Name' : null,
           ),
         );
@@ -75,7 +87,8 @@ class _UsernameInput extends StatelessWidget {
           onChanged: (username) =>
               context.read<SignupBloc>().add(SignupUsernameChanged(username)),
           decoration: InputDecoration(
-            labelText: 'username',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Username',
             errorText: state.username.invalid ? 'invalid username' : null,
           ),
         );
@@ -96,7 +109,8 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignupBloc>().add(SignupPasswordChanged(password)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Password',
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
@@ -119,7 +133,8 @@ class _PhoneNumberInput extends StatelessWidget {
               .add(SignupPhoneNumberChanged(phoneNumber)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'phoneNumber',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Phone Number',
             errorText: state.password.invalid ? 'invalid phoneNumber' : null,
           ),
         );
@@ -142,7 +157,8 @@ class _DescriptionInput extends StatelessWidget {
               .add(SignupDescriptionChanged(description)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'description',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'Description',
             errorText: state.description.invalid ? 'invalid description' : null,
           ),
         );
@@ -163,7 +179,8 @@ class _ImageUrlInput extends StatelessWidget {
               context.read<SignupBloc>().add(SignupImageUrlChanged(imageUrl)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'imageUrl',
+            contentPadding: const EdgeInsets.all(12), isDense: true,
+            labelText: 'ImageUrl',
             errorText: state.description.invalid ? 'invalid imageUrl' : null,
           ),
         );
@@ -181,6 +198,14 @@ class _SignupButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  minimumSize: const Size(140, 50),
+                  maximumSize: const Size(140, 50),
+                ),
                 key: const Key('RestaurantSignupForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {
