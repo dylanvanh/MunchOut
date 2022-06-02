@@ -1,126 +1,158 @@
 import 'package:flutter/material.dart';
 import 'package:itdma3_mobile_app/customer/login/login.dart';
-import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 import 'package:itdma3_mobile_app/restaurant/login/login.dart';
-import 'package:itdma3_mobile_app/restaurant/signup/signup.dart';
 
 ///first page shown when the user launches the app
 /// Routes to login/signup
 class LaunchPage extends StatelessWidget {
-  const LaunchPage({Key? key}) : super(key: key);
+  LaunchPage({Key? key}) : super(key: key);
 
   static Route<LaunchPage> route() {
     return MaterialPageRoute(
-      builder: (context) => const LaunchPage(),
+      builder: (context) => LaunchPage(),
     );
   }
+
+  final Color gradientTopLeft = const Color.fromRGBO(62, 55, 96, 1);
+  final Color gradientBottomRight = const Color.fromRGBO(22, 98, 157, 1);
+  final Color logoBackground = const Color.fromRGBO(208, 208, 208, 100);
+  final Color textColor = const Color.fromRGBO(27, 92, 151, 1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(),
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image.asset(
-            'assets/restaurant.jpg',
-            fit: BoxFit.cover,
-            color: Colors.black.withOpacity(0.7),
-            colorBlendMode: BlendMode.darken,
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  //Design
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    side: const BorderSide(width: 3, color: Colors.white),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    minimumSize: const Size(200, 60),
-                    maximumSize: const Size(200, 70),
-                  ),
-                  //Design END
-                  child: const Text(
-                    'Customer Login',
-                    style: TextStyle(fontSize: 21),
-                  ),
-                  onPressed: () => Navigator.of(context).push(
-                    CustomerLoginPage.route(),
-                  ),
-                ),
-                const Card(),
-                const Card(),
-                ElevatedButton(
-                  //Design
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    side: const BorderSide(width: 3, color: Colors.white),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    minimumSize: const Size(202, 60),
-                    maximumSize: const Size(202, 60),
-                  ),
-                  //Design END
-                  child: const Text(
-                    'Customer Sign Up',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.of(context).push(
-                    CustomerSignupPage.route(),
-                  ),
-                ),
-                const Card(),
-                const Card(),
-                ElevatedButton(
-                  //Design
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    side: const BorderSide(width: 3, color: Colors.white),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    minimumSize: const Size(202, 60),
-                    maximumSize: const Size(202, 60),
-                  ),
-                  //Design END
-                  child: const Text(
-                    'Restaurant Login',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.of(context).push(
-                    RestaurantLoginPage.route(),
-                  ),
-                ),
-                const Card(),
-                const Card(),
-                ElevatedButton(
-                  //Design
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    side: const BorderSide(width: 3, color: Colors.white),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    minimumSize: const Size(150, 60),
-                  ),
-                  //Design END
-                  child: const Text(
-                    'Restaurant Sign Up',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.of(context).push(
-                    RestaurantSignupPage.route(),
-                  ),
-                ),
-              ],
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 6,
             ),
-          ),
-        ],
+            Container(
+              width: MediaQuery.of(context).size.height / 4,
+              decoration: BoxDecoration(
+                color: logoBackground,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    100,
+                  ),
+                ),
+              ),
+              child: Image.asset('assets/logo.png'),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
+            Text(
+              'MunchOut',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 100,
+            ),
+            const Text(
+              'Local Events Daily',
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 100,
+            ),
+            const Text(
+              'Cape Town Only',
+              style: TextStyle(
+                fontSize: 14,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    gradientTopLeft,
+                    gradientBottomRight,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.3,
+                height: MediaQuery.of(context).size.height / 14,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CustomerLoginPage.route(),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    onSurface: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      top: 18,
+                      bottom: 18,
+                    ),
+                    child: Text('Customer'),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 40,
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    gradientTopLeft,
+                    gradientBottomRight,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.3,
+                height: MediaQuery.of(context).size.height / 14,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      RestaurantLoginPage.route(),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    onSurface: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      top: 18,
+                      bottom: 18,
+                    ),
+                    child: Text('Restaurant'),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 25,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 16,
+              child: Image.asset('assets/github.png'),
+            )
+          ],
+        ),
       ),
     );
   }
