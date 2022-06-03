@@ -147,9 +147,12 @@ class LaunchPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 25,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 16,
-              child: Image.asset('assets/github.png'),
+            InkWell(
+              onTap: () {},
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 16,
+                child: Image.asset('assets/github.png'),
+              ),
             )
           ],
         ),

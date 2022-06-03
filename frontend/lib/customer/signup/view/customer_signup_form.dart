@@ -22,30 +22,18 @@ class CustomerSignupForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(30),
           child: SingleChildScrollView(
-            child: Container(
-              width: 450,
-              height: 400,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 5,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _NameInput(),
+                _UsernameInput(),
+                _PasswordInput(),
+                _PhoneNumberInput(),
+                const SizedBox(
+                  height: 40,
                 ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _NameInput(),
-                  _UsernameInput(),
-                  _PasswordInput(),
-                  _PhoneNumberInput(),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  _SignupButton(),
-                ],
-              ),
+                _SignupButton(),
+              ],
             ),
           ),
         ),
@@ -65,9 +53,11 @@ class _NameInput extends StatelessWidget {
           onChanged: (name) =>
               context.read<SignupBloc>().add(SignupNameChanged(name)),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(12), isDense: true,
+            contentPadding: const EdgeInsets.all(12),
+            isDense: true,
             labelText: 'Name',
             errorText: state.name.invalid ? 'Invalid Name' : null,
+            prefixIcon: const Icon(Icons.person),
           ),
         );
       },
@@ -86,9 +76,11 @@ class _UsernameInput extends StatelessWidget {
           onChanged: (username) =>
               context.read<SignupBloc>().add(SignupUsernameChanged(username)),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(12), isDense: true,
+            contentPadding: const EdgeInsets.all(12),
+            isDense: true,
             labelText: 'Username',
             errorText: state.username.invalid ? 'invalid username' : null,
+            prefixIcon: const Icon(Icons.person),
           ),
         );
       },
@@ -108,9 +100,11 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignupBloc>().add(SignupPasswordChanged(password)),
           obscureText: true,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(12), isDense: true,
+            contentPadding: const EdgeInsets.all(12),
+            isDense: true,
             labelText: 'Password',
             errorText: state.password.invalid ? 'invalid password' : null,
+            prefixIcon: const Icon(Icons.key),
           ),
         );
       },
@@ -132,9 +126,11 @@ class _PhoneNumberInput extends StatelessWidget {
               .add(SignupPhoneNumberChanged(phoneNumber)),
           obscureText: true,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(12), isDense: true,
+            contentPadding: const EdgeInsets.all(12),
+            isDense: true,
             labelText: 'Phone Number',
             errorText: state.phoneNumber.invalid ? 'invalid phoneNumber' : null,
+            prefixIcon: const Icon(Icons.phone),
           ),
         );
       },
@@ -143,6 +139,8 @@ class _PhoneNumberInput extends StatelessWidget {
 }
 
 class _SignupButton extends StatelessWidget {
+  final Color gradientTopLeft = const Color.fromRGBO(62, 55, 96, 1);
+  final Color gradientBottomRight = const Color.fromRGBO(22, 98, 157, 1);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignupBloc, SignupState>(
@@ -150,22 +148,42 @@ class _SignupButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  minimumSize: const Size(140, 50),
-                  maximumSize: const Size(140, 50),
+            : DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      gradientTopLeft,
+                      gradientBottomRight,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                key: const Key('CustomerSignupForm_continue_raisedButton'),
-                onPressed: state.status.isValidated
-                    ? () {
-                        context.read<SignupBloc>().add(const SignupSubmitted());
-                      }
-                    : null,
-                child: const Text('Signup'),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  height: MediaQuery.of(context).size.height / 15,
+                  child: ElevatedButton(
+                    key: const Key('CustomerSignupForm_continue_raisedButton'),
+                    onPressed: state.status.isValidated
+                        ? () {
+                            context
+                                .read<SignupBloc>()
+                                .add(const SignupSubmitted());
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      onSurface: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.only(
+                        top: 18,
+                        bottom: 18,
+                      ),
+                      child: Text('Sign Up'),
+                    ),
+                  ),
+                ),
               );
       },
     );

@@ -55,7 +55,7 @@ class _UsernameInput extends StatelessWidget {
             isDense: true,
             labelText: 'Username',
             errorText: state.username.invalid ? 'invalid username' : null,
-            prefixIcon: const Icon(Icons.supervised_user_circle),
+            prefixIcon: const Icon(Icons.person),
           ),
         );
       },

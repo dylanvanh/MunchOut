@@ -13,8 +13,6 @@ class CustomerLoginPage extends StatelessWidget {
     );
   }
 
-  final Color gradientTopLeft = const Color.fromRGBO(62, 55, 96, 1);
-  final Color gradientBottomRight = const Color.fromRGBO(22, 98, 157, 1);
   final Color logoBackground = const Color.fromRGBO(208, 208, 208, 100);
   final Color textColor = const Color.fromRGBO(27, 92, 151, 1);
 
@@ -24,7 +22,7 @@ class CustomerLoginPage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 10,
+            height: MediaQuery.of(context).size.height / 20,
           ),
           Row(
             children: [
@@ -33,7 +31,7 @@ class CustomerLoginPage extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
-                  Icons.arrow_back,
+                  Icons.arrow_back_ios,
                 ),
               ),
             ],
@@ -54,7 +52,7 @@ class CustomerLoginPage extends StatelessWidget {
             child: Image.asset('assets/logo.png'),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 25,
+            height: MediaQuery.of(context).size.height / 15,
           ),
           Text(
             'Customer Login',
