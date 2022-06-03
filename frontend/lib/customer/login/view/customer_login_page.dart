@@ -37,9 +37,6 @@ class CustomerLoginPage extends StatelessWidget {
                 ),
               ],
             ),
-            // SizedBox(
-            //   height: MediaQuery.of(context).size.height / 6,
-            // ),
             Container(
               width: MediaQuery.of(context).size.height / 4,
               decoration: BoxDecoration(
