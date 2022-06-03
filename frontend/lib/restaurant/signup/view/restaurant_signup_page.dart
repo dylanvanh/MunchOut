@@ -20,59 +20,61 @@ class RestaurantSignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 20,
-          ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 20,
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.height / 4,
+              decoration: BoxDecoration(
+                color: logoBackground,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    100,
+                  ),
+                ),
+              ),
+              child: Image.asset('assets/logo.png'),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 25,
+            ),
+            Text(
+              'Restaurant Signup',
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: BlocProvider(
+                create: (context) {
+                  return SignupBloc(
+                    userRepository:
+                        RepositoryProvider.of<UserRepository>(context),
+                  );
                 },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            width: MediaQuery.of(context).size.height / 4,
-            decoration: BoxDecoration(
-              color: logoBackground,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  100,
-                ),
+                child: const RestaurantSignupForm(),
               ),
             ),
-            child: Image.asset('assets/logo.png'),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 25,
-          ),
-          Text(
-            'Restaurant Signup',
-            style: TextStyle(
-              fontSize: 35,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: BlocProvider(
-              create: (context) {
-                return SignupBloc(
-                  userRepository:
-                      RepositoryProvider.of<UserRepository>(context),
-                );
-              },
-              child: const RestaurantSignupForm(),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -20,86 +20,89 @@ class RestaurantLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 20,
-          ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 20,
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                ),
+              ],
+            ),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height / 6,
+            // ),
+            Container(
+              width: MediaQuery.of(context).size.height / 4,
+              decoration: BoxDecoration(
+                color: logoBackground,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    100,
+                  ),
                 ),
               ),
-            ],
-          ),
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.height / 6,
-          // ),
-          Container(
-            width: MediaQuery.of(context).size.height / 4,
-            decoration: BoxDecoration(
-              color: logoBackground,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  100,
-                ),
+              child: Image.asset('assets/logo.png'),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
+            Text(
+              'Restaurant Login',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w600,
+                color: textColor,
               ),
             ),
-            child: Image.asset('assets/logo.png'),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 15,
-          ),
-          Text(
-            'Restaurant Login',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: BlocProvider(
-              create: (context) {
-                return LoginBloc(
-                  userRepository:
-                      RepositoryProvider.of<UserRepository>(context),
-                );
-              },
-              child: const RestaurantLoginForm(),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    RestaurantSignupPage.route(),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: BlocProvider(
+                create: (context) {
+                  return LoginBloc(
+                    userRepository:
+                        RepositoryProvider.of<UserRepository>(context),
                   );
                 },
-                child: Row(
-                  children: const [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Text(
-                      ' Register Here',
-                      style: TextStyle(color: Color.fromARGB(171, 73, 10, 209)),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
+                child: const RestaurantLoginForm(),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      RestaurantSignupPage.route(),
+                    );
+                  },
+                  child: Row(
+                    children: const [
+                      Text(
+                        "Don't have an account?",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        ' Register Here',
+                        style:
+                            TextStyle(color: Color.fromARGB(171, 73, 10, 209)),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
