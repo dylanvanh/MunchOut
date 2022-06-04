@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  google_nav_bar: ^5.0.6
   intl: ^0.17.0
   flask_api:
     path: packages/flask_api
