@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,7 @@ class IndividualEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const IndividualEventView();
+    return IndividualEventView();
   }
 }
 
@@ -35,10 +37,11 @@ class IndividualEventView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
+    const textColor = Color.fromRGBO(27, 92, 151, 1);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event Details Page'),
-      ),
+      backgroundColor: Colors.white,
       body: BlocBuilder<IndividualEventBloc, IndividualEventState>(
         builder: (context, state) {
           if (state is IndividualEventLoading) {
@@ -59,85 +62,127 @@ class IndividualEventView extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 250,
-                      width: double.infinity,
-                      child: Image.network(
-                        state.eventDetails!.image_url!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, Object exception, stackTrace) {
-                          return const Center(
-                            child: Text(
-                              'Error loading imageUrl',
-                            ),
-                          );
-                        },
-                      ),
-                      // child: Image.network(
-                      //   state.eventDetails!.image_url!,
-                      //   fit: BoxFit.cover,
-                      // ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Stack(
                       children: [
-                        Text(
-                          state.eventDetails!.name!,
-                          style: const TextStyle(
-                            fontSize: 25,
+                        Container(
+                          height: deviceHeight / 2.2,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  NetworkImage(state.eventDetails!.image_url!),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        Text(state.eventDetails!.date!),
+                        Positioned(
+                          top: 50,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 20),
+                            height: deviceHeight * 0.01,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 35),
-                    Center(
-                      child: Text(state.eventDetails!.description!),
-                    ),
-                    const SizedBox(height: 50),
-                    Center(
-                      child: Column(
-                        children: [
-                          Text(
-                            state.restaurantDetails!.name!,
-                            style: const TextStyle(
-                              fontSize: 25,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          SizedBox(
-                            height: 150,
-                            child: ClipOval(
-                              child: Image.network(
-                                state.restaurantDetails!.image_url!,
-                                fit: BoxFit.cover,
-                                errorBuilder:
-                                    (context, Object exception, stackTrace) {
-                                  return const Center(
-                                    child: Text(
-                                      'Error loading imageUrl',
-                                    ),
-                                  );
-                                },
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 20,
+                        ),
+                        child: SizedBox(
+                          child: Column(
+                            children: [
+                              Text(
+                                state.eventDetails!.name!,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                state.eventDetails!.description!,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.calendar_month),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    state.eventDetails!.date!,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              const Divider(color: Colors.blueAccent),
+                              Text(
+                                state.restaurantDetails!.name!,
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              SizedBox(
+                                height: 150,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    state.restaurantDetails!.image_url!,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                state.restaurantDetails!.description!,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Text(
-                              state.restaurantDetails!.description!,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               );

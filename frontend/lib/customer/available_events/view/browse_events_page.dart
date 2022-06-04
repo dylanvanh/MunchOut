@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
-import 'package:restaurant_repository/restaurant_repository.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AvailableEventsPage extends StatelessWidget {
@@ -40,10 +40,12 @@ class AvailableEventsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final textColor = const Color.fromRGBO(27, 92, 151, 1);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User browse events page'),
-      ),
+      bottomNavigationBar: NavBar(navIndex: 1),
       body: BlocBuilder<AvailableEventsBloc, AvailableEventsState>(
         builder: (context, state) {
           if (state is AvailableEventsLoading) {
@@ -53,6 +55,32 @@ class AvailableEventsView extends StatelessWidget {
           } else if (state is AvailableEventsLoaded) {
             return Column(
               children: [
+                SizedBox(
+                  height: deviceHeight * 0.1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Events',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.cookie,
+                      color: textColor,
+                      size: 30,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: deviceHeight * 0.02,
+                ),
                 InkWell(
                   onDoubleTap: () {
                     Navigator.of(context).push(
@@ -75,6 +103,7 @@ class AvailableEventsView extends StatelessWidget {
                             availableEvent: state
                                 .availableEventsList![state.eventIndex + 1],
                           )
+                        //if last event in list , show an empty container
                         : Container(),
                     child: EventCard(
                       availableEvent:
@@ -113,9 +142,8 @@ class AvailableEventsView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //dislike / swipe left
-                    ElevatedButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         context.read<AvailableEventsBloc>().add(
                               SwipeLeft(
                                 availableEventsList: state.availableEventsList,
@@ -123,28 +151,33 @@ class AvailableEventsView extends StatelessWidget {
                               ),
                             );
                       },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(50, 50),
-                        shape: const CircleBorder(),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(2, 1),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.clear_rounded,
+                          size: 30,
+                          color: Colors.red,
+                        ),
                       ),
-                      child: const Icon(Icons.thumb_down),
                     ),
-                    // refresh / swipe down
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<AvailableEventsBloc>().add(
-                              RefreshEvents(),
-                            );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(50, 50),
-                        shape: const CircleBorder(),
-                      ),
-                      child: const Icon(Icons.refresh),
+                    const SizedBox(
+                      width: 50,
                     ),
-                    // like / swipe right
-                    ElevatedButton(
-                      onPressed: () async {
+                    InkWell(
+                      onTap: () async {
                         final result = await showDialog<BookingStatus>(
                           context: context,
                           builder: (context) => ConfirmBookingAlert(
@@ -160,11 +193,27 @@ class AvailableEventsView extends StatelessWidget {
                               );
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(50, 50),
-                        shape: const CircleBorder(),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(2, 1),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.done_rounded,
+                          size: 30,
+                          color: Color.fromARGB(255, 12, 159, 9),
+                        ),
                       ),
-                      child: const Icon(Icons.thumb_up),
                     ),
                   ],
                 ),
@@ -175,12 +224,34 @@ class AvailableEventsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('No more events found! Please come back later.'),
-                  const SizedBox(
-                    height: 30,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Events',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        Icons.cookie,
+                        color: textColor,
+                        size: 30,
+                      )
+                    ],
                   ),
                   const Text(
-                    'Try pulling down on your screen to refresh events',
+                    'No more events found! Please come back later.',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -189,7 +260,7 @@ class AvailableEventsView extends StatelessWidget {
                           );
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(50, 50),
+                      fixedSize: const Size(100, 100),
                       shape: const CircleBorder(),
                     ),
                     child: const Icon(Icons.refresh),

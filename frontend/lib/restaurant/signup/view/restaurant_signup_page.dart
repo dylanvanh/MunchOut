@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:itdma3_mobile_app/customer/login/login.dart';
-import 'package:itdma3_mobile_app/customer/signup/signup.dart';
+import 'package:itdma3_mobile_app/restaurant/signup/signup.dart';
 import 'package:user_repository/user_repository.dart';
 
-class CustomerSignupPage extends StatelessWidget {
-  CustomerSignupPage({Key? key}) : super(key: key);
+class RestaurantSignupPage extends StatelessWidget {
+  RestaurantSignupPage({Key? key}) : super(key: key);
 
-  static Route<CustomerSignupPage> route() {
+  static Route<RestaurantSignupPage> route() {
     return MaterialPageRoute(
-      builder: (context) => CustomerSignupPage(),
+      builder: (context) => RestaurantSignupPage(),
     );
   }
 
@@ -55,23 +54,23 @@ class CustomerSignupPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 25,
             ),
             Text(
-              'Customer Signup',
+              'Restaurant Signup',
               style: TextStyle(
-                fontSize: 40,
+                fontSize: 35,
                 fontWeight: FontWeight.w600,
                 color: textColor,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: BlocProvider(
                 create: (context) {
-                  return LoginBloc(
+                  return SignupBloc(
                     userRepository:
                         RepositoryProvider.of<UserRepository>(context),
                   );
                 },
-                child: const CustomerSignupForm(),
+                child: const RestaurantSignupForm(),
               ),
             ),
           ],

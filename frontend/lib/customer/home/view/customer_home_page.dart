@@ -1,4 +1,3 @@
-import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
@@ -17,6 +16,15 @@ class UserHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return UserHomePageView();
+  }
+}
+
+class UserHomePageView extends StatelessWidget {
+  const UserHomePageView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Customer HomePage')),
       body: BlocBuilder<AuthBloc, AuthState>(
@@ -30,7 +38,7 @@ class UserHomePage extends StatelessWidget {
                   ElevatedButton(
                     child: const Text('Edit User profile'),
                     onPressed: () => Navigator.of(context).push(
-                      UserEditProfilePage.route(),
+                      CustomerEditProfilePage.route(),
                     ),
                   ),
                   ElevatedButton(

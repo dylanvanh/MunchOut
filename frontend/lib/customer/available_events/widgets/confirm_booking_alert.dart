@@ -49,9 +49,16 @@ class AlertView extends StatelessWidget {
       title: Column(
         children: [
           const Text(
-            'Confirm Number of Attendees',
+            'Confirm number of attendees',
+            style: TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           _NumAttendeesInput(),
+          const SizedBox(
+            height: 10,
+          ),
           _SubmitButton(),
         ],
       ),
@@ -72,8 +79,11 @@ class _NumAttendeesInput extends StatelessWidget {
               .read<DialogFormBloc>()
               .add(DialogFormNumAttendeesChanged(numAttendees)),
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(8),
+            isDense: true,
             labelText: 'Number of Attendees',
             errorText: state.numAttendees.invalid ? 'invalid number' : null,
+            prefixIcon: const Icon(Icons.people_alt_rounded),
           ),
         );
       },
@@ -82,6 +92,8 @@ class _NumAttendeesInput extends StatelessWidget {
 }
 
 class _SubmitButton extends StatelessWidget {
+  final Color gradientTopLeft = const Color.fromRGBO(62, 55, 96, 1);
+  final Color gradientBottomRight = const Color.fromRGBO(22, 98, 157, 1);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DialogFormBloc, DialogFormState>(
@@ -89,17 +101,43 @@ class _SubmitButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('CustomerDialogFormForm_submit_raisedButton'),
-                onPressed: state.status.isValidated
-                    ? () {
-                        context
-                            .read<DialogFormBloc>()
-                            .add(const DialogFormSubmitted());
-                        Navigator.pop(context, BookingStatus.success);
-                      }
-                    : null,
-                child: const Text('Create Booking'),
+            : DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      gradientTopLeft,
+                      gradientBottomRight,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  height: MediaQuery.of(context).size.height / 15,
+                  child: ElevatedButton(
+                    key: const Key('RestaurantLoginForm_continue_raisedButton'),
+                    onPressed: state.status.isValidated
+                        ? () {
+                            context
+                                .read<DialogFormBloc>()
+                                .add(const DialogFormSubmitted());
+                            Navigator.pop(context, BookingStatus.success);
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      onSurface: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.only(
+                        top: 18,
+                        bottom: 18,
+                      ),
+                      child: Text('Create Booking'),
+                    ),
+                  ),
+                ),
               );
       },
     );

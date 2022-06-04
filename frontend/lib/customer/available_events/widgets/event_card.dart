@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -8,67 +10,87 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'event_card',
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height / 1.35,
-          width: MediaQuery.of(context).size.width,
-          child: Stack(
-            children: [
-              Image.network(
-                availableEvent.event_image_url!,
-                fit: BoxFit.cover,
-                height: double.infinity,
-                //if the url is incorrect or fails to load
-                errorBuilder: (context, Object exception, stackTrace) {
-                  return const Center(
-                    child: Text(
-                      'Error loading imageUrl',
-                    ),
-                  );
-                },
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: deviceHeight * 0.60,
+              width: deviceWidth * 0.9,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    availableEvent.event_image_url!,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(35),
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(200, 0, 0, 0),
-                      Color.fromARGB(0, 0, 0, 0)
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
+            ),
+            //details goes here
+            Positioned(
+              bottom: 15,
+              left: 15,
+              right: 15,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 18, sigmaY: 30),
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    height: deviceHeight * .15,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DefaultTextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              child: Text(availableEvent.event_name!),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            DefaultTextStyle(
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              child: Text(availableEvent.restaurant_name!),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 80,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(200),
+                            child: Image.network(
+                              availableEvent.restaurant_image_url!,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 30,
-                left: 20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${availableEvent.event_name}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(color: Colors.white),
-                    ),
-                    Text(
-                      '${availableEvent.event_date}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: Colors.white70),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
+      ],
     );
   }
 }

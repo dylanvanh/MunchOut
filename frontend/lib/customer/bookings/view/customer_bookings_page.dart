@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/bookings/bloc/events_bloc.dart';
 import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/customer_nav_bar.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// Displays list of events bookings the user has made for the day
 class CustomerBookingsPage extends StatelessWidget {
   const CustomerBookingsPage({Key? key}) : super(key: key);
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const CustomerBookingsPage(),
+  static Route<CustomerBookingsPage> route() {
+    return MaterialPageRoute(
+      builder: (context) => const CustomerBookingsPage(),
     );
   }
 
@@ -30,12 +32,12 @@ class CustomerBookingsPage extends StatelessWidget {
 class CustomerBookingsView extends StatelessWidget {
   const CustomerBookingsView({Key? key}) : super(key: key);
 
+  final textColor = const Color.fromRGBO(27, 92, 151, 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Customer Bookings Page'),
-      ),
+      bottomNavigationBar: NavBar(navIndex: 2),
       body: BlocBuilder<BookingsBloc, BookingsState>(
         builder: (context, state) {
           if (state is BookingsLoading) {
@@ -48,6 +50,32 @@ class CustomerBookingsView extends StatelessWidget {
           if (state is BookingsLoaded) {
             return ListView(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Bookings',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.book,
+                      color: textColor,
+                      size: 30,
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 for (final booking in state.bookingsList!) ...[
                   ListTile(
                     isThreeLine: true,
@@ -62,13 +90,48 @@ class CustomerBookingsView extends StatelessWidget {
                       );
                     },
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(booking.event_image_url!),
+                      backgroundImage:
+                          NetworkImage(booking.restaurant_image_url!),
                     ),
-                    title: Text(booking.event_name!),
-                    subtitle: Text(
-                      booking.event_date!,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 20,
+                    ),
+                    tileColor: Colors.white70,
+                    title: Text(
+                      booking.event_name!,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    subtitle: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.people),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${booking.booking_num_attendees} Attendees',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_month),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${booking.event_date}',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                     trailing: const Icon(Icons.chevron_right_sharp),
                   ),
