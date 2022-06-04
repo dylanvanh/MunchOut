@@ -5,6 +5,8 @@ import 'package:itdma3_mobile_app/customer/edit_profile/edit_profile.dart';
 import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
 
+import '../../../authentication/authentication.dart';
+
 /// Edit user screen form , allows the user to change their
 /// name,password,phonenumber
 class CustomerEditProfilePage extends StatelessWidget {
@@ -25,16 +27,18 @@ class CustomerEditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavBar(test: 0),
-      appBar: AppBar(title: const Text('Restaurant Add Event Page')),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 10,
+            ),
             Container(
               margin:
                   EdgeInsets.only(left: MediaQuery.of(context).size.height / 3),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  context.read<AuthBloc>().add(LogoutEvent());
                 },
                 icon: const Icon(
                   Icons.logout_outlined,
