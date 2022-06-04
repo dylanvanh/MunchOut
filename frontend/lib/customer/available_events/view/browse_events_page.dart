@@ -209,9 +209,9 @@ class AvailableEventsView extends StatelessWidget {
                           ],
                         ),
                         child: const Icon(
-                          Icons.block_rounded,
+                          Icons.done_rounded,
                           size: 30,
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 12, 159, 9),
                         ),
                       ),
                     ),
