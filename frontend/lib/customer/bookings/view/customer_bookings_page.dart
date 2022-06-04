@@ -37,7 +37,7 @@ class CustomerBookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavBar(test: 2),
+      bottomNavigationBar: NavBar(navIndex: 2),
       body: BlocBuilder<BookingsBloc, BookingsState>(
         builder: (context, state) {
           if (state is BookingsLoading) {

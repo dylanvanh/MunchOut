@@ -26,7 +26,7 @@ class CustomerEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavBar(test: 0),
+      bottomNavigationBar: NavBar(navIndex: 0),
       body: SingleChildScrollView(
         child: Column(
           children: [

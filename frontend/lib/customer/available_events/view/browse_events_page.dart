@@ -45,7 +45,7 @@ class AvailableEventsView extends StatelessWidget {
     final textColor = const Color.fromRGBO(27, 92, 151, 1);
 
     return Scaffold(
-      bottomNavigationBar: NavBar(test: 1),
+      bottomNavigationBar: NavBar(navIndex: 1),
       body: BlocBuilder<AvailableEventsBloc, AvailableEventsState>(
         builder: (context, state) {
           if (state is AvailableEventsLoading) {
@@ -142,9 +142,8 @@ class AvailableEventsView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //dislike / swipe left
-                    IconButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         context.read<AvailableEventsBloc>().add(
                               SwipeLeft(
                                 availableEventsList: state.availableEventsList,
@@ -152,39 +151,68 @@ class AvailableEventsView extends StatelessWidget {
                               ),
                             );
                       },
-                      icon: const Icon(
-                        Icons.cancel_outlined,
-                        color: Colors.brown,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(2, 1),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.clear_rounded,
+                          size: 30,
+                          color: Colors.red,
+                        ),
                       ),
-                      iconSize: 60,
                     ),
                     const SizedBox(
                       width: 50,
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: IconButton(
-                        onPressed: () async {
-                          final result = await showDialog<BookingStatus>(
-                            context: context,
-                            builder: (context) => ConfirmBookingAlert(
-                              eventId: state
-                                  .availableEventsList![state.eventIndex]
-                                  .event_id!,
-                            ),
-                          );
+                    InkWell(
+                      onTap: () async {
+                        final result = await showDialog<BookingStatus>(
+                          context: context,
+                          builder: (context) => ConfirmBookingAlert(
+                            eventId: state
+                                .availableEventsList![state.eventIndex]
+                                .event_id!,
+                          ),
+                        );
 
-                          if (result == BookingStatus.success) {
-                            context.read<AvailableEventsBloc>().add(
-                                  SuccessfulBooking(),
-                                );
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.check_circle_outline_rounded,
-                          color: Colors.blue,
+                        if (result == BookingStatus.success) {
+                          context.read<AvailableEventsBloc>().add(
+                                SuccessfulBooking(),
+                              );
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(2, 1),
+                            ),
+                          ],
                         ),
-                        iconSize: 60,
+                        child: const Icon(
+                          Icons.block_rounded,
+                          size: 30,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ],
