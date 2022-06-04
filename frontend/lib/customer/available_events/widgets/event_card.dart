@@ -49,8 +49,7 @@ class EventCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              availableEvent.event_name!,
+                            DefaultTextStyle(
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 color: Colors.white,
@@ -58,18 +57,19 @@ class EventCard extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              child: Text(availableEvent.event_name!),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            Text(
-                              availableEvent.restaurant_name!,
+                            DefaultTextStyle(
                               style: const TextStyle(
                                 color: Colors.white70,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              child: Text(availableEvent.restaurant_name!),
                             ),
                           ],
                         ),
