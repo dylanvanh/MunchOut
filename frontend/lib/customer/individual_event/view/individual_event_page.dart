@@ -117,10 +117,11 @@ class IndividualEventView extends StatelessWidget {
                             children: [
                               Text(
                                 state.eventDetails!.name!,
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -153,7 +154,7 @@ class IndividualEventView extends StatelessWidget {
                               const Divider(color: Colors.blueAccent),
                               Text(
                                 state.restaurantDetails!.name!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 25,
                                   color: textColor,
                                   fontWeight: FontWeight.bold,

@@ -4,7 +4,6 @@ import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/bookings/view/view.dart';
 import 'package:itdma3_mobile_app/customer/edit_profile/view/view.dart';
-import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({Key? key}) : super(key: key);
