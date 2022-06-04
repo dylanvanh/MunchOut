@@ -224,7 +224,32 @@ class AvailableEventsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('No more events found! Please come back later.'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Events',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        Icons.cookie,
+                        color: textColor,
+                        size: 30,
+                      )
+                    ],
+                  ),
+                  const Text(
+                    'No more events found! Please come back later.',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -235,7 +260,7 @@ class AvailableEventsView extends StatelessWidget {
                           );
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(50, 50),
+                      fixedSize: const Size(100, 100),
                       shape: const CircleBorder(),
                     ),
                     child: const Icon(Icons.refresh),
