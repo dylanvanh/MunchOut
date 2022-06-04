@@ -43,7 +43,6 @@ class NavBar extends StatelessWidget {
             if (index == navIndex) {
               return;
             }
-
             if (index == 0) {
               Navigator.of(context).pushAndRemoveUntil<void>(
                 RestaurantEventsPage.route(),
