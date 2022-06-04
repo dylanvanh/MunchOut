@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
-import 'package:restaurant_repository/restaurant_repository.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AvailableEventsPage extends StatelessWidget {
@@ -44,6 +44,7 @@ class AvailableEventsView extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      bottomNavigationBar: NavBar(test: 1),
       body: BlocBuilder<AvailableEventsBloc, AvailableEventsState>(
         builder: (context, state) {
           if (state is AvailableEventsLoading) {
@@ -55,12 +56,6 @@ class AvailableEventsView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: deviceHeight * 0.06,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-                  ],
                 ),
                 const SizedBox(
                   height: 10,

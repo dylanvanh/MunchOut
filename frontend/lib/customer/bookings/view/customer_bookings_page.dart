@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/customer/bookings/bloc/events_bloc.dart';
 import 'package:itdma3_mobile_app/customer/individual_event/individual_event.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
+
+import '../../navigation_bar/customer_nav_bar.dart';
 
 /// Displays list of events bookings the user has made for the day
 class CustomerBookingsPage extends StatelessWidget {
   const CustomerBookingsPage({Key? key}) : super(key: key);
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const CustomerBookingsPage(),
+  static Route<CustomerBookingsPage> route() {
+    return MaterialPageRoute(
+      builder: (context) => const CustomerBookingsPage(),
     );
   }
 
@@ -33,6 +36,7 @@ class CustomerBookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: NavBar(test: 2),
       appBar: AppBar(
         title: const Text('Customer Bookings Page'),
       ),

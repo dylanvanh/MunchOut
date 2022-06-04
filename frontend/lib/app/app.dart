@@ -2,8 +2,9 @@ import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
-import 'package:itdma3_mobile_app/customer/home/view/view.dart';
+import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/login/login.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/customer_nav_bar.dart';
 import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 import 'package:itdma3_mobile_app/error/error.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
@@ -58,7 +59,10 @@ class App extends StatelessWidget {
             create: (_) => SignupBloc(
               userRepository: _userRepository,
             ),
-          )
+          ),
+          BlocProvider(
+            create: (_) => CustomerNavBarBloc(),
+          ),
         ],
         child: const AppView(),
       ),
@@ -88,7 +92,7 @@ class _AppViewState extends State<AppView> {
             if (state is AuthorisedState) {
               if (state.validatedUser.userType == UserType.customer) {
                 _navigator.pushAndRemoveUntil<void>(
-                  UserHomePage.route(),
+                  AvailableEventsPage.route(),
                   (route) => false,
                 );
               } else if (state.validatedUser.userType == UserType.restaurant) {

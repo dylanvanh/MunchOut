@@ -1,10 +1,10 @@
-import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/bookings/view/view.dart';
 import 'package:itdma3_mobile_app/customer/edit_profile/view/view.dart';
+import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({Key? key}) : super(key: key);
@@ -14,6 +14,15 @@ class UserHomePage extends StatelessWidget {
       builder: (context) => const UserHomePage(),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return UserHomePageView();
+  }
+}
+
+class UserHomePageView extends StatelessWidget {
+  const UserHomePageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class UserHomePage extends StatelessWidget {
                   ElevatedButton(
                     child: const Text('Edit User profile'),
                     onPressed: () => Navigator.of(context).push(
-                      UserEditProfilePage.route(),
+                      CustomerEditProfilePage.route(),
                     ),
                   ),
                   ElevatedButton(
