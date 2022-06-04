@@ -121,6 +121,7 @@ class _SubmitButton extends StatelessWidget {
                             context
                                 .read<DialogFormBloc>()
                                 .add(const DialogFormSubmitted());
+                            Navigator.pop(context, BookingStatus.success);
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
