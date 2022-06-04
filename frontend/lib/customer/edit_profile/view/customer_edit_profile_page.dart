@@ -33,6 +33,26 @@ class CustomerEditProfilePage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 10,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Edit Profile',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Icon(
+                  Icons.person_pin_circle_rounded,
+                  size: 30,
+                  color: textColor,
+                ),
+              ],
+            ),
             Container(
               margin:
                   EdgeInsets.only(left: MediaQuery.of(context).size.height / 3),
@@ -43,7 +63,7 @@ class CustomerEditProfilePage extends StatelessWidget {
                 icon: const Icon(
                   Icons.logout_outlined,
                   color: Colors.red,
-                  size: 40,
+                  size: 35,
                 ),
               ),
             ),

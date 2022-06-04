@@ -18,7 +18,7 @@ class EventCard extends StatelessWidget {
         Stack(
           children: [
             Container(
-              height: deviceHeight * 0.7,
+              height: deviceHeight * 0.60,
               width: deviceWidth * 0.9,
               decoration: BoxDecoration(
                 image: DecorationImage(

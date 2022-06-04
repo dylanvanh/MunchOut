@@ -42,6 +42,7 @@ class AvailableEventsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+    final textColor = const Color.fromRGBO(27, 92, 151, 1);
 
     return Scaffold(
       bottomNavigationBar: NavBar(test: 1),
@@ -55,10 +56,30 @@ class AvailableEventsView extends StatelessWidget {
             return Column(
               children: [
                 SizedBox(
-                  height: deviceHeight * 0.06,
+                  height: deviceHeight * 0.1,
                 ),
-                const SizedBox(
-                  height: 10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Events',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.cookie,
+                      color: textColor,
+                      size: 30,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: deviceHeight * 0.02,
                 ),
                 InkWell(
                   onDoubleTap: () {
@@ -133,11 +154,10 @@ class AvailableEventsView extends StatelessWidget {
                       },
                       icon: const Icon(
                         Icons.cancel_outlined,
-                        color: Colors.red,
+                        color: Colors.brown,
                       ),
                       iconSize: 60,
                     ),
-
                     const SizedBox(
                       width: 50,
                     ),
@@ -162,7 +182,7 @@ class AvailableEventsView extends StatelessWidget {
                         },
                         icon: const Icon(
                           Icons.check_circle_outline_rounded,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                         iconSize: 60,
                       ),

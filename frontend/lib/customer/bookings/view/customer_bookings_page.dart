@@ -32,6 +32,8 @@ class CustomerBookingsPage extends StatelessWidget {
 class CustomerBookingsView extends StatelessWidget {
   const CustomerBookingsView({Key? key}) : super(key: key);
 
+  final textColor = const Color.fromRGBO(27, 92, 151, 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +53,26 @@ class CustomerBookingsView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Align(
-                    child: Text(
-                  'Bookings',
-                  style: TextStyle(fontSize: 30),
-                )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Bookings',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.book,
+                      color: textColor,
+                      size: 30,
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
