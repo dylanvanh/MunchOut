@@ -34,44 +34,130 @@ class EventBookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Events Bookings Page'),
-      ),
       body: BlocBuilder<EventBookingsBloc, EventBookingsState>(
         builder: (context, state) {
           if (state is EventBookingsLoading) {
             //fetches the data on page load
             context.read<EventBookingsBloc>().add(LoadEventBookings());
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is EventBookingsLoaded) {
-            if (state.customersBookedList!.isEmpty) {
-              return const Center(
-                child: Text('No bookings found'),
-              );
-            } else {
-              return ListView(
+            return Center(
+              child: Column(
                 children: [
-                  for (final booking in state.customersBookedList!) ...[
-                    ListTile(
-                      isThreeLine: true,
-                      leading: CircleAvatar(
-                        child: Text('${booking.numAttendees}'),
-                      ),
-                      title: Text(booking.customer_name!),
-                      subtitle: Text(
-                        booking.phone_number!,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                  Align(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
                       ),
                     ),
-                    const Divider(),
-                  ],
+                  ),
+                  const CircularProgressIndicator(),
                 ],
-              );
-            }
+              ),
+            );
+          }
+          if (state is EventBookingsLoaded) {
+            return ListView(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const Text(
+                      'Customers Booked',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.event_rounded,
+                      size: 30,
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                for (final customer in state.customersBookedList!) ...[
+                  ListTile(
+                    isThreeLine: true,
+                    leading: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/logo.png'),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 20,
+                    ),
+                    tileColor: Colors.white70,
+                    title: Row(
+                      children: [
+                        const Icon(
+                          Icons.person,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          customer.customer_name!,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.phone),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${customer.phone_number}',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.format_list_numbered_sharp),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${customer.numAttendees}',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(),
+                ],
+              ],
+            );
           } else {
-            return const Text('An error has occured');
+            return const Center(
+              child: Text('No customer bookings found'),
+            );
           }
         },
       ),

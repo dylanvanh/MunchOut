@@ -1,11 +1,10 @@
 import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/customer/edit_profile/edit_profile.dart';
 import 'package:itdma3_mobile_app/customer/navigation_bar/view/customer_nav_bar.dart';
 import 'package:user_repository/user_repository.dart';
-
-import '../../../authentication/authentication.dart';
 
 /// Edit user screen form , allows the user to change their
 /// name,password,phonenumber

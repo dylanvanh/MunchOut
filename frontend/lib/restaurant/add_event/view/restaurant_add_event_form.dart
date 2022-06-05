@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
+import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 
 class RestaurantAddEventForm extends StatelessWidget {
   const RestaurantAddEventForm({Key? key}) : super(key: key);
@@ -11,7 +12,10 @@ class RestaurantAddEventForm extends StatelessWidget {
     return BlocListener<AddEventBloc, AddEventState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushAndRemoveUntil<void>(
+            RestaurantEventsPage.route(),
+            (route) => false,
+          );
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -67,8 +71,11 @@ class _NameInput extends StatelessWidget {
           onChanged: (name) =>
               context.read<AddEventBloc>().add(AddEventNameChanged(name)),
           decoration: InputDecoration(
-            labelText: 'name',
+            contentPadding: const EdgeInsets.all(12),
+            isDense: true,
+            labelText: 'Name',
             errorText: state.name.invalid ? 'Invalid Name' : null,
+            prefixIcon: const Icon(Icons.person),
           ),
         );
       },
@@ -89,8 +96,11 @@ class _DescriptionInput extends StatelessWidget {
               .read<AddEventBloc>()
               .add(AddEventDescriptionChanged(description)),
           decoration: InputDecoration(
-            labelText: 'description',
+            contentPadding: const EdgeInsets.all(10),
+            isDense: true,
+            labelText: 'Description',
             errorText: state.description.invalid ? 'invalid description' : null,
+            prefixIcon: const Icon(Icons.description),
           ),
         );
       },
@@ -110,8 +120,11 @@ class _ImageUrlInput extends StatelessWidget {
               .read<AddEventBloc>()
               .add(AddEventImageUrlChanged(imageUrl)),
           decoration: InputDecoration(
-            labelText: 'imageUrl',
+            contentPadding: const EdgeInsets.all(10),
+            isDense: true,
+            labelText: 'ImageUrl',
             errorText: state.description.invalid ? 'invalid imageUrl' : null,
+            prefixIcon: const Icon(Icons.image),
           ),
         );
       },
@@ -120,6 +133,8 @@ class _ImageUrlInput extends StatelessWidget {
 }
 
 class _AddEventButton extends StatelessWidget {
+  final Color gradientTopLeft = const Color.fromRGBO(62, 55, 96, 1);
+  final Color gradientBottomRight = const Color.fromRGBO(22, 98, 157, 1);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddEventBloc, AddEventState>(
@@ -127,16 +142,43 @@ class _AddEventButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('RestaurantAddEventForm_continue_raisedButton'),
-                onPressed: state.status.isValidated
-                    ? () {
-                        context
-                            .read<AddEventBloc>()
-                            .add(const AddEventSubmitted());
-                      }
-                    : null,
-                child: const Text('AddEvent'),
+            : DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      gradientTopLeft,
+                      gradientBottomRight,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  height: MediaQuery.of(context).size.height / 15,
+                  child: ElevatedButton(
+                    key: const Key(
+                        'RestaurantAddEventForm_continue_raisedButton'),
+                    onPressed: state.status.isValidated
+                        ? () {
+                            context
+                                .read<AddEventBloc>()
+                                .add(const AddEventSubmitted());
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      onSurface: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.only(
+                        top: 18,
+                        bottom: 18,
+                      ),
+                      child: Text('Create Event'),
+                    ),
+                  ),
+                ),
               );
       },
     );

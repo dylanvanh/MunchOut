@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
-import 'package:itdma3_mobile_app/customer/bookings/bookings.dart';
-import 'package:itdma3_mobile_app/customer/edit_profile/view/customer_edit_profile_page.dart';
+import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
+import 'package:itdma3_mobile_app/restaurant/edit_profile/edit_profile.dart';
+import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 
-class NavBar extends StatelessWidget {
-  NavBar({Key? key, required this.navIndex}) : super(key: key);
+class RestaurantNavBar extends StatelessWidget {
+  RestaurantNavBar({Key? key, required this.navIndex}) : super(key: key);
 
   final Color themeColor = const Color.fromRGBO(27, 92, 151, 1);
   final int navIndex;
@@ -33,8 +33,8 @@ class NavBar extends StatelessWidget {
               text: 'Events',
             ),
             GButton(
-              icon: Icons.book,
-              text: 'Bookings',
+              icon: Icons.add_circle,
+              text: 'Add Event',
             ),
           ],
           selectedIndex: navIndex,
@@ -42,21 +42,23 @@ class NavBar extends StatelessWidget {
             if (index == navIndex) {
               return;
             }
+
             if (index == 0) {
               Navigator.of(context).pushAndRemoveUntil<void>(
-                CustomerEditProfilePage.route(),
+                RestaurantEditProfilePage.route(),
                 (route) => false,
               );
             }
+
             if (index == 1) {
               Navigator.of(context).pushAndRemoveUntil<void>(
-                AvailableEventsPage.route(),
+                RestaurantEventsPage.route(),
                 (route) => false,
               );
             }
             if (index == 2) {
               Navigator.of(context).pushAndRemoveUntil<void>(
-                CustomerBookingsPage.route(),
+                RestaurantAddEventPage.route(),
                 (route) => false,
               );
             }

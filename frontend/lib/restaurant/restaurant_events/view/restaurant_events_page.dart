@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/restaurant/event_bookings/event_bookings.dart';
+import 'package:itdma3_mobile_app/restaurant/navigation_bar/restaurant_nav_bar.dart';
 import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -10,9 +11,9 @@ import 'package:user_repository/user_repository.dart';
 class RestaurantEventsPage extends StatelessWidget {
   const RestaurantEventsPage({Key? key}) : super(key: key);
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const RestaurantEventsPage(),
+  static Route<RestaurantEventsPage> route() {
+    return MaterialPageRoute(
+      builder: (context) => const RestaurantEventsPage(),
     );
   }
 
@@ -24,19 +25,20 @@ class RestaurantEventsPage extends StatelessWidget {
         restaurantRepository:
             RepositoryProvider.of<RestaurantRepository>(context),
       ),
-      child: const RestaurantEventsView(),
+      child: RestaurantEventsView(),
     );
   }
 }
 
 class RestaurantEventsView extends StatelessWidget {
-  const RestaurantEventsView({Key? key}) : super(key: key);
+  RestaurantEventsView({Key? key}) : super(key: key);
+  final textColor = const Color.fromRGBO(27, 92, 151, 1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Restaurant Events Page'),
+      bottomNavigationBar: RestaurantNavBar(
+        navIndex: 1,
       ),
       body: BlocBuilder<EventsBloc, EventsState>(
         builder: (context, state) {
@@ -48,6 +50,32 @@ class RestaurantEventsView extends StatelessWidget {
           if (state is EventsLoaded) {
             return ListView(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Created Events',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.event_rounded,
+                      color: textColor,
+                      size: 30,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 for (final event in state.eventsList!) ...[
                   ListTile(
                     isThreeLine: true,
@@ -61,11 +89,33 @@ class RestaurantEventsView extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(event.image_url!),
                     ),
-                    title: Text(event.name!),
-                    subtitle: Text(
-                      event.description!,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 20,
+                    ),
+                    tileColor: Colors.white70,
+                    title: Text(
+                      event.name!,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    subtitle: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_month),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${event.date}',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                     trailing: const Icon(Icons.chevron_right_sharp),
                   ),

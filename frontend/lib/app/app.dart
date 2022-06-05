@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/customer/available_events/available_events.dart';
 import 'package:itdma3_mobile_app/customer/login/login.dart';
-import 'package:itdma3_mobile_app/customer/navigation_bar/customer_nav_bar.dart';
 import 'package:itdma3_mobile_app/customer/signup/signup.dart';
 import 'package:itdma3_mobile_app/error/error.dart';
 import 'package:itdma3_mobile_app/launch/launch.dart';
-import 'package:itdma3_mobile_app/restaurant/home/home.dart';
+import 'package:itdma3_mobile_app/restaurant/restaurant_events/view/view.dart';
 import 'package:itdma3_mobile_app/splash/splash.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -60,9 +59,6 @@ class App extends StatelessWidget {
               userRepository: _userRepository,
             ),
           ),
-          BlocProvider(
-            create: (_) => CustomerNavBarBloc(),
-          ),
         ],
         child: const AppView(),
       ),
@@ -92,12 +88,14 @@ class _AppViewState extends State<AppView> {
             if (state is AuthorisedState) {
               if (state.validatedUser.userType == UserType.customer) {
                 _navigator.pushAndRemoveUntil<void>(
+                  //main page for customer
                   AvailableEventsPage.route(),
                   (route) => false,
                 );
               } else if (state.validatedUser.userType == UserType.restaurant) {
                 _navigator.pushAndRemoveUntil<void>(
-                  RestaurantHomePage.route(),
+                  //main page for restaurant
+                  RestaurantEventsPage.route(),
                   (route) => false,
                 );
               }
