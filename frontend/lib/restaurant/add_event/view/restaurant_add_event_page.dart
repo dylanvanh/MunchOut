@@ -22,7 +22,7 @@ class RestaurantAddEventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavBar(navIndex: 2),
+      bottomNavigationBar: RestaurantNavBar(navIndex: 2),
       body: SingleChildScrollView(
         child: Column(
           children: [

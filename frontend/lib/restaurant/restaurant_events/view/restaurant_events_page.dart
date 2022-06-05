@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/restaurant/event_bookings/event_bookings.dart';
-import 'package:itdma3_mobile_app/restaurant/navigation_bar/customer_nav_bar.dart';
+import 'package:itdma3_mobile_app/restaurant/navigation_bar/restaurant_nav_bar.dart';
 import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,9 +11,9 @@ import 'package:user_repository/user_repository.dart';
 class RestaurantEventsPage extends StatelessWidget {
   const RestaurantEventsPage({Key? key}) : super(key: key);
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const RestaurantEventsPage(),
+  static Route<RestaurantEventsPage> route() {
+    return MaterialPageRoute(
+      builder: (context) => const RestaurantEventsPage(),
     );
   }
 
@@ -37,8 +37,8 @@ class RestaurantEventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavBar(
-        navIndex: 0,
+      bottomNavigationBar: RestaurantNavBar(
+        navIndex: 1,
       ),
       body: BlocBuilder<EventsBloc, EventsState>(
         builder: (context, state) {
@@ -70,7 +70,7 @@ class RestaurantEventsView extends StatelessWidget {
                       Icons.event_rounded,
                       color: textColor,
                       size: 30,
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(

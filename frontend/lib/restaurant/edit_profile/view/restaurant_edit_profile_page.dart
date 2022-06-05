@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itdma3_mobile_app/authentication/authentication.dart';
 import 'package:itdma3_mobile_app/restaurant/edit_profile/edit_profile.dart';
 import 'package:itdma3_mobile_app/restaurant/edit_profile/view/restaurant_edit_profile_form.dart';
-import 'package:itdma3_mobile_app/restaurant/navigation_bar/customer_nav_bar.dart';
+import 'package:itdma3_mobile_app/restaurant/navigation_bar/restaurant_nav_bar.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -12,8 +12,8 @@ import 'package:user_repository/user_repository.dart';
 class RestaurantEditProfilePage extends StatelessWidget {
   const RestaurantEditProfilePage({Key? key}) : super(key: key);
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute<void>(
+  static Route<RestaurantEditProfilePage> route() {
+    return MaterialPageRoute(
       builder: (_) => const RestaurantEditProfilePage(),
     );
   }
@@ -26,7 +26,7 @@ class RestaurantEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavBar(navIndex: 1),
+      bottomNavigationBar: RestaurantNavBar(navIndex: 0),
       body: SingleChildScrollView(
         child: Column(
           children: [

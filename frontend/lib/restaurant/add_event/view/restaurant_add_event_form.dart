@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:itdma3_mobile_app/restaurant/add_event/add_event.dart';
+import 'package:itdma3_mobile_app/restaurant/restaurant_events/restaurant_events.dart';
 
 class RestaurantAddEventForm extends StatelessWidget {
   const RestaurantAddEventForm({Key? key}) : super(key: key);
@@ -11,7 +12,10 @@ class RestaurantAddEventForm extends StatelessWidget {
     return BlocListener<AddEventBloc, AddEventState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushAndRemoveUntil<void>(
+            RestaurantEventsPage.route(),
+            (route) => false,
+          );
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -171,7 +175,7 @@ class _AddEventButton extends StatelessWidget {
                         top: 18,
                         bottom: 18,
                       ),
-                      child: Text('Sign Up'),
+                      child: Text('Create Event'),
                     ),
                   ),
                 ),
