@@ -27,19 +27,7 @@ class RestaurantAddEventPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 20,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                  ),
-                ),
-              ],
+              height: MediaQuery.of(context).size.height / 10,
             ),
             Container(
               width: MediaQuery.of(context).size.height / 4,
