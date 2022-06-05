@@ -39,7 +39,24 @@ class EventBookingsView extends StatelessWidget {
           if (state is EventBookingsLoading) {
             //fetches the data on page load
             context.read<EventBookingsBloc>().add(LoadEventBookings());
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: Column(
+                children: [
+                  Align(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const CircularProgressIndicator(),
+                ],
+              ),
+            );
           }
           if (state is EventBookingsLoaded) {
             return ListView(
@@ -48,19 +65,26 @@ class EventBookingsView extends StatelessWidget {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const Text(
                       'Customers Booked',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Icon(
+                    const Icon(
                       Icons.event_rounded,
                       size: 30,
                     )
@@ -131,60 +155,12 @@ class EventBookingsView extends StatelessWidget {
               ],
             );
           } else {
-            return const Text('An error has occured');
+            return const Center(
+              child: Text('No customer bookings found'),
+            );
           }
         },
       ),
     );
   }
 }
-
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Events Bookings Page'),
-//       ),
-//       body: BlocBuilder<EventBookingsBloc, EventBookingsState>(
-//         builder: (context, state) {
-//           if (state is EventBookingsLoading) {
-//             //fetches the data on page load
-//             context.read<EventBookingsBloc>().add(LoadEventBookings());
-//             return const Center(child: CircularProgressIndicator());
-//           }
-//           if (state is EventBookingsLoaded) {
-//             if (state.customersBookedList!.isEmpty) {
-//               return const Center(
-//                 child: Text('No bookings found'),
-//               );
-//             } else {
-//               return ListView(
-//                 children: [
-//                   for (final booking in state.customersBookedList!) ...[
-//                     ListTile(
-//                       isThreeLine: true,
-//                       leading: CircleAvatar(
-//                         child: Text('${booking.numAttendees}'),
-//                       ),
-//                       title: Text(booking.customer_name!),
-//                       subtitle: Text(
-//                         booking.phone_number!,
-//                         maxLines: 3,
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//                     ),
-//                     const Divider(),
-//                   ],
-//                 ],
-//               );
-//             }
-//           } else {
-//             return const Text('An error has occured');
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
