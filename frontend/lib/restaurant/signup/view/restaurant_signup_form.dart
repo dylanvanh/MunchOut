@@ -174,7 +174,6 @@ class _ImageUrlInput extends StatelessWidget {
           key: const Key('RestaurantSignupForm_imageUrlInput_textField'),
           onChanged: (imageUrl) =>
               context.read<SignupBloc>().add(SignupImageUrlChanged(imageUrl)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
