@@ -126,7 +126,6 @@ class _PhoneNumberInput extends StatelessWidget {
           onChanged: (phoneNumber) => context
               .read<SignupBloc>()
               .add(SignupPhoneNumberChanged(phoneNumber)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
@@ -152,7 +151,6 @@ class _DescriptionInput extends StatelessWidget {
           onChanged: (description) => context
               .read<SignupBloc>()
               .add(SignupDescriptionChanged(description)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
