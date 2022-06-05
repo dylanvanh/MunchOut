@@ -232,7 +232,7 @@ class _UpdateDetailsButton extends StatelessWidget {
                         top: 18,
                         bottom: 18,
                       ),
-                      child: Text('Sign Up'),
+                      child: Text('Update Profile'),
                     ),
                   ),
                 ),
