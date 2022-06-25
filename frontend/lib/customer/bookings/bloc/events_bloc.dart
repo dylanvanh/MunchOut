@@ -12,7 +12,7 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
     required CustomerRepository customerRepository,
   })  : _userRepository = userRepository,
         _customerRepository = customerRepository,
-        // initial state on bloc load
+        // initial state of bloc
         super(BookingsLoading()) {
     on<LoadBookings>(_onLoadBookings);
   }

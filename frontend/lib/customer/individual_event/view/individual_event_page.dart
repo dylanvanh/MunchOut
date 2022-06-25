@@ -28,7 +28,7 @@ class IndividualEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IndividualEventView();
+    return const IndividualEventView();
   }
 }
 
