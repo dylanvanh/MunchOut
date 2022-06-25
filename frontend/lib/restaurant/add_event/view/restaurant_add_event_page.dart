@@ -6,7 +6,7 @@ import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// RestaurantAddEvent is routed to when the restaurant
-/// clicks on create a new event
+/// when user clicks on create a new event
 class RestaurantAddEventPage extends StatelessWidget {
   const RestaurantAddEventPage({Key? key}) : super(key: key);
 

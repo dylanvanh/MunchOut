@@ -92,7 +92,6 @@ class AddEventBloc extends Bloc<AddEventEvent, AddEventState> {
         );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
-        print('error occured');
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     }
