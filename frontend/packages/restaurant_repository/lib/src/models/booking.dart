@@ -3,11 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'booking.g.dart';
 
-/// User model
+/// Booking model
 @JsonSerializable()
 class Booking extends Equatable {
-  ///User contructor
-  ///User auth status intially set to unauthenticated
+  ///Booking contructor
   const Booking({
     this.customer_id,
     this.customer_name,

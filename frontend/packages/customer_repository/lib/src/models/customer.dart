@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'customer.g.dart';
 
-/// User model
+/// Customer model
 @JsonSerializable()
 class Customer extends Equatable {
   ///Customer contructor

@@ -124,7 +124,7 @@ class RestaurantRepository {
 
   /// Returns a list of event customer bookings
   ///
-  /// Throws a [FetchRestaurantActiveEventsException] if an error occurs
+  /// Throws a [FetchRestaurantEventBookingsException] if an error occurs
   Future<List<Booking>> getEventBookings({
     required int eventId,
   }) async {

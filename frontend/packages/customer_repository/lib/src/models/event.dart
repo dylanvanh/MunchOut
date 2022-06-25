@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event.g.dart';
 
-/// User model
+/// Event model
 @JsonSerializable()
 class Event extends Equatable {
   ///Event contructor

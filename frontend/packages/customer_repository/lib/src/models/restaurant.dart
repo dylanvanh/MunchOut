@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
 
-/// User model
+/// Restaurant model
 @JsonSerializable()
 class Restaurant extends Equatable {
   ///Restaurant contructor
