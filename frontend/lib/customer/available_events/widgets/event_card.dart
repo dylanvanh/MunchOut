@@ -4,7 +4,7 @@ import 'package:customer_repository/customer_repository.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
-  EventCard({Key? key, required this.availableEvent}) : super(key: key);
+  const EventCard({Key? key, required this.availableEvent}) : super(key: key);
 
   final AvailableEvent availableEvent;
 

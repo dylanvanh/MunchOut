@@ -41,8 +41,7 @@ class AvailableEventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final deviceWidth = MediaQuery.of(context).size.width;
-    final textColor = const Color.fromRGBO(27, 92, 151, 1);
+    const textColor = Color.fromRGBO(27, 92, 151, 1);
 
     return Scaffold(
       bottomNavigationBar: NavBar(navIndex: 1),
@@ -60,15 +59,15 @@ class AvailableEventsView extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Events',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 15,
                     ),
                     Icon(
@@ -226,15 +225,15 @@ class AvailableEventsView extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         'Events',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       Icon(
