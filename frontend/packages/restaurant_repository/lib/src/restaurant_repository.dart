@@ -124,7 +124,7 @@ class RestaurantRepository {
 
   /// Returns a list of event customer bookings
   ///
-  /// Throws a [FetchRestaurantActiveEventsException] if an error occurs
+  /// Throws a [FetchRestaurantEventBookingsException] if an error occurs
   Future<List<Booking>> getEventBookings({
     required int eventId,
   }) async {
@@ -149,28 +149,3 @@ class RestaurantRepository {
     }
   }
 }
-
-// Future<void> main() async {
-  // final _restaurantRepository = RestaurantRepository();
-
-  //getEventBookings
-  // final eventBookingsList =
-  //     await _restaurantRepository.getEventBookings(eventId: 1);
-
-  // for (final booking in eventBookingsList) {
-  //   print(booking);
-  // }
-
-  //getActiveEvents
-  // final restaurantEventsList =
-  //     await _restaurantRepository.getActiveEvents(restaurantId: 2);
-
-  // for (final event in restaurantEventsList) {
-  //   print(event.description);
-  // }
-
-  /// // getRestaurantUserDetails
-  // final restaurantDetailsObject =
-  //     await _restaurantRepository.getUserDetails(restaurantId: 5);
-  // print(restaurantDetailsObject.name);
-// }

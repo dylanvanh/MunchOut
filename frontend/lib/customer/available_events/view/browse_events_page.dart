@@ -41,8 +41,7 @@ class AvailableEventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final deviceWidth = MediaQuery.of(context).size.width;
-    final textColor = const Color.fromRGBO(27, 92, 151, 1);
+    const textColor = Color.fromRGBO(27, 92, 151, 1);
 
     return Scaffold(
       bottomNavigationBar: NavBar(navIndex: 1),
@@ -53,171 +52,176 @@ class AvailableEventsView extends StatelessWidget {
             context.read<AvailableEventsBloc>().add(LoadAvailableEvents());
             return const Center(child: CircularProgressIndicator());
           } else if (state is AvailableEventsLoaded) {
-            return Column(
-              children: [
-                SizedBox(
-                  height: deviceHeight * 0.1,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Events',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Icon(
-                      Icons.cookie,
-                      color: textColor,
-                      size: 30,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: deviceHeight * 0.02,
-                ),
-                InkWell(
-                  onDoubleTap: () {
-                    Navigator.of(context).push(
-                      IndividualEventPage.route(
-                        eventId: state
-                            .availableEventsList![state.eventIndex].event_id!,
-                        restaurantId: state
-                            .availableEventsList![state.eventIndex]
-                            .restaurant_id!,
-                      ),
-                    );
-                  },
-                  child: Draggable<EventCard>(
-                    feedback: EventCard(
-                      availableEvent:
-                          state.availableEventsList![state.eventIndex],
-                    ),
-                    childWhenDragging: (state.numEvents - 1 > state.eventIndex)
-                        ? EventCard(
-                            availableEvent: state
-                                .availableEventsList![state.eventIndex + 1],
-                          )
-                        //if last event in list , show an empty container
-                        : Container(),
-                    child: EventCard(
-                      availableEvent:
-                          state.availableEventsList![state.eventIndex],
-                    ),
-                    onDragEnd: (drag) async {
-                      if (drag.velocity.pixelsPerSecond.dx < 0) {
-                        context.read<AvailableEventsBloc>().add(
-                              SwipeLeft(
-                                availableEventsList: state.availableEventsList,
-                                currentEventIndex: state.eventIndex,
-                              ),
-                            );
-                      } else {
-                        final result = await showDialog<BookingStatus>(
-                          context: context,
-                          builder: (context) => ConfirmBookingAlert(
-                            eventId: state
-                                .availableEventsList![state.eventIndex]
-                                .event_id!,
-                          ),
-                        );
-
-                        if (result == BookingStatus.success) {
-                          context.read<AvailableEventsBloc>().add(
-                                SuccessfulBooking(),
-                              );
-                        }
-                      }
-                    },
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: deviceHeight * 0.1,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        context.read<AvailableEventsBloc>().add(
-                              SwipeLeft(
-                                availableEventsList: state.availableEventsList,
-                                currentEventIndex: state.eventIndex,
-                              ),
-                            );
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 15,
-                              offset: const Offset(2, 1),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.clear_rounded,
-                          size: 30,
-                          color: Colors.red,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'Events',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        final result = await showDialog<BookingStatus>(
-                          context: context,
-                          builder: (context) => ConfirmBookingAlert(
-                            eventId: state
-                                .availableEventsList![state.eventIndex]
-                                .event_id!,
-                          ),
-                        );
-
-                        if (result == BookingStatus.success) {
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        Icons.cookie,
+                        color: textColor,
+                        size: 30,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: deviceHeight * 0.02,
+                  ),
+                  InkWell(
+                    onDoubleTap: () {
+                      Navigator.of(context).push(
+                        IndividualEventPage.route(
+                          eventId: state
+                              .availableEventsList![state.eventIndex].event_id!,
+                          restaurantId: state
+                              .availableEventsList![state.eventIndex]
+                              .restaurant_id!,
+                        ),
+                      );
+                    },
+                    child: Draggable<EventCard>(
+                      feedback: EventCard(
+                        availableEvent:
+                            state.availableEventsList![state.eventIndex],
+                      ),
+                      childWhenDragging: (state.numEvents - 1 >
+                              state.eventIndex)
+                          ? EventCard(
+                              availableEvent: state
+                                  .availableEventsList![state.eventIndex + 1],
+                            )
+                          //if last event in list , show an empty container
+                          : Container(),
+                      child: EventCard(
+                        availableEvent:
+                            state.availableEventsList![state.eventIndex],
+                      ),
+                      onDragEnd: (drag) async {
+                        if (drag.velocity.pixelsPerSecond.dx < 0) {
                           context.read<AvailableEventsBloc>().add(
-                                SuccessfulBooking(),
+                                SwipeLeft(
+                                  availableEventsList:
+                                      state.availableEventsList,
+                                  currentEventIndex: state.eventIndex,
+                                ),
                               );
+                        } else {
+                          final result = await showDialog<BookingStatus>(
+                            context: context,
+                            builder: (context) => ConfirmBookingAlert(
+                              eventId: state
+                                  .availableEventsList![state.eventIndex]
+                                  .event_id!,
+                            ),
+                          );
+
+                          if (result == BookingStatus.success) {
+                            context.read<AvailableEventsBloc>().add(
+                                  SuccessfulBooking(),
+                                );
+                          }
                         }
                       },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 15,
-                              offset: const Offset(2, 1),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.done_rounded,
-                          size: 30,
-                          color: Color.fromARGB(255, 12, 159, 9),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context.read<AvailableEventsBloc>().add(
+                                SwipeLeft(
+                                  availableEventsList:
+                                      state.availableEventsList,
+                                  currentEventIndex: state.eventIndex,
+                                ),
+                              );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 15,
+                                offset: const Offset(2, 1),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.clear_rounded,
+                            size: 30,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          final result = await showDialog<BookingStatus>(
+                            context: context,
+                            builder: (context) => ConfirmBookingAlert(
+                              eventId: state
+                                  .availableEventsList![state.eventIndex]
+                                  .event_id!,
+                            ),
+                          );
+
+                          if (result == BookingStatus.success) {
+                            context.read<AvailableEventsBloc>().add(
+                                  SuccessfulBooking(),
+                                );
+                          }
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 15,
+                                offset: const Offset(2, 1),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.done_rounded,
+                            size: 30,
+                            color: Color.fromARGB(255, 12, 159, 9),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           } else if (state is AvailableEventsEmpty) {
             return Center(
@@ -226,15 +230,15 @@ class AvailableEventsView extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         'Events',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       Icon(

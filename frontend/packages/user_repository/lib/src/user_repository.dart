@@ -101,7 +101,9 @@ class UserRepository {
     _controller.add(_validatedUser);
   }
 
-  ///called by login bloc
+  /// called by login bloc
+  /// combination of both a login & signup function
+  /// handles login for both customer and restaurant
   Future<void> userLoginSignup({
     String? name,
     required String username, //required no matter if login/signup
@@ -227,29 +229,3 @@ class UserRepository {
     }
   }
 }
-
-/// FOR TESTING
-// Future<void> main() async {
-//   final _userRepo = UserRepository();
-//   try {
-//     //signup
-//     // await _userRepo.customerLoginSignup(
-//     //   name: 'casey',
-//     //   phoneNumber: '092823',
-//     //   username: 'casey',
-//     //   password: '1234',
-//     //   userType: UserType.customer,
-//     //   authActionType: AuthenticationAction.signup,
-//     // );
-
-//     //login
-//     // await _userRepo.customerLoginSignup(
-//     //   username: 'casey',
-//     //   password: '1234',
-//     //   userType: UserType.customer,
-//     //   authActionType: AuthenticationAction.login,
-//     // );
-//   } on Exception {
-//     print('error');
-//   }
-// }

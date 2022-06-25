@@ -3,11 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event.g.dart';
 
-/// User model
+/// Event model
 @JsonSerializable()
 class Event extends Equatable {
-  ///User contructor
-  ///User auth status intially set to unauthenticated
+  ///Event contructor
   const Event({
     this.id,
     this.restaurant_id,

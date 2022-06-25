@@ -8,7 +8,7 @@ abstract class AuthEvent extends Equatable {
 }
 
 class GetActiveUserDetailsEvent extends AuthEvent {
-  GetActiveUserDetailsEvent({required this.user});
+  const GetActiveUserDetailsEvent({required this.user});
   final User user;
 }
 

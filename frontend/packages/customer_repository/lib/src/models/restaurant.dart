@@ -3,15 +3,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
 
-/// User model
+/// Restaurant model
 @JsonSerializable()
 class Restaurant extends Equatable {
-  ///User contructor
-  ///User auth status intially set to unauthenticated
+  ///Restaurant contructor
   const Restaurant({
     this.id,
     this.name,
-    // this.username, //might need to included this
     this.description,
     this.image_url,
     this.phone_number,

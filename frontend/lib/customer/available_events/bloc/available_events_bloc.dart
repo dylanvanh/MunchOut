@@ -112,7 +112,7 @@ class AvailableEventsBloc
     }
   }
 
-  /// pull down / refresh button clicked
+  //refresh button clicked
   /// SETS THE customerRepository currentAvailableEventCount = 0
   Future<void> _onRefreshEvents(
     RefreshEvents event,
