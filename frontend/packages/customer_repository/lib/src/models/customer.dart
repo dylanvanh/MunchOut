@@ -6,8 +6,7 @@ part 'customer.g.dart';
 /// User model
 @JsonSerializable()
 class Customer extends Equatable {
-  ///User contructor
-  ///User auth status intially set to unauthenticated
+  ///Customer contructor
   const Customer({
     this.id,
     this.name,

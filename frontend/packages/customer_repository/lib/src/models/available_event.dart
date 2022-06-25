@@ -6,8 +6,7 @@ part 'available_event.g.dart';
 /// User model
 @JsonSerializable()
 class AvailableEvent extends Equatable {
-  ///User contructor
-  ///User auth status intially set to unauthenticated
+  ///AvailableEvent contructor
   const AvailableEvent({
     this.event_id,
     this.event_name,
