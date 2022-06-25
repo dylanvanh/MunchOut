@@ -19,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     //when the login bloc updates the "User _validatedUser" in UserRepository
     // stream pushes new user object
+    //_userSubscription variable gets updated
     _userSubscription = _userRepository.user.listen(
       (user) => add(
         GetActiveUserDetailsEvent(user: user),
