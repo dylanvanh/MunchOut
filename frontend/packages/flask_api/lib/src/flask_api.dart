@@ -11,8 +11,7 @@ class HttpRequestFailure implements Exception {
   final int statusCode;
 }
 
-/// If the username and password is valid (passed in body) for /auth endpoint
-/// -> auth token is returned by the api
+/// Flask API handles all request to the external flask REST API
 class FlaskApi {
   /// FlaskApi constructor
   FlaskApi({http.Client? httpClient})
@@ -36,7 +35,7 @@ class FlaskApi {
       throw HttpRequestFailure(statusCode);
     }
 
-    // Object rqeuested doesnt exist
+    // Object requested doesnt exist
     if (statusCode == 404) {
       throw HttpRequestFailure(statusCode);
     }
@@ -407,96 +406,3 @@ class FlaskApi {
     validateStatusCodes(response.statusCode);
   }
 }
-
-// /// FOR TESTING
-// Future<void> main() async {
-// // //   //instantiate flaskApi repository instance
-//   final flaskApi = FlaskApi();
-
-//   try {
-//     final response = await flaskApi.fetchCustomerAvailableEvents(customerId: 1);
-//     print(response);
-//   } on Exception {
-//     print('hello');
-//   }
-// }
-// // Fetch event customer bookings for restaurant
-
-//   try {
-//     final response = await flaskApi.fetchRestaurantEventBookings(eventId: 1);
-//     print(response);
-//   } catch (_) {
-//     print('error');
-//   }
-
-// // Fetch active restaurant events for restaurant
-//   try {
-//     await flaskApi.fetchRestaurantEvents(restaurantId: 2);
-//   } catch (_) {
-//     print('error occured');
-//   }
-
-//   //update restaurantDetails
-//   try {
-//     final updatedDetails = await flaskApi.updateRestaurantDetails(
-//       restaurantId: 1,
-//       name: 'changedName!',
-//     );
-
-//     print(updatedDetails);
-//   } on Exception {
-//     print('error');
-//   }
-
-//fetch restaurantDetails
-// try {
-//   final restaurantDetails =
-//       await flaskApi.fetchRestaurantUserDetails(restaurantId: 5);
-
-//   print(restaurantDetails);
-// } on Exception {
-//   print('error');
-// }
-
-//   //add event
-//   try {
-//     await flaskApi.restaurantAddEvent(
-//       restaurantId: 1,
-//       name: 'testEvent',
-//       description: 'test',
-//       imageUrl: 'www.image.com',
-//     );
-//   } on Exception {
-//     //invalid details
-//     print("error");
-//   }
-
-//   /// LOGIN
-//   try {
-//     final dynamic userDetails = await flaskApi.restaurantLogin(
-//       'dylan',
-//       '1234',
-//     );
-//     print(userDetails);
-//   } on Exception {
-//     //invalid details
-//     print("invalid login details");
-//   }
-
-//   /// Signup
-//   try {
-//     // await flaskApi.restaurantSignup();
-//     final dynamic userDetails = await flaskApi.restaurantSignup(
-//       'debonairs pizza',
-//       'debonairs',
-//       '1234',
-//       'pizza place!',
-//       'www.image.com',
-//       '063838483',
-//     );
-//     print(userDetails);
-//   } on Exception {
-//     print('error');
-//     print('user details already exist');
-//   }
-// }
