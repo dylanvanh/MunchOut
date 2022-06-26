@@ -233,8 +233,6 @@ class CustomerAvailableEvents(Resource):
         return {'customerAvailableEvents': final_list}, 200
 
 # Returns a list of all customers
-
-
 class CustomerList(Resource):
     def get(self):
         customer_list = []

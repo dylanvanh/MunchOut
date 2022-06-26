@@ -13,6 +13,7 @@ class Event(Resource):
 
 
 # Creates a new event
+# Returns new event details
 class AddEvent(Resource):
 
     parser = reqparse.RequestParser()
@@ -109,7 +110,7 @@ class RestaurantEventBookings(Resource):
         return {'bookedCustomers': list_bookings_sorted_by_latest_added}, 200
 
 
-# returns all events
+# Returns all events
 class EventList(Resource):
     def get(self):
         event_list = []
