@@ -16,10 +16,10 @@
 
   <h1 align="center">MunchOut</h1>
 
-  <h2 align="center">
+  <h3 align="center">
     Restaurant event booking mobile application
     <br />
-  </h2>
+  </h3>
 </div>
 
 
@@ -54,9 +54,12 @@
 Final year group project where a functional mobile application was to be created.
 <br>
 <br>
-* "MunchOut" was designed to provide local restaurants a means of promoting and managing bookings from customers for any daily events they plan on hosting. 
+* "MunchOut" was designed to provide local restaurants a means of promoting and managing bookings from customers for any daily events they plan on hosting, e.g. "20% off pizzas".
 
-* E.g. "20% off pizzas". Customers can then book for the event letting the restaurant know they are coming which in turn provides the restaurant with their details , such as name and phone number.
+* Customers can book for the daily events , which adds the event to the customers booking tab.
+
+* Restaurants can view what customers are coming for an individual event , by selecting the event on the cretaed events page.
+
 
 * Different set of menus for the user types:
   - Customer User
@@ -142,8 +145,7 @@ backend/README.md
 2. Install Python 3.8.9
 
   ```
-  Tested using Python 3.8.9
-  Later versions may cause failures. Packages may be imcompatibale
+  Later versions may cause failures. Packages may be incompatible
   https://www.python.org/downloads/release/python-389/
   ``` 
 
@@ -155,8 +157,7 @@ backend/README.md
 4. Follow both README setup instructions
 
   ```
-  Found in both backend and frontend 
-  For their respective application
+  Found in both backend and frontend folders
   ```
 
 5. Run both backend & frontend applications
@@ -165,7 +166,6 @@ backend/README.md
   Run the python app.py file in its own terminal/cmd window.
   Run the flutter app in a IOS/Android emulator of your choice.
   ```
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
