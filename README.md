@@ -202,18 +202,7 @@ backend/README.md
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-## Documentation
-### Architecture
-<img src="documentation/frontent-architecture.drawio.png"/>
-
-### ER Diagram
-<img src="documentation/er-diagram.drawio.png"/>
-
-### Screens Flowchart
-<img src="documentation/screen-flowchart.drawio.png"/>
-
-<!-- USAGE EXAMPLES -->
+<!-- CrossPlatform EXAMPLES -->
 ## Cross Platform
 <div style="text-align: center">
     <table>
@@ -234,6 +223,19 @@ backend/README.md
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- Documentation examples -->
+## Documentation
+### Architecture
+<img src="documentation/frontent-architecture.drawio.png"/>
+
+### ER Diagram
+<img src="documentation/er-diagram.drawio.png"/>
+
+### Screens Flowchart
+<img src="documentation/screen-flowchart.drawio.png"/>
+
 
 <!-- LICENSE -->
 ## License
