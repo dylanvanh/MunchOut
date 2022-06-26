@@ -14,14 +14,12 @@
     <img src="frontend/assets/logo.png" alt="Logo" width="200" height="200">
   </a>
 
-<h3 align="center">MunchOut</h3>
+  <h1 align="center">MunchOut</h1>
 
-  <p align="center">
+  <h2 align="center">
     Restaurant event booking mobile application
     <br />
-    <a href="https://github.com/SparklingWater45/MunchOut"><strong>Explore the docs »</strong></a>
-    <br />
-  </p>
+  </h2>
 </div>
 
 
@@ -108,9 +106,9 @@ https://sharing.clickup.com/37426410/b/h/4-61251472-2/285d29734561261
 
 ### Design
 #### Figma 
-```
-https://www.figma.com/file/GJmIuobOWWiGpwq7ZIpiCe/ITMDA3-Mobile-App?node-id=0%3A1
-```
+
+[Figma File](https://www.figma.com/file/GJmIuobOWWiGpwq7ZIpiCe/ITMDA3-Mobile-App?node-id=0%3A1)
+
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/figma/figma-ar21.svg"> </code>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
