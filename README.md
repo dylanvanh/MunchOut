@@ -107,8 +107,9 @@ https://sharing.clickup.com/37426410/b/h/4-61251472-2/285d29734561261
 ### Design
 #### Figma 
 
-[Figma File](https://www.figma.com/file/GJmIuobOWWiGpwq7ZIpiCe/ITMDA3-Mobile-App?node-id=0%3A1)
-
+```
+https://www.figma.com/file/GJmIuobOWWiGpwq7ZIpiCe/ITMDA3-Mobile-App?node-id=0%3A1
+```
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/figma/figma-ar21.svg"> </code>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
