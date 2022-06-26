@@ -56,11 +56,16 @@
 Final year group project where a functional mobile application was to be created.
 <br>
 <br>
-The created mobile application "MunchOut" allows for a customer user and a restaurant user type to signup and signin. Customer users can book events that are displayed in their feed "the restaurant events", similiar to a tinder swipe menu. 
-<br>
-<br>
+* "MunchOut" was designed to provide local restaurants a means of promoting and managing bookings from customers for any daily events they plan on hosting. 
 
-Restaurant users can create events and view customers details for those that have made a booking for an event.
+* E.g. "20% off pizzas". Customers can then book for the event letting the restaurant know they are coming which in turn provides the restaurant with their details , such as name and phone number.
+
+* Different set of menus for the user types:
+  - Customer User
+    + Can book for events and view differnet events having booked for
+  - Restaurant User
+    + Can create events , view created events and view customers coming to each event.
+ 
 
 ## Built With
 
@@ -184,7 +189,7 @@ backend/README.md
             </td>
             </td>
             <td style="text-align: center">
-                    <img src="images/restaurant/restaurantBookingsForEVent.png" width="200"/>
+                    <img src="images/restaurant/restaurantBookingsForEvent.png" width="200"/>
                 </a>
             </td>
             <td style="text-align: center">
