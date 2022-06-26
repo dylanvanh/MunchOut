@@ -15,10 +15,12 @@ very_good packages get --recursive
 ```
 
 ## Changing IPV4 in flask_api 
-**_location -> packages/flask_api/lib/src/flask_api.dart_ - line 36** <br>
-_Your ipv4 address can be found using cmd by typing ipconfig_
+**_location -> packages/flask_api/lib/src/flask_api.dart_ - line 22** <br>
+_Your ipv4 address can be found using cmd by typing ipconfig in cmd_
+_Your ipv4 address can be found in the system preferences network page_
 
 ```
+packages/flask_api/lib/src/flask_api.dart
 static const _baseUrl = 'ipv4'
 ```
 

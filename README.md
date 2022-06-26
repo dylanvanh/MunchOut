@@ -87,6 +87,25 @@ Database - MySQL
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg"> </code>
 
+
+
+### EndPoints Documentation
+```
+https://documenter.getpostman.com/view/16304569/UzBsHPsj
+```
+
+
+### Clickup
+#### Frontend Kanban
+```
+https://sharing.clickup.com/37426410/b/h/4-61251467-2/ada505352dad9da
+```
+
+#### Backend Kanban
+```
+https://sharing.clickup.com/37426410/b/h/4-61251472-2/285d29734561261
+```
+
 ### Design
 #### Figma 
 ```
@@ -133,6 +152,21 @@ backend/README.md
   ```
    git clone https://github.com/SparklingWater45/MunchOut
   ```
+
+4. Follow both README setup instructions
+
+  ```
+  Found in both backend and frontend 
+  For their respective application
+  ```
+
+5. Run both backend & frontend applications
+  ```
+  Ensure the IPV4 address is changed in both folders required files.
+  Run the python app.py file in its own terminal/cmd window.
+  Run the flutter app in a IOS/Android emulator of your choice.
+  ```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -224,7 +258,6 @@ backend/README.md
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- Documentation examples -->
 ## Documentation
 ### Architecture
@@ -235,6 +268,8 @@ backend/README.md
 
 ### Screens Flowchart
 <img src="documentation/screen-flowchart.drawio.png"/>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
