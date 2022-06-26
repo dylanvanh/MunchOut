@@ -7,13 +7,16 @@ class RestaurantModel(db.Model):
 
     __tablename__ = 'restaurant'
 
-    id = db.Column(db.Integer, primary_key=True)  # AUTO INCREMENTING
+    # AUTO INCREMENTING
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     username = db.Column(db.String(255))
     password = db.Column(db.String(255))
     description = db.Column(db.String(255))
     image_url = db.Column(db.String(255))
     phone_number = db.Column(db.String(255))
+
+    # list of events , flask created object
     events = db.relationship('EventModel', overlaps="restaurant")
 
     def __init__(self, name, username, password, description, image_url, phone_number):

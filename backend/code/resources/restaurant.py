@@ -3,8 +3,6 @@ from models.restaurant import RestaurantModel
 from db import db
 
 # Returns individual restaurant details
-
-
 class Restaurant(Resource):
 
     parser = reqparse.RequestParser()
@@ -174,7 +172,8 @@ class RestaurantEvents(Resource):
         def sort_key(d):
             return d['event_id']
 
-        list_events_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
+        list_events_sorted_by_latest_added = sorted(
+            final_list, key=sort_key, reverse=True)
 
         return {'restaurantEvents': list_events_sorted_by_latest_added}, 200
 

@@ -9,15 +9,18 @@ class BookingModel(db.Model):
     # AUTO INCREMENTING
     id = db.Column(db.Integer, primary_key=True)
 
+    # foreign_key
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     # event object , that matches the event_id
     event = db.relationship('EventModel', overlaps="customer")
 
+    # foreign_key
     customer_id = db.Column(db.Integer, db.ForeignKey(
         'customer.id'), nullable=False)
     # customer object, that matches the customer_id
     customer = db.relationship('CustomerModel', overlaps="customer")
 
+    # number of people registered for an individual booking
     num_attendees = db.Column(db.Integer)
 
     # date value created by python
@@ -34,7 +37,7 @@ class BookingModel(db.Model):
             'customer_id': self.customer_id, 'num_attendees': self.num_attendees
         }
 
-     # checks if an existing booking already exists
+    # checks if an existing booking already exists
     @classmethod
     def check_if_exists(cls, customer_id, event_id):
         existing_booking = cls.query.filter_by(

@@ -13,6 +13,7 @@ class Event(Resource):
 
 
 # Creates a new event
+# Returns new event details
 class AddEvent(Resource):
 
     parser = reqparse.RequestParser()
@@ -59,41 +60,57 @@ class AddEvent(Resource):
 # Returns all customers details that have a booking for the event_id
 class RestaurantEventBookings(Resource):
     def get(self, event_id):
+
+        # retrieve the event matching the specified event_id in the request
         event = EventModel.query.filter_by(id=event_id).first()
 
+        # if an event with the specified id is not found
         if not event:
             return {'error': "event not found"}, 404
 
+        # create empty list of customers
         customer_object_list = []
 
+        # create empty list which is used to keep the number of attendees for a bookign
         num_attendees_list = []
+
+        # loop through the bookings in the event
         for event_booking in event.bookings:
             num_attendees_list.append(event_booking.num_attendees)
             customer_object_list.append(event_booking.customer)
 
-        final_list = []
+        #will be used to create a list of maps
+        final_event_bookings = []
+        #loop through all customers 
         for customer_object in customer_object_list:
-            final_list.append(
+            #add the customerId,customer_name,phone_number as a map to the list
+            final_event_bookings.append(
                 {
                     'customer_id': customer_object.id, 'customer_name': customer_object.name,
                     'phone_number': customer_object.phone_number
                 }
             )
 
+        #used for keeping track of the index needed
         count = 0
-        for customer_details in final_list:
+        #add the number of attendees for the booking to the existing maps in the list
+        for customer_details in final_event_bookings:
             customer_details['numAttendees'] = num_attendees_list[count]
             count += 1
 
+        #used to sort the list of maps
         def sort_key(d):
             return d['customer_id']
 
-        list_bookings_sorted_by_latest_added = sorted(final_list,key=sort_key ,reverse=True)
-
+        #sort the list of maps by the customer_id 
+        list_bookings_sorted_by_latest_added = sorted(
+            final_event_bookings, key=sort_key, reverse=True)
+        
+        #return the list of bookedCustomer details
         return {'bookedCustomers': list_bookings_sorted_by_latest_added}, 200
 
 
-# returns all events
+# Returns all events
 class EventList(Resource):
     def get(self):
         event_list = []

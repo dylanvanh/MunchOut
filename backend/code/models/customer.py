@@ -5,11 +5,19 @@ class CustomerModel(db.Model):
 
     __tablename__ = 'customer'
 
+    # AUTO INCREMENTING
     id = db.Column(db.Integer, primary_key=True)  # AUTO INCREMENTING
+
     name = db.Column(db.String(80))
+
     username = db.Column(db.String(255))
+
     password = db.Column(db.String(255))
+
     phone_number = db.Column(db.String(10))
+
+    # list of booking objects , flask created objects
+    # all booking items with the customer_id as a foreign_key
     bookings = db.relationship('BookingModel', overlaps="customer")
 
     def __init__(self, name, username, password, phone_number):
@@ -26,12 +34,7 @@ class CustomerModel(db.Model):
         }
 
     @classmethod
-    def check_if_exists(cls, name, username):
-
-        # check if password already exists
-        existing_customer = cls.query.filter_by(name=name).first()
-        if existing_customer:
-            return True
+    def check_if_exists(cls, username):
 
         # check if username already exists
         existing_username = cls.query.filter_by(username=username).first()

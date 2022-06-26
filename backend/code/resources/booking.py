@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse
 from models.booking import BookingModel
 
 
-# Returns individual booking details
+# Returns an individual bookings details
 class Booking(Resource):
     def get(self, booking_id):
         booking = BookingModel.query.filter_by(id=booking_id).first()
@@ -54,11 +54,11 @@ class AddBooking(Resource):
         return new_booking.json(), 201
 
 
-# Returns a list of all bookingss
+# Returns a list of all bookings
 class BookingList(Resource):
     def get(self):
         booking_list = []
         for booking in BookingModel.query.all():
             booking_json = booking.json()
             booking_list.append(booking_json)
-        return {'bookings': booking_list} , 200
+        return {'bookings': booking_list}, 200

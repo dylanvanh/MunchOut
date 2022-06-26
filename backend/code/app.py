@@ -7,6 +7,7 @@ from resources.booking import Booking, AddBooking, BookingList
 from db import db
 
 app = Flask(__name__)
+# connection using local mysql user (usenrame : admin, password : root)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://admin:root@localhost/itmda3"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'dylan'
@@ -84,8 +85,8 @@ api.add_resource(Restaurant, '/restaurant/<int:restaurant_id>')
 # Add a new event screen
 api.add_resource(AddEvent, '/add_event')
 
-#view registerd customers for a specific event
-api.add_resource(RestaurantEventBookings,'/event_bookings/<event_id>')
+# view registerd customers for a specific event
+api.add_resource(RestaurantEventBookings, '/event_bookings/<event_id>')
 
 # View registered events screen
 api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
@@ -93,5 +94,9 @@ api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
 
 if __name__ == "__main__":
     db.init_app(app)
-    # use your machines ipv4 address
-    app.run(port=5000, debug=True, host='192.168.1.160')
+
+    # REPLACE IPV4_ADDRESS WITH YOUR IVP4
+    # e.g. IPV4 = "192.168.0.113"
+    ipv4_address = "PLACEHOLDER"
+    
+    app.run(port=5000, debug=True, host=ipv4_address)
