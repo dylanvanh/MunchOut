@@ -1,14 +1,168 @@
-# ITMDA3 Group Project - Mobile_App <img src="https://media.giphy.com/media/iY8CRBdQXODJSCERIr/giphy.gif" width="30">&nbsp;
+<div id="top"></div>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-## Members: 
-```
-Dylan van Heerden
-Juanru Visser
-Christopher Viljoen
-Brandon Solomon
-Taryn-Lee Roman
-```
-## Frontend:
+
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/SparklingWater45/MunchOut">
+    <img src="frontend/assets/logo.png" alt="Logo" width="200" height="200">
+  </a>
+
+<h3 align="center">MunchOut</h3>
+
+  <p align="center">
+    Restaurant event booking mobile application
+    <br />
+    <a href="https://github.com/SparklingWater45/MunchOut"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/SparklingWater45/MunchOut">View Demo</a>
+    ·
+    <a href="https://github.com/SparklingWater45/MunchOut/issues">Report Bug</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](./images/start.pg)
+
+Final year group project where a functional mobile application was to be created.
+<br>
+<br>
+The created mobile application "MunchOut" allows for a customer user and a restaurant user type to signup and signin. Customer users can book events that are displayed in their feed "the restaurant events", similiar to a tinder swipe menu. 
+<br>
+<br>
+
+Restaurant users can create events and view customers details for those that have made a booking for an event.
+
+## Examples Screen Views
+
+<div style="text-align: center">
+    <table>
+        <tr>
+            <td style="text-align: center">
+                    <img src="images/start.png" width="200"/>
+                </a>
+            </td>            
+            <td style="text-align: center">
+                     <img src="images/customer/customerLogin.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/customer/customerSignup.png" width="200"/>
+                </a>
+            </td>
+        </tr>
+        <tr>
+        customerViewBookings
+            <td style="text-align: center">
+                    <img src="images/customer/customerBrowseEvents.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/customer/customerSwipeFunctionality.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/customer/customerConfirmBooking.png" width="200"/>
+                </a>
+            </td>
+        </tr>
+        <tr>
+               <td style="text-align: center">
+                    <img src="images/customer/individualEventView.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/customer/customerViewBookings.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/restaurant/restaurantSignup.png" width="200"/>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center">
+                    <img src="images/restaurant/restaurantViewAllCreatedEvents.png" width="200"/>
+                </a>
+            </td>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/restaurant/restaurantBookingsForEVent.png" width="200"/>
+                </a>
+            </td>
+            <td style="text-align: center">
+                    <img src="images/restaurant/restaurantCreateEventPage.png" width="200"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Built With
+
+### Frontend:
 ```
 Framework - Flutter
 Language - Dart
@@ -16,7 +170,7 @@ Language - Dart
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/flutterio/flutterio-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg"> </code>
 
-## Backend:
+### Backend:
 ```
 Language - Python
 Framework - Flask
@@ -26,11 +180,109 @@ Database - MySQL
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg"> </code>
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21.svg"> </code>
 
-## Design
-### Figma 
+### Design
+#### Figma 
 ```
 https://www.figma.com/file/LBotxBQZV9waPjCHjj27Zs/Mobile-App-Design?node-id=0%3A1
 ```
 <code> <img height="50" src="https://www.vectorlogo.zone/logos/figma/figma-ar21.svg"> </code>
 
+<p align="right">(<a href="#top">back to top</a>)</p>
 
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+#### Each folder contains its own installation instructions
+
+Frontend folder contains the flutter client application code.
+```
+frontend/README.md
+```
+Backend folder contains the flask REST API apploication code.
+```
+backend/README.md
+```
+
+
+
+### Languages & FrameWork Installation
+
+1. Install Flutter
+  ```
+  https://docs.flutter.dev/get-started/install
+  ```
+
+2. Install Python 3.8.9
+
+  ```
+  Tested using Python 3.8.9
+  Later versions may cause failures. Packages may be imcompatibale
+  https://www.python.org/downloads/release/python-389/
+  ``` 
+
+3. Clone the repo
+  ```
+   git clone https://github.com/SparklingWater45/MunchOut
+  ```
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Documentation
+### Architecture
+<img src="documentation/frontent-architecture.drawio.png"/>
+
+### ER Diagram
+<img src="documentation/er-diagram.drawio.png"/>
+
+### Screen Flowchart
+<img src="documentation/screen-flowchart.drawio.png"/>
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Dylan van Heerden - [@Soda_Water45](https://twitter.com/Soda_Water45) - dylanvh45@gmail.com
+
+Project Link: [https://github.com/SparklingWater45/MunchOut](https://github.com/SparklingWater45/MunchOut)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & images -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/SparklingWater45/MunchOut.svg?style=for-the-badge
+[contributors-url]: https://github.com/SparklingWater45/MunchOut/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/SparklingWater45/MunchOut.svg?style=for-the-badge
+[forks-url]: https://github.com/SparklingWater45/MunchOut/network/members
+[stars-shield]: https://img.shields.io/github/stars/SparklingWater45/MunchOut.svg?style=for-the-badge
+[stars-url]: https://github.com/SparklingWater45/MunchOut/stargazers
+[issues-shield]: https://img.shields.io/github/issues/SparklingWater45/MunchOut.svg?style=for-the-badge
+[issues-url]: https://github.com/SparklingWater45/MunchOut/issues
+[license-shield]: https://img.shields.io/github/license/SparklingWater45/MunchOut.svg?style=for-the-badge
+[license-url]: https://github.com/SparklingWater45/MunchOut/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/dylan-van-heerden-a7b160139
+[product-screenshot]: images/screenshot.png
