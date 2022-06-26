@@ -43,7 +43,7 @@ https://documenter.getpostman.com/view/16304569/UzBsHPsj
 ```
 
 ### Example Endpoint in Postman Docs
-<img src="../documentation/postmanDocsExample.png"/>
+<img src="../documentation/postmanDocsExample.png" width="500"/>
 
 
 
