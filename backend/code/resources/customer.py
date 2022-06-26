@@ -6,8 +6,6 @@ from models.event import EventModel
 from db import db
 
 # Returns an individual customers details
-
-
 class Customer(Resource):
 
     parser = reqparse.RequestParser()
@@ -92,6 +90,7 @@ class CustomerLogin(Resource):
         return {'message': "Invalid details entered"}, 400
 
 
+# Creates a new customer
 # Returns newly created customer details , if an existing customer with same details doesn't exist
 class CustomerSignup(Resource):
 
@@ -136,7 +135,7 @@ class CustomerSignup(Resource):
         return new_customer.json(), 201
 
 
-# Returns all the events the individual custoemer has a booking (sorted by booking ID)
+# Returns all the events a customer has a booking for (sorted by booking ID)
 class CustomerBookedEvents(Resource):
 
     def get(self, customer_id):
@@ -230,7 +229,7 @@ class CustomerAvailableEvents(Resource):
                 }
             )
 
-        #returns the available event detail objects in a random order , as they are in a set
+        # returns the available event detail objects in a random order , as they are in a set
         return {'customerAvailableEvents': final_list}, 200
 
 # Returns a list of all customers
