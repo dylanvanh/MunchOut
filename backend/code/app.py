@@ -94,5 +94,9 @@ api.add_resource(RestaurantEvents, '/restaurant_events/<int:restaurant_id>')
 
 if __name__ == "__main__":
     db.init_app(app)
-    # use your machines ipv4 address
-    app.run(port=5000, debug=True, host='192.168.1.160')
+
+    # REPLACE IPV4_ADDRESS WITH YOUR IVP4
+    # e.g. IPV4 = "192.168.0.113"
+    ipv4_address = "PLACEHOLDER"
+    
+    app.run(port=5000, debug=True, host=ipv4_address)
