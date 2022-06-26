@@ -37,18 +37,13 @@ python app.py
 
 # Available end points
 
-### /auth POST
-
+## Postman Documentation
 ```
-{ipv4Address}:5000/auth
-```
-
-### /register POST
-
-```
-{ipv4Address}:5000/register
+https://documenter.getpostman.com/view/16304569/UzBsHPsj
 ```
 
+### Example Endpoint in Postman Docs
+<img src="documentation/postmanDocsExample.png"/>
 
 
 

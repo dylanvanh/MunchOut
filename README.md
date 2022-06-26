@@ -289,8 +289,6 @@ Project Link: [https://github.com/SparklingWater45/MunchOut](https://github.com/
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- MARKDOWN LINKS & images -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/SparklingWater45/MunchOut.svg?style=for-the-badge
 [contributors-url]: https://github.com/SparklingWater45/MunchOut/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/SparklingWater45/MunchOut.svg?style=for-the-badge
