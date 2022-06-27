@@ -121,9 +121,6 @@ https://www.figma.com/file/GJmIuobOWWiGpwq7ZIpiCe/ITMDA3-Mobile-App?node-id=0%3A
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 #### Each folder contains its own installation instructions
 
