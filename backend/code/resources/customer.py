@@ -118,7 +118,7 @@ class CustomerSignup(Resource):
         data = CustomerSignup.parser.parse_args()
 
         # if customer already exists
-        if CustomerModel.check_if_exists(data['name'], data['username']):
+        if CustomerModel.check_if_exists(data['username']):
             return {'message': "A customer with existing details already exists"}, 400
 
         # Same as CustomerModel(data['name],data['username].....)

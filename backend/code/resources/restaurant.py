@@ -3,6 +3,8 @@ from models.restaurant import RestaurantModel
 from db import db
 
 # Returns individual restaurant details
+
+
 class Restaurant(Resource):
 
     parser = reqparse.RequestParser()
@@ -127,7 +129,7 @@ class RestaurantSignup(Resource):
         data = RestaurantSignup.parser.parse_args()
 
         # if restaurant already exists
-        if RestaurantModel.check_if_exists(data['name'], data['username']):
+        if RestaurantModel.check_if_exists(data['username']):
             return {'message': "A restaurant with existing details already exists"}, 400
 
         new_restaurant = RestaurantModel(**data)

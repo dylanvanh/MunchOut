@@ -97,6 +97,6 @@ if __name__ == "__main__":
 
     # REPLACE IPV4_ADDRESS WITH YOUR IVP4
     # e.g. IPV4 = "192.168.0.113"
-    ipv4_address = "192.168.0.113"
+    ipv4_address = "192.168.1.160"
     
     app.run(port=5000, debug=True, host=ipv4_address)
