@@ -35,13 +35,8 @@ class RestaurantModel(db.Model):
         }
 
     @classmethod
-    def check_if_exists(cls, name, username):
-
-        # check if password already exists
-        existing_restaurant = cls.query.filter_by(name=name).first()
-        if existing_restaurant:
-            return True
-
+    def check_if_exists(cls,username):
+        
         # check if username already exists
         existing_restaurant = cls.query.filter_by(username=username).first()
         if existing_restaurant:
