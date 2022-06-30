@@ -123,7 +123,6 @@ class _PhoneNumberInput extends StatelessWidget {
           onChanged: (phoneNumber) => context
               .read<EditProfileBloc>()
               .add(EditProfilePhoneNumberChanged(phoneNumber)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
@@ -150,7 +149,6 @@ class _DescriptionInput extends StatelessWidget {
           onChanged: (description) => context
               .read<EditProfileBloc>()
               .add(EditProfileDescriptionChanged(description)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
@@ -175,7 +173,6 @@ class _ImageUrlInput extends StatelessWidget {
           onChanged: (imageUrl) => context
               .read<EditProfileBloc>()
               .add(EditProfileImageUrlChanged(imageUrl)),
-          obscureText: true,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
             isDense: true,
