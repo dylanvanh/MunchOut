@@ -50,8 +50,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<br>
-<br>
 
 * "MunchOut" was designed to provide local restaurants a means of promoting and managing bookings from customers for any daily events they plan on hosting, e.g. "20% off pizzas".
 
