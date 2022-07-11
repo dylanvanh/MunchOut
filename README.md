@@ -50,10 +50,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<br>
+<br>
 
-Final year group project where a functional mobile application was to be created.
-<br>
-<br>
 * "MunchOut" was designed to provide local restaurants a means of promoting and managing bookings from customers for any daily events they plan on hosting, e.g. "20% off pizzas".
 
 * Customers can book for the daily events , which adds the event to the customers booking tab.
